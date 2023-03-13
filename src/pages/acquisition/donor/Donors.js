@@ -98,7 +98,18 @@ export default function Donors() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Name', width: 100, editable: true },
+    
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      cellClassName: 'actions',
+      renderCell: (params) => (
+        <DonorsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+      ),
+    },
+    { field: 'name', headerName: 'Name', width: 200, editable: true },
     { field: 'sex', 
       headerName: 'Sex', 
       width: 150,
@@ -109,34 +120,25 @@ export default function Donors() {
     { field: 'species', headerName: 'Species', width: 150, editable: true },
     { field: 'status', 
       headerName: 'Status', 
-      width: 250,
+      width: 100,
       type: 'singleSelect',
       valueOptions: ['Active','Hold','Inactive'], 
       editable: true 
     },
-    { field: 'metadata', headerName: 'Meta Data', width: 150, editable: true },
+    { field: 'metadata', headerName: 'Additional Info', width: 150, editable: true },
     {
       field: 'collaborator_name',
       headerName: 'Collaborator',
-      width: 100,
+      width: 150,
       editable: false
     },
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 200,
+      width: 150,
       type: 'dateTime',
     },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 100,
-      cellClassName: 'actions',
-      renderCell: (params) => (
-        <DonorsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
-      ),
-    },
+    
   ],
   [rows, rowModesModel]
   );
@@ -162,8 +164,8 @@ export default function Donors() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
         Donors
@@ -171,7 +173,7 @@ export default function Donors() {
       <DataGrid
         sx={{
         m: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

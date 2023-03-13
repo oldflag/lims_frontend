@@ -285,6 +285,272 @@ const reducer = (state, action) => {
     case 'CLOSE_RNART':
       return { ...state, openRnaRT: false };
 
+    case 'UPDATE_SPLITPOOL':
+      return { ...state, splitPools: [...state.splitPools, action.payload] };    
+    case 'UPDATE_SPLITPOOLS':
+      return { ...state, splitPools: action.payload};
+    case 'DELETE_SPLITPOOL':
+      return {
+        ...state,
+        splitPools: state.splitPools.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_SPLITPOOL':
+      return { ...state, openSplitPool: true };
+    case 'CLOSE_SPLITPOOL':
+      return { ...state, openSplitPool: false };
+
+    case 'UPDATE_LYSIS':
+      return { ...state, lysiss: [...state.lysiss, action.payload] };    
+    case 'UPDATE_LYSISS':
+      return { ...state, lysiss: action.payload};
+    case 'DELETE_LYSIS':
+      return {
+        ...state,
+        lysiss: state.lysiss.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_LYSIS':
+      return { ...state, openLysis: true };
+    case 'CLOSE_LYSIS':
+      return { ...state, openLysis: false };
+
+    case 'OPEN_PRELIB':
+      return { ...state, openPrelibrary: true };
+    case 'CLOSE_PRELIB':
+      return { ...state, openPrelibrary: false };
+    case 'UPDATE_PRELIBSELECT':
+      return { ...state, selectedPrelibrarys: action.payload};
+
+    case 'UPDATE_TDTTAILING':
+      return { ...state, tdtTailings: [...state.tdtTailings, action.payload] };    
+    case 'UPDATE_TDTTAILINGS':
+      return { ...state, tdtTailings: action.payload};
+    case 'DELETE_TDTTAILING':
+      return {
+        ...state,
+        tdtTailings: state.tdtTailings.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_TDTTAILING':
+      return { ...state, openTdtTailing: true };
+    case 'CLOSE_TDTTAILING':
+      return { ...state, openTdtTailing: false };
+    
+    case 'UPDATE_LINEARAMPANCHOR':
+      return { ...state, linearAmpAnchors: [...state.linearAmpAnchors, action.payload] };    
+    case 'UPDATE_LINEARAMPANCHORS':
+      return { ...state, linearAmpAnchors: action.payload};
+    case 'DELETE_LINEARAMPANCHOR':
+      return {
+        ...state,
+        linearAmpAnchors: state.linearAmpAnchors.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_LINEARAMPANCHOR':
+      return { ...state, openLinearAmpAnchor: true };
+    case 'CLOSE_LINEARAMPANCHOR':
+      return { ...state, openLinearAmpAnchor: false };
+
+    case 'UPDATE_PREAMP':
+      return { ...state, preAmps: [...state.preAmps, action.payload] };    
+    case 'UPDATE_PREAMPS':
+      return { ...state, preAmps: action.payload};
+    case 'DELETE_PREAMP':
+      return {
+        ...state,
+        preAmps: state.preAmps.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_PREAMP':
+      return { ...state, openPreAmp: true };
+    case 'CLOSE_PREAMP':
+      return { ...state, openPreAmp: false };
+    
+    case 'UPDATE_DOUBLESIZESELECT':
+      return { ...state, doubleSizeSelects: [...state.doubleSizeSelects, action.payload] };    
+    case 'UPDATE_DOUBLESIZESELECTS':
+      return { ...state, doubleSizeSelects: action.payload};
+    case 'DELETE_DOUBLESIZESELECT':
+      return {
+        ...state,
+        doubleSizeSelects: state.doubleSizeSelects.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_DOUBLESIZESELECT':
+      return { ...state, openDoubleSizeSelect: true };
+    case 'CLOSE_DOUBLESIZESELECT':
+      return { ...state, openDoubleSizeSelect: false };
+
+    case 'OPEN_RNALIB':
+      return { ...state, openRnaLib: true };
+    case 'CLOSE_RNALIB':
+      return { ...state, openRnaLib: false };
+    case 'UPDATE_RNALIBSELECT':
+      return { ...state, selectedRnaLibrarys: action.payload};
+    
+    case 'OPEN_DNALIB':
+      return { ...state, openDnaLib: true };
+    case 'CLOSE_DNALIB':
+      return { ...state, openDnaLib: false };
+    case 'UPDATE_DNALIBSELECT':
+      return { ...state, selectedDnaLibrarys: action.payload};
+
+    case 'UPDATE_RNALIBRARY':
+      return { ...state, rnaLibrarys: [...state.rnaLibrarys, action.payload] };    
+    case 'UPDATE_RNALIBRARYS':
+      return { ...state, rnaLibrarys: action.payload};
+    case 'DELETE_RNALIBRARY':
+      return {
+        ...state,
+        rnaLibrarys: state.rnaLibrarys.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_RNALIBRARY':
+      return { ...state, openRnaLibrary: true };
+    case 'CLOSE_RNALIBRARY':
+      return { ...state, openRnaLibrary: false };
+
+    case 'UPDATE_RNASPLITENZYME':
+      return { ...state, rnaSplitEnzymes: [...state.rnaSplitEnzymes, action.payload] };    
+    case 'UPDATE_RNASPLITENZYMES':
+      return { ...state, rnaSplitEnzymes: action.payload};
+    case 'DELETE_RNASPLITENZYME':
+      return {
+        ...state,
+        rnaSplitEnzymes: state.rnaSplitEnzymes.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_RNASPLITENZYME':
+      return { ...state, openRnaSplitEnzyme: true };
+    case 'CLOSE_RNASPLITENZYME':
+      return { ...state, openRnaSplitEnzyme: false };
+
+    case 'UPDATE_RNAADAPTER':
+      return { ...state, rnaAdapters: [...state.rnaAdapters, action.payload] };    
+    case 'UPDATE_RNAADAPTERS':
+      return { ...state, rnaAdapters: action.payload};
+    case 'DELETE_RNAADAPTER':
+      return {
+        ...state,
+        rnaAdapters: state.rnaAdapters.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_RNAADAPTER':
+      return { ...state, openRnaAdapter: true };
+    case 'CLOSE_RNAADAPTER':
+      return { ...state, openRnaAdapter: false };
+
+    case 'UPDATE_RNALIBMULTIPLEX':
+      return { ...state, rnaLibMultiplexs: [...state.rnaLibMultiplexs, action.payload] };    
+    case 'UPDATE_RNALIBMULTIPLEXS':
+      return { ...state, rnaLibMultiplexs: action.payload};
+    case 'DELETE_RNALIBMULTIPLEX':
+      return {
+        ...state,
+        rnaLibMultiplexs: state.rnaLibMultiplexs.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_RNALIBMULTIPLEX':
+      return { ...state, openRnaLibMultiplex: true };
+    case 'CLOSE_RNALIBMULTIPLEX':
+      return { ...state, openRnaLibMultiplex: false };
+
+    case 'UPDATE_DNALIBRARY':
+      return { ...state, dnaLibrarys: [...state.dnaLibrarys, action.payload] };    
+    case 'UPDATE_DNALIBRARYS':
+      return { ...state, dnaLibrarys: action.payload};
+    case 'DELETE_DNALIBRARY':
+      return {
+        ...state,
+        dnaLibrarys: state.dnaLibrarys.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_DNALIBRARY':
+      return { ...state, openDnaLibrary: true };
+    case 'CLOSE_DNALIBRARY':
+      return { ...state, openDnaLibrary: false };
+
+    case 'UPDATE_DNASPLITENZYME':
+      return { ...state, dnaSplitEnzymes: [...state.dnaSplitEnzymes, action.payload] };    
+    case 'UPDATE_DNASPLITENZYMES':
+      return { ...state, dnaSplitEnzymes: action.payload};
+    case 'DELETE_DNASPLITENZYME':
+      return {
+        ...state,
+        dnaSplitEnzymes: state.dnaSplitEnzymes.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_DNASPLITENZYME':
+      return { ...state, openDnaSplitEnzyme: true };
+    case 'CLOSE_DNASPLITENZYME':
+      return { ...state, openDnaSplitEnzyme: false };
+
+    case 'UPDATE_DNAADAPTER':
+      return { ...state, dnaAdapters: [...state.dnaAdapters, action.payload] };    
+    case 'UPDATE_DNAADAPTERS':
+      return { ...state, dnaAdapters: action.payload};
+    case 'DELETE_DNAADAPTER':
+      return {
+        ...state,
+        dnaAdapters: state.dnaAdapters.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_DNAADAPTER':
+      return { ...state, openDnaAdapter: true };
+    case 'CLOSE_DNAADAPTER':
+      return { ...state, openDnaAdapter: false };
+
+    case 'UPDATE_DNALIBMULTIPLEX':
+      return { ...state, dnaLibMultiplexs: [...state.dnaLibMultiplexs, action.payload] };    
+    case 'UPDATE_DNALIBMULTIPLEXS':
+      return { ...state, dnaLibMultiplexs: action.payload};
+    case 'DELETE_DNALIBMULTIPLEX':
+      return {
+        ...state,
+        dnaLibMultiplexs: state.dnaLibMultiplexs.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_DNALIBMULTIPLEX':
+      return { ...state, openDnaLibMultiplex: true };
+    case 'CLOSE_DNALIBMULTIPLEX':
+      return { ...state, openDnaLibMultiplex: false };
+
+    case 'UPDATE_SEQLIBRARY':
+      return { ...state, seqLibrarys: [...state.seqLibrarys, action.payload] };    
+    case 'UPDATE_SEQLIBRARYS':
+      return { ...state, seqLibrarys: action.payload};
+    case 'DELETE_SEQLIBRARY':
+      return {
+        ...state,
+        seqLibrarys: state.seqLibrarys.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_SEQLIBRARY':
+      return { ...state, openSeqLibrary: true };
+    case 'CLOSE_SEQLIBRARY':
+      return { ...state, openSeqLibrary: false };
+    
+    case 'UPDATE_SEQRUN':
+      return { ...state, seqRuns: [...state.seqRuns, action.payload] };    
+    case 'UPDATE_SEQRUNS':
+      return { ...state, seqRuns: action.payload};
+    case 'DELETE_SEQRUN':
+      return {
+        ...state,
+        seqRuns: state.seqRuns.filter((aRecord) => aRecord.id !== action.payload),
+      };
+    case 'OPEN_SEQRUN':
+      return { ...state, openSeqRun: true };
+    case 'CLOSE_SEQRUN':
+      return { ...state, openSeqRun: false };
+
+    case 'OPEN_SEQLIB':
+      return { ...state, openSeqLib: true };
+    case 'CLOSE_SEQLIB':
+      return { ...state, openSeqLib: false };
+    case 'UPDATE_SEQLIBSELECT':
+      return { ...state, selectedSeqLibrarys: action.payload};
+
+    case 'UPDATE_I7PRIMERS':
+      return { ...state, i7Primers: action.payload};
+    case 'UPDATE_I5PRIMERS':
+      return { ...state, i5Primers: action.payload};
+
+    case 'OPEN_SAMPLESHEET':
+      return { ...state, openSampleSheet: true };
+    case 'CLOSE_SAMPLESHEET':
+      return { ...state, openSampleSheet: false };
+
+
+    
+
+
     default:
       throw new Error('No matched action!');
   }

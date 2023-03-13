@@ -82,7 +82,7 @@ const AddForm = () => {
 
   return (
     <Dialog open={openAssay} onClose={handleClose}>
-      <DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
         "Register New Assays"
         <IconButton
           sx={{
@@ -110,7 +110,7 @@ const AddForm = () => {
               onChange={(e, newValue) => {
                 setTypeValue(newValue)
               }}
-              renderInput={(params) => <TextField {...params} label="How many assays?" variant="standard" />}
+              renderInput={(params) => <TextField {...params} label="How many assays?" variant="standard" sx={{width: '100%', mt:2}}/>}
             />
 
             <Autocomplete
@@ -121,7 +121,7 @@ const AddForm = () => {
               onChange={(e, newValue) => {
                 setExperimentValue(newValue)
               }}
-              renderInput={(params) => <TextField {...params} label="Experiment" variant="standard" />}
+              renderInput={(params) => <TextField {...params} label="Experiment" variant="standard" sx={{width: '100%', mt:2}}/>}
             />
 
             <Autocomplete
@@ -132,7 +132,7 @@ const AddForm = () => {
               onChange={(e, newValue) => {
                 setBatchValue(newValue)
               }}
-              renderInput={(params) => <TextField {...params} label="Batch" variant="standard" />}
+              renderInput={(params) => <TextField {...params} label="Batch" variant="standard" sx={{width: '100%', mt:2}}/>}
             />
 
             <Autocomplete
@@ -143,7 +143,7 @@ const AddForm = () => {
               onChange={(e, newValue) => {
                 setLoadPatn5Value(newValue)
               }}
-              renderInput={(params) => <TextField {...params} label="Load pATn5" variant="standard" />}
+              renderInput={(params) => <TextField {...params} label="Load pATn5" variant="standard" sx={{width: '100%', mt:2}}/>}
             />
  
             <LocalizationProvider dateAdapter={AdapterDayjs}>

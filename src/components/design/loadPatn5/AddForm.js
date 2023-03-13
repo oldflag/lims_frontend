@@ -41,7 +41,7 @@ const AddForm = () => {
   const statusRef = useRef();
   const memoRef = useRef();
   const handleClose = () => {
-    dispatch({ type: 'CLOSE_SAMPLE' });
+    dispatch({ type: 'CLOSE_LOADPATN5' });
   };
 
   const handleSubmit = async (e) => {
@@ -66,7 +66,7 @@ const AddForm = () => {
 
   return (
     <Dialog open={openLoadPatn5} onClose={handleClose}>
-      <DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
         "Register New LoadPatn5"
         <IconButton
           sx={{

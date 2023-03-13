@@ -25,22 +25,33 @@ import Quotes from './design/quote/Quotes';
 import Assays from './design/assay/Assays';
 import LoadPatn5s from './design/loadPatn5/LoadPatn5s';
 import PtPreps from './labprocess/ptPrep/PtPreps';
-import SplitPool from './labprocess/splitPool/SplitPool';
-import Lysis from './labprocess/lysis/Lysis';
-import Prelibrary from './labprocess/prelibrary/Prelibrary';
-import DnaRnaLibrary from './labprocess/dnaRnaLibrary/DnaRnaLibrary';
+import SplitPools from './labprocess/splitPool/SplitPools';
+import Lysiss from './labprocess/lysis/Lysiss';
+import Prelibrarys from './labprocess/prelibrary/Prelibrarys';
+import TdtTailings from './labprocess/prelibrary/tdtTailing/TdtTailings';
+import LinearAmpAnchors from './labprocess/prelibrary/linearAmpAnchor/LinearAmpAnchors';
+import PreAmps from './labprocess/prelibrary/preAmp/PreAmps';
+import DoubleSizeSelects from './labprocess/prelibrary/doubleSizeSelect/DoubleSizeSelects';
+import NewRnaLibrarys from './labprocess/rnaLibrary/newRnaLibrary/NewRnaLibrarys';
+import RnaLibrarys from './labprocess/rnaLibrary/rnaLibrary/RnaLibrarys';
+import RnaSplitEnzymes from './labprocess/rnaLibrary/rnaSplitEnzyme/RnaSplitEnzymes';
+import RnaAdapters from './labprocess/rnaLibrary/rnaAdapter/RnaAdapters';
+import RnaLibMultiplexs from './labprocess/rnaLibrary/rnaLibMultiplex/RnaLibMultiplexs';
+import NewDnaLibrarys from './labprocess/dnaLibrary/newDnaLibrary/NewDnaLibrarys';
+import DnaLibrarys from './labprocess/dnaLibrary/dnaLibrary/DnaLibrarys';
+import DnaSplitEnzymes from './labprocess/dnaLibrary/dnaSplitEnzyme/DnaSplitEnzymes';
+import DnaAdapters from './labprocess/dnaLibrary/dnaAdapter/DnaAdapters';
+import DnaLibMultiplexs from './labprocess/dnaLibrary/dnaLibMultiplex/DnaLibMultiplexs';
 import Qpcr from './qcresult/qpcr/Qpcr';
 import SizeSelection from './qcresult/sizeselection/SizeSelection';
 import TapeStation from './qcresult/tapestation/TapeStation';
-import SeqRuns from './sequencing/seqrun/SeqRuns';
-import SeqFiles from './sequencing/seqfile/SeqFiles';
+import SeqLibrarys from './sequencing/seqLibrary/SeqLibrarys';
+import NewSeqLibrarys from './sequencing/newSeqLibrary/NewSeqLibrarys'
+import SeqFiles from './sequencing/seqFile/SeqFiles';
 import SampleSheet from './report/samplesheet/SampleSheet';
 import Digest from './report/digest/Digest';
 import Qcreport from './report/qcreport/Qcreport';
 import SeqRunReport from './report/seqrunreport/SeqRunReport';
-
-
-
 
 
 const Home = () => {
@@ -138,22 +149,88 @@ const linklist = useMemo(
       {
         title: 'Split&Pool',
         link: 'labprocess/splitPool',
-        component: <SplitPool {...{ setSelectedLink, link: 'labprocess/splitPool' }} />,
+        component: <SplitPools {...{ setSelectedLink, link: 'labprocess/splitPool' }} />,
       },
       {
         title: 'Lysis',
         link: 'labprocess/lysis',
-        component: <Lysis {...{ setSelectedLink, link: 'labprocess/lysis' }} />,
+        component: <Lysiss {...{ setSelectedLink, link: 'labprocess/lysis' }} />,
       },
       {
         title: 'Prelibrary',
         link: 'labprocess/prelibrary',
-        component: <Prelibrary {...{ setSelectedLink, link: 'labprocess/prelibrary' }} />,
+        component: <Prelibrarys {...{ setSelectedLink, link: 'labprocess/prelibrary' }} />,
       },
       {
-        title: 'DNA&RNA Library',
-        link: 'labprocess/dnaRnaLibrary',
-        component: <DnaRnaLibrary {...{ setSelectedLink, link: 'labprocess/dnaRnaLibrary' }} />,
+        title: 'TDT Tailing',
+        link: 'labprocess/prelibrary/tdtTailing',
+        component: <TdtTailings {...{ setSelectedLink, link: 'labprocess/prelibrary/tdtTailing' }} />,
+      },
+      {
+        title: 'Linear Amplication With Anchor',
+        link: 'labprocess/prelibrary/linearAmpAnchor',
+        component: <LinearAmpAnchors {...{ setSelectedLink, link: 'labprocess/prelibrary/linearAmpAnchor' }} />,
+      },
+      {
+        title: 'PreAmplication',
+        link: 'labprocess/prelibrary/preAmp',
+        component: <PreAmps {...{ setSelectedLink, link: 'labprocess/prelibrary/preAmp' }} />,
+      },
+      {
+        title: 'Double Size Selection',
+        link: 'labprocess/prelibrary/doubleSizeSelect',
+        component: <DoubleSizeSelects {...{ setSelectedLink, link: 'labprocess/prelibrary/doubleSizeSelect' }} />,
+      },
+
+      {
+        title: 'DNA Library',
+        link: 'labprocess/dnaLibrary/dnaLibrary',
+        component: <DnaLibrarys {...{ setSelectedLink, link: 'labprocess/dnaLibrary/dnaLibrary' }} />,
+      },
+      {
+        title: 'New DNA Library',
+        link: 'labprocess/dnaLibrary/newDnaLibrary',
+        component: <NewDnaLibrarys {...{ setSelectedLink, link: 'labprocess/dnaLibrary/newDnaLibrary' }} />,
+      },
+      {
+        title: 'DNA SplitEnzyme',
+        link: 'labprocess/dnaLibrary/dnaSplitEnzyme',
+        component: <DnaSplitEnzymes {...{ setSelectedLink, link: 'labprocess/dnaLibrary/dnaSplitEnzyme' }} />,
+      },
+      {
+        title: 'DNA Adapter',
+        link: 'labprocess/dnaLibrary/dnaAdapter',
+        component: <DnaAdapters {...{ setSelectedLink, link: 'labprocess/dnaLibrary/dnaAdapter' }} />,
+      },
+      {
+        title: 'DNA LibMultiplex',
+        link: 'labprocess/dnaLibrary/dnaLibMultiplex',
+        component: <DnaLibMultiplexs {...{ setSelectedLink, link: 'labprocess/dnaLibrary/dnaLibMultiplex' }} />,
+      },
+      {
+        title: 'RNA Library',
+        link: 'labprocess/rnaLibrary/rnaLibrary',
+        component: <RnaLibrarys {...{ setSelectedLink, link: 'labprocess/rnaLibrary/rnaLibrary' }} />,
+      },
+      {
+        title: 'New RNA Library',
+        link: 'labprocess/rnaLibrary/newRnaLibrary',
+        component: <NewRnaLibrarys {...{ setSelectedLink, link: 'labprocess/rnaLibrary/newRnaLibrary' }} />,
+      },
+      {
+        title: 'RNA SplitEnzyme',
+        link: 'labprocess/rnaLibrary/rnaSplitEnzyme',
+        component: <RnaSplitEnzymes {...{ setSelectedLink, link: 'labprocess/rnaLibrary/rnaSplitEnzyme' }} />,
+      },
+      {
+        title: 'RNA Adapter',
+        link: 'labprocess/rnaLibrary/rnaAdapter',
+        component: <RnaAdapters {...{ setSelectedLink, link: 'labprocess/rnaLibrary/rnaAdapter' }} />,
+      },
+      {
+        title: 'RNA LibMultiplex',
+        link: 'labprocess/rnaLibrary/rnaLibMultiplex',
+        component: <RnaLibMultiplexs {...{ setSelectedLink, link: 'labprocess/rnaLibrary/rnaLibMultiplex' }} />,
       },
       {
         title: 'qPCR',
@@ -170,15 +247,20 @@ const linklist = useMemo(
         link: 'qcresult/tapestation',
         component: <TapeStation {...{ setSelectedLink, link: 'qcresult/tapestation' }} />,
       },
-       {
-        title: 'Sequencing Run',
-        link: 'sequencing/seq_runs',
-        component: <SeqRuns {...{ setSelectedLink, link: 'sequencing/seq_runs' }} />,
+      {
+        title: 'Sequencing Librarys',
+        link: 'sequencing/seqLibrary',
+        component: <SeqLibrarys {...{ setSelectedLink, link: 'sequencing/seqLibrary' }} />,
+      },
+      {
+        title: 'New Sequencing Librarys',
+        link: 'sequencing/newSeqLibrary',
+        component: <NewSeqLibrarys {...{ setSelectedLink, link: 'sequencing/newSeqLibrary' }} />,
       },
       {
         title: 'Sequencing Files',
-        link: 'sequencing/seq_files',
-        component: <SeqFiles {...{ setSelectedLink, link: 'sequencing/seq_files' }} />,
+        link: 'sequencing/seqFile',
+        component: <SeqFiles {...{ setSelectedLink, link: 'sequencing/seqFile' }} />,
       },
       {
         title: 'Sample Sheet',

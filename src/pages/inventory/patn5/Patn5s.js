@@ -97,7 +97,17 @@ export default function Patn5s() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Name', width: 100, editable: true },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      cellClassName: 'actions',
+      renderCell: (params) => (
+        <Patn5sActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+      ),
+    },
+    { field: 'name', headerName: 'Name', width: 150, editable: true },
     { field: 'manufacturer', headerName: 'Manufacturer', width: 200, editable: true },
     { field: 'part', headerName: 'PART#', width: 150, editable: true },
     { field: 'lot', headerName: 'LOT#', width: 150, editable: true },
@@ -106,26 +116,17 @@ export default function Patn5s() {
     {
       field: 'expiration_date',
       headerName: 'Expiration Date',
-      width: 200,
+      width: 150,
       type: 'date',
       editable: true
     },
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 200,
+      width: 150,
       type: 'dateTime',
     },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 100,
-      cellClassName: 'actions',
-      renderCell: (params) => (
-        <Patn5sActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
-      ),
-    },
+    
   ],
   [rows, rowModesModel]
   );
@@ -151,8 +152,8 @@ export default function Patn5s() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
         pATn5
@@ -160,7 +161,7 @@ export default function Patn5s() {
       <DataGrid
         sx={{
         m: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

@@ -98,42 +98,44 @@ export default function Samples() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Name', width: 100, editable: true },
-    { field: 'extract_date', headerName: 'Extraction Date', type:'date', width: 150, editable: true },
-    { field: 'extract_method', headerName: 'Extraction Method', width: 150, editable: true },
-    { field: 'process_date', headerName: 'Processing Date', type:'date', width: 150, editable: true },
-    { field: 'process_method', headerName: 'Processing Method', width: 150, editable: true },
-    { field: 'nuclei_count', headerName: 'Nuclei Count', width: 150, editable: true },
-    { field: 'status', 
-      headerName: 'Status', 
-      width: 250,
-      type: 'singleSelect',
-      valueOptions: ['Active','Hold','Inactive'], 
-      editable: true 
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      cellClassName: 'actions',
+      renderCell: (params) => (
+        <SamplesActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+      ),
     },
-    { field: 'metadata', headerName: 'Meta Data', width: 150, editable: true },
+    { field: 'name', headerName: 'Name', width: 150, editable: true },
     {
       field: 'specimen_name',
       headerName: 'Specimen',
       width: 100,
       editable: false
     },
+    { field: 'nuclei_count', headerName: 'Nuclei Count', width: 150, editable: true },
+    { field: 'extract_date', headerName: 'Extraction Date', type:'date', width: 150, editable: true },
+    { field: 'extract_method', headerName: 'Extraction Method', width: 150, editable: true },
+    { field: 'process_date', headerName: 'Processing Date', type:'date', width: 150, editable: true },
+    { field: 'process_method', headerName: 'Processing Method', width: 150, editable: true },
+    { field: 'status', 
+      headerName: 'Status', 
+      width: 100,
+      type: 'singleSelect',
+      valueOptions: ['Active','Hold','Inactive'], 
+      editable: true 
+    },
+    { field: 'metadata', headerName: 'Additional Info', width: 150, editable: true },
+    
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 200,
+      width: 150,
       type: 'dateTime',
     },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 100,
-      cellClassName: 'actions',
-      renderCell: (params) => (
-        <SamplesActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
-      ),
-    },
+    
   ],
   [rows, rowModesModel]
   );
@@ -159,8 +161,8 @@ export default function Samples() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
         Samples
@@ -168,7 +170,7 @@ export default function Samples() {
       <DataGrid
         sx={{
         m: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

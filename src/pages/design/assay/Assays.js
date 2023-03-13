@@ -137,8 +137,18 @@ export default function Assays() {
 
   const columns = useMemo(
     () =>  [
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 100,
+      cellClassName: 'actions',
+      renderCell: (params) => (
+        <AssaysActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+      ),
+    },
     { field: 'experiment_name', headerName: 'Experiment', width: 100, editable: true },
-    { field: 'batch_name', headerName: 'Batch', width: 100, editable: true },
+    { field: 'batch_name', headerName: 'Batch', width: 150, editable: true },
     { field: 'sample_name', 
       headerName: 'Sample', 
       width: 150, 
@@ -180,16 +190,7 @@ export default function Assays() {
       width: 170,
       type: 'dateTime',
     },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 100,
-      cellClassName: 'actions',
-      renderCell: (params) => (
-        <AssaysActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
-      ),
-    },
+    
   ],
   [rows, rowModesModel]
   );
@@ -215,8 +216,8 @@ export default function Assays() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 1, mb: 1 }}
       >
         Assays
@@ -224,7 +225,7 @@ export default function Assays() {
       <DataGrid
         sx={{
         m: 1,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

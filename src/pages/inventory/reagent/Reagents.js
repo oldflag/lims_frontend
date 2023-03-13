@@ -97,35 +97,36 @@ export default function Reagents() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Name', width: 100, editable: true },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      cellClassName: 'actions',
+      renderCell: (params) => (
+        <ReagentsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+      ),
+    },
+    { field: 'name', headerName: 'Name', width: 150, editable: true },
     { field: 'generic_name', headerName: 'DB Name', width: 200, editable: true },
     { field: 'part', headerName: 'PART#', width: 150, editable: true },
     { field: 'lot', headerName: 'LOT#', width: 150, editable: true },
-    { field: 'status', headerName: 'Status', width: 150, editable: true },
+    { field: 'status', headerName: 'Status', width: 100, editable: true },
     { field: 'metadata', headerName: 'Meta Info', width: 150, editable: true },
     {
       field: 'expiration_date',
       headerName: 'Expiration Date',
-      width: 200,
+      width: 150,
       type: 'date',
       editable: true
     },
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 200,
+      width: 150,
       type: 'dateTime',
     },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 100,
-      cellClassName: 'actions',
-      renderCell: (params) => (
-        <ReagentsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
-      ),
-    },
+    
   ],
   [rows, rowModesModel]
   );
@@ -151,8 +152,8 @@ export default function Reagents() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
         Reagents
@@ -160,7 +161,7 @@ export default function Reagents() {
       <DataGrid
         sx={{
         m: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

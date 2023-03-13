@@ -70,7 +70,7 @@ const AddForm = () => {
 
   return (
     <Dialog open={openDonor} onClose={handleClose}>
-      <DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
         "Register New Donor"
         <IconButton
           sx={{

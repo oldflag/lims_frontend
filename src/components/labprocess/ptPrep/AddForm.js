@@ -49,7 +49,7 @@ const AddForm =  () => {
     setAssaysValue(assays.filter((item) => {
                                         return item.batchId === batchValue.id})
                                       .map(({tubeNum, batchId, id}) => ({tubeNum, batchId, id}))
-                        )},[batchValue])
+                        )},[batchValue, assays])
 
   const handleClose = () => {
     dispatch({ type: 'CLOSE_PTPREP' });
@@ -70,11 +70,6 @@ const AddForm =  () => {
       let nuIncId = uuidv4()
       let wtId = uuidv4()
       let rtId = uuidv4()
-
-      console.log(ptPrepId)
-      console.log(nuIncId)
-      console.log(wtId)
-      console.log(rtId)
 
       await registerNucleiIncubation({"id":nuIncId, 
                 "assayId":element.id,
@@ -111,7 +106,7 @@ const AddForm =  () => {
 
   return (
     <Dialog open={openPtPrep} onClose={handleClose}>
-      <DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
         "Register New PtPreps"
         <IconButton
           sx={{

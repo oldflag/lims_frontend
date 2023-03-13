@@ -97,26 +97,27 @@ export default function PtPreps() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'assay_batch_name', headerName: 'Batch', width: 100 },
-    { field: 'assay_tubeNum', headerName: 'AssayTube#', width: 150},
-    { field: 'nucleiIncubation_status', headerName: 'Incubation', width: 150 },
-    { field: 'washAndTag_status', headerName: 'WT', width: 150 }, 
-    { field: 'rnaRT_status', headerName: 'RT', width: 150},     
-    { field: 'status', headerName: 'Prep Status', width: 150, editable: true },
-    { field: 'memo', headerName: 'Memo', width: 150, editable: true },
-    { field: 'operator', headerName: 'Operator', width: 250, editable: true },
-    { field: 'metadata', headerName: 'Meta Info', width: 150, editable: true },
-    { field: 'createdAt',headerName: 'Created At',width: 200,type: 'dateTime'},
     {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      width: 100,
+      width: 150,
       cellClassName: 'actions',
       renderCell: (params) => (
         <PtPrepsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
+    { field: 'assay_batch_name', headerName: 'Batch', width: 150 },
+    { field: 'assay_tubeNum', headerName: 'Tube#', width: 100},
+    { field: 'nucleiIncubation_status', headerName: 'Incubation', width: 100 },
+    { field: 'washAndTag_status', headerName: 'WT', width: 100 }, 
+    { field: 'rnaRT_status', headerName: 'RT', width: 100},     
+    { field: 'status', headerName: 'Prep Status', width: 150, editable: true },
+    { field: 'memo', headerName: 'Memo', width: 150, editable: true },
+    { field: 'operator', headerName: 'Operator', width: 250, editable: true },
+    { field: 'metadata', headerName: 'Additional Info', width: 150, editable: true },
+    { field: 'createdAt',headerName: 'Created At',width: 200,type: 'dateTime'},
+    
   ],
   [rows, rowModesModel]
   );
@@ -142,16 +143,16 @@ export default function PtPreps() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
-        PairedTag Preparation
+        Paired-Tag Preparation
       </Typography>
       <DataGrid
         sx={{
         m: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

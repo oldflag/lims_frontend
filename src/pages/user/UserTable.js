@@ -1,16 +1,37 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useValue } from '../../context/ContextProvider';
 import { getUsers } from '../../actions/user';
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+import { Box, Fab, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import {
   DataGrid,
   gridClasses,
+  GridToolbarContainer
 } from '@mui/x-data-grid';
-import { grey } from '@mui/material/colors';
 
+import { grey } from '@mui/material/colors';
 import UsersActions from './UsersActions';
 
+
+function EditToolbar(props) {
+
+  const {
+    dispatch,
+  } = useValue();
+
+  const handleClick = () => {
+    
+    dispatch({ type: 'OPEN_LOGIN' })
+  };
+
+  return (
+    <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
+      <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
+        <AddIcon />
+      </Fab>
+    </GridToolbarContainer>
+  );
+}
 
 export default function UserTable() {
 
@@ -83,8 +104,8 @@ export default function UserTable() {
       }}
     >
       <Typography
-        variant="h3"
-        component="h3"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 3, mb: 3 }}
       >
         Manage Users
@@ -108,6 +129,9 @@ export default function UserTable() {
           },
         }}
         onCellEditCommit={(params) => setRowId(params.id)}
+        components={{
+          Toolbar: EditToolbar,
+        }}
       />
     </Box>
   );

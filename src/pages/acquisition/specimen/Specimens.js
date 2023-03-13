@@ -135,7 +135,17 @@ export default function Specimens() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Name', width: 100, editable: true },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      cellClassName: 'actions',
+      renderCell: (params) => (
+        <SpecimensActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+      ),
+    },
+    { field: 'name', headerName: 'Name', width: 150, editable: true },
     { field: 'donor_name', headerName: 'Donor', width: 100, editable: false},
     { field: 'species', headerName: 'Species', width: 150, editable: true },
     { field: 'tissue', headerName: 'Tissue', width: 150, editable: true },
@@ -154,16 +164,7 @@ export default function Specimens() {
     { field: 'last_frozen_date', headerName: 'Frozen Date', type:'datetime', width: 150, editable: true },
     { field: 'storage_condition', headerName: 'Storage Cond.', width: 150, editable: true },
     { field: 'metadata', headerName: 'Meta Data', width: 150, editable: true },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 100,
-      cellClassName: 'actions',
-      renderCell: (params) => (
-        <SpecimensActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
-      ),
-    },
+    
   ],
   [rows, rowModesModel]
   );
@@ -189,8 +190,8 @@ export default function Specimens() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
         Specimens
@@ -198,7 +199,7 @@ export default function Specimens() {
       <DataGrid
         sx={{
         m: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

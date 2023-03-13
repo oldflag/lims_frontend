@@ -58,7 +58,7 @@ const AddForm = () => {
 
   return (
     <Dialog open={openAntibody} onClose={handleClose}>
-      <DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
         "Register New Antibody"
         <IconButton
           sx={{
