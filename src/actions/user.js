@@ -11,13 +11,13 @@ export const register = async (user, dispatch) => {
   );
   if (result) {
     dispatch({ type: 'UPDATE_USER', payload: result });
-    dispatch({ type: 'CLOSE_LOGIN' });
+    dispatch({ type: 'CLOSE_REGISTER' });
     dispatch({
       type: 'UPDATE_ALERT',
       payload: {
         open: true,
         severity: 'success',
-        message: 'Your account has been created successfully',
+        message: 'An account has been created successfully',
       },
     });
   }

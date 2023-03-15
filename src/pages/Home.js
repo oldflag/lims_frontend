@@ -9,6 +9,7 @@ import Loading from '../components/Loading';
 import Notification from '../components/Notification';
 import NavBar from '../components/NavBar';
 import Login from '../components/user/Login';
+import Register from '../components/user/Register';
 import Dashboard from './dashboard/dashboard';
 import Collaborators from './acquisition/collaborator/Collaborators';
 import Donors from './acquisition/donor/Donors';
@@ -302,6 +303,7 @@ const linklist = useMemo(
     <Loading />
     <Notification />
     <Login />
+    <Register />
     <NavBar />
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Routes>

@@ -21,7 +21,7 @@ function EditToolbar(props) {
 
   const handleClick = () => {
     
-    dispatch({ type: 'OPEN_LOGIN' })
+    dispatch({ type: 'OPEN_REGISTER' })
   };
 
   return (

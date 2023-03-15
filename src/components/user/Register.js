@@ -17,31 +17,24 @@ import PasswordField from './PasswordField';
 
 const Login = () => {
   const {
-    state: { openLogin },
+    state: { currentUser, openRegister },
     dispatch,
   } = useValue();
-  const [title, setTitle] = useState('Login');
-  const [isRegister, setIsRegister] = useState(false);
+  const [title, setTitle] = useState('Register');
+  const [isRegister, setIsRegister] = useState(true);
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
-  // useEffect(() => {
-  //   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  //   if (currentUser && currentUser.role === "ADMIN") {
-  //     setIsRegister(true)
-  //   }
-  // }, []);
-
   // const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   //   console.log(currentUser)
-  //   if (currentUser && currentUser.role === "ADMIN") {
-  //     setIsRegister(true)
-  //   }
+    // if (currentUser.role === "ADMIN") {
+    //   setIsRegister(true)
+    // }
 
   const handleClose = () => {
-    dispatch({ type: 'CLOSE_LOGIN' });
+    dispatch({ type: 'CLOSE_REGISTER' });
   };
 
   const handleSubmit = (e) => {
@@ -68,7 +61,7 @@ const Login = () => {
     isRegister ? setTitle('Register') : setTitle('Login');
   }, [isRegister]);
   return (
-    <Dialog open={openLogin} onClose={handleClose}>
+    <Dialog open={openRegister} onClose={handleClose}>
       <DialogTitle>
         {title}
         <IconButton

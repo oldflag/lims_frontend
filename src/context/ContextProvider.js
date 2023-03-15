@@ -4,6 +4,7 @@ import reducer from './reducer';
 const initialState = {
   currentUser: null,
   openLogin: false,
+  openRegister: false,
   loading: false,
   alert: { open: false, severity: 'info', message: '' },
   users: [],
