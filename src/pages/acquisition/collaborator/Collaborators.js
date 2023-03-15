@@ -97,7 +97,17 @@ export default function Collaborators() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Name', width: 100, editable: true },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 100,
+      cellClassName: 'actions',
+      renderCell: (params) => (
+        <CollaboratorsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+      ),
+    },
+    { field: 'name', headerName: 'Name', width: 150, editable: true },
     { field: 'contactName', headerName: 'Contact Name', width: 150, editable: true },
     { field: 'contactEmail', headerName: 'Email', width: 150, editable: true },
     { field: 'contactPhone', headerName: 'Phone', width: 150, editable: true },
@@ -113,19 +123,10 @@ export default function Collaborators() {
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 200,
-      type: 'dateTime',
+      width: 150,
+      type: 'date',
     },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 100,
-      cellClassName: 'actions',
-      renderCell: (params) => (
-        <CollaboratorsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
-      ),
-    },
+    
   ],
   [rows, rowModesModel]
   );
@@ -151,8 +152,8 @@ export default function Collaborators() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
         Collaborators
@@ -160,7 +161,7 @@ export default function Collaborators() {
       <DataGrid
         sx={{
         m: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

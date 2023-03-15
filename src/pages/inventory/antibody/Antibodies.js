@@ -97,12 +97,22 @@ export default function Antibodies() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Name', width: 100, editable: true },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      cellClassName: 'actions',
+      renderCell: (params) => (
+        <AntibodiesActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+      ),
+    },
+    { field: 'name', headerName: 'Name', width: 150, editable: true },
     { field: 'target', headerName: 'Target', width: 150, editable: true },
     { field: 'cat', headerName: 'CAT#', width: 150, editable: true },
     { field: 'lot', headerName: 'LOT#', width: 150, editable: true },
-    { field: 'vendor', headerName: 'Vendor', width: 200, editable: true },
-    { field: 'status', headerName: 'Status', width: 150, editable: true },
+    { field: 'vendor', headerName: 'Vendor', width: 150, editable: true },
+    { field: 'status', headerName: 'Status', width: 100, editable: true },
     { field: 'metadata', headerName: 'Meta Info', width: 150, editable: true },
     {
       field: 'createdAt',
@@ -110,16 +120,7 @@ export default function Antibodies() {
       width: 200,
       type: 'dateTime',
     },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 100,
-      cellClassName: 'actions',
-      renderCell: (params) => (
-        <AntibodiesActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
-      ),
-    },
+    
   ],
   [rows, rowModesModel]
   );
@@ -145,8 +146,8 @@ export default function Antibodies() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
         Antibodies
@@ -154,7 +155,7 @@ export default function Antibodies() {
       <DataGrid
         sx={{
         m: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

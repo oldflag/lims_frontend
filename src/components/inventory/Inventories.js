@@ -27,6 +27,7 @@ export default function Inventories() {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        // onMouseOver={handleClick}
         endIcon={<KeyboardArrowDown />}
       >
         Inventory

@@ -77,7 +77,7 @@ const AddForm = () => {
 
   return (
     <Dialog open={openSpecimen} onClose={handleClose}>
-      <DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
         "Register New Specimen"
         <IconButton
           sx={{

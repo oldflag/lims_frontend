@@ -64,7 +64,7 @@ const AddForm = () => {
 
   return (
     <Dialog open={openPatn5} onClose={handleClose}>
-      <DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
         "Register New Patn5"
         <IconButton
           sx={{

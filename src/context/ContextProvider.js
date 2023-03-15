@@ -4,6 +4,7 @@ import reducer from './reducer';
 const initialState = {
   currentUser: null,
   openLogin: false,
+  openRegister: false,
   loading: false,
   alert: { open: false, severity: 'info', message: '' },
   users: [],
@@ -40,6 +41,58 @@ const initialState = {
   washAndTags: [],
   openRnaRT: false,
   rnaRTs: [],
+  openSplitPool: false,
+  splitPools: [],
+  openLysis: false,
+  lysiss: [],
+  tdtTailings: [],
+  openTdtTailing: false,
+  linearAmpAnchors: [],
+  openLinearAmpAnchor: false,
+  preAmps: [],
+  openPreAmp: false,
+  doubleSizeSelects: [],
+  openDoubleSizeSelect: false,
+  openPrelibrary: false,
+  selectedPrelibrarys: [],
+  
+  openRnaLib: false,
+  selectedRnaLibrarys: [],
+  openDnaLib: false,
+  selectedDnaLibrarys: [],
+
+  openRnaLibrary: false,
+  rnaLibrarys: [],
+  openRnaSplitEnzyme: false,
+  rnaSplitEnzymes: [],
+  openRnaAdapter: false,
+  rnaAdapters: [],
+  openRnaLibMultiplex: false,
+  rnaLibMultiplexs: [],
+
+  openDnaLibrary: false,
+  dnaLibrarys: [],
+  openDnaSplitEnzyme: false,
+  dnaSplitEnzymes: [],
+  openDnaAdapter: false,
+  dnaAdapters: [],
+  openDnaLibMultiplex: false,
+  dnaLibMultiplexs: [],
+
+  openSeqLibrary: false,
+  seqLibrarys: [],
+
+  openSeqRun: false,
+  seqRuns: [],
+
+  openSeqLib: false,
+  selectedSeqLibrarys: [],
+
+  i7Primers: [],
+  i5Primers: [],
+
+  openSampleSheet: false,
+  
 
 };
 

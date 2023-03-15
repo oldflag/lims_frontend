@@ -64,7 +64,7 @@ const AddForm = () => {
 
   return (
     <Dialog open={openExperiment} onClose={handleClose}>
-      <DialogTitle>
+      <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
         "Register New Experiment"
         <IconButton
           sx={{

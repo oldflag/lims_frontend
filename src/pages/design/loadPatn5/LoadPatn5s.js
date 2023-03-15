@@ -98,41 +98,43 @@ export default function LoadPatn5s() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'loadName', headerName: 'Load Name', width: 100, editable: true },
-    { field: 'tubeNum', headerName: 'Tube #', width: 150, editable: true },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      cellClassName: 'actions',
+      renderCell: (params) => (
+        <LoadPatn5sActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+      ),
+    },
+    { field: 'loadName', headerName: 'Load Name', width: 150, editable: true },
+    { field: 'tubeNum', headerName: 'Tube #', width: 100, editable: true },
+    {
+      field: 'patn5_name',
+      headerName: 'pATn5',
+      width: 150,
+      editable: false
+    },
     { field: 'dnaInfo', headerName: 'DNA Info', width: 150, editable: true },
     { field: 'status', 
       headerName: 'Status', 
-      width: 250,
+      width: 100,
       type: 'singleSelect',
       valueOptions: ['Active','Hold','Inactive'], 
       editable: true 
     },
-    { field: 'memo', headerName: 'Memo', width: 150, editable: true },
+    { field: 'memo', headerName: 'Memo', width: 200, editable: true },
     { field: 'expiration_date', headerName: 'Expiration Date', type:'date', width: 150, editable: true },
 
-    {
-      field: 'patn5_name',
-      headerName: 'pATn5',
-      width: 100,
-      editable: false
-    },
+    
     {
       field: 'createdAt',
       headerName: 'Created At',
       width: 200,
       type: 'dateTime',
     },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 100,
-      cellClassName: 'actions',
-      renderCell: (params) => (
-        <LoadPatn5sActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
-      ),
-    },
+    
   ],
   [rows, rowModesModel]
   );
@@ -158,8 +160,8 @@ export default function LoadPatn5s() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
         Load pATn5
@@ -167,7 +169,7 @@ export default function LoadPatn5s() {
       <DataGrid
         sx={{
         m: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

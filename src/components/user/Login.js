@@ -27,12 +27,26 @@ const Login = () => {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
+  // useEffect(() => {
+  //   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  //   if (currentUser && currentUser.role === "ADMIN") {
+  //     setIsRegister(true)
+  //   }
+  // }, []);
+
+  // const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  //   console.log(currentUser)
+  //   if (currentUser && currentUser.role === "ADMIN") {
+  //     setIsRegister(true)
+  //   }
+
   const handleClose = () => {
     dispatch({ type: 'CLOSE_LOGIN' });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     if (!isRegister) return login({ email, password }, dispatch);
@@ -114,17 +128,17 @@ const Login = () => {
           </Button>
         </DialogActions>
       </form>
-      <DialogActions sx={{ justifyContent: 'left', p: '5px 24px' }}>
+      {/* <DialogActions sx={{ justifyContent: 'left', p: '5px 24px' }}>
         {isRegister
           ? 'Do you have an account? Sign in now '
           : "Don't you have an account? Create one now "}
         <Button onClick={() => setIsRegister(!isRegister)}>
           {isRegister ? 'Login' : 'Register'}
         </Button>
-      </DialogActions>
-      <DialogActions sx={{ justifyContent: 'center', py: '24px' }}>
+      </DialogActions> */}
+      {/* <DialogActions sx={{ justifyContent: 'center', py: '24px' }}>
         <GoogleOneTapLogin />
-      </DialogActions>
+      </DialogActions> */}
     </Dialog>
   );
 };

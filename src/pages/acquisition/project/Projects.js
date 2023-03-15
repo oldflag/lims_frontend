@@ -98,38 +98,41 @@ export default function Projects() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Name', width: 100, editable: true },
-    { field: 'description', headerName: 'Description', width: 150, editable: true },
+
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Actions',
+      width: 150,
+      cellClassName: 'actions',
+      renderCell: (params) => (
+        <ProjectsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+      ),
+    },
+    { field: 'name', headerName: 'Name', width: 200, editable: true },
+    { field: 'description', headerName: 'Description', width: 250, editable: true },
+    {
+      field: 'collaborator_name',
+      headerName: 'Collaborator',
+      width: 200,
+      editable: false
+    },
     { field: 'status', 
       headerName: 'Status', 
-      width: 250,
+      width: 100,
       type: 'singleSelect',
       valueOptions: ['Active','Hold','Inactive'], 
       editable: true 
     },
-    { field: 'metadata', headerName: 'Meta Data', width: 150, editable: true },
-    {
-      field: 'collaborator_name',
-      headerName: 'Collaborator',
-      width: 100,
-      editable: false
-    },
+    { field: 'metadata', headerName: 'Additional Info', width: 250, editable: true },
+    
     {
       field: 'createdAt',
       headerName: 'Created At',
       width: 200,
       type: 'dateTime',
     },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 100,
-      cellClassName: 'actions',
-      renderCell: (params) => (
-        <ProjectsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
-      ),
-    },
+    
   ],
   [rows, rowModesModel]
   );
@@ -155,8 +158,8 @@ export default function Projects() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
         Projects
@@ -164,7 +167,7 @@ export default function Projects() {
       <DataGrid
         sx={{
         m: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

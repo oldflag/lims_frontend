@@ -98,40 +98,41 @@ export default function Experiments() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Name', width: 100, editable: true },
-    { field: 'short_description', headerName: 'Description', width: 150, editable: true },
-    { field: 'long_description', headerName: 'Details', width: 150, editable: true },
-    { field: 'priority', headerName: 'Priority', width: 150, editable: true },
-    { field: 'status', 
-      headerName: 'Status', 
-      width: 250,
-      type: 'singleSelect',
-      valueOptions: ['Active','Hold','Inactive'], 
-      editable: true 
-    },
-    { field: 'metadata', headerName: 'Meta Data', width: 150, editable: true },
-    {
-      field: 'project_name',
-      headerName: 'Project',
-      width: 100,
-      editable: false
-    },
-    {
-      field: 'createdAt',
-      headerName: 'Created At',
-      width: 200,
-      type: 'dateTime',
-    },
     {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      width: 100,
+      width: 150,
       cellClassName: 'actions',
       renderCell: (params) => (
         <ExperimentsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
+    { field: 'name', headerName: 'Name', width: 150, editable: true },
+    { field: 'short_description', headerName: 'Description', width: 200, editable: true },
+    { field: 'long_description', headerName: 'Details', width: 250, editable: true },
+    { field: 'priority', headerName: 'Priority', width: 100, editable: true },
+    { field: 'status', 
+      headerName: 'Status', 
+      width: 100,
+      type: 'singleSelect',
+      valueOptions: ['Active','Hold','Inactive'], 
+      editable: true 
+    },
+    { field: 'metadata', headerName: 'Additional Info', width: 150, editable: true },
+    {
+      field: 'project_name',
+      headerName: 'Project',
+      width: 150,
+      editable: false
+    },
+    {
+      field: 'createdAt',
+      headerName: 'Created At',
+      width: 150,
+      type: 'dateTime',
+    },
+    
   ],
   [rows, rowModesModel]
   );
@@ -157,8 +158,8 @@ export default function Experiments() {
       }}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant="h6"
+        component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
         Experiments
@@ -166,7 +167,7 @@ export default function Experiments() {
       <DataGrid
         sx={{
         m: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
         borderRadius: 2,
         }}
 

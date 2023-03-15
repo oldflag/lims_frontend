@@ -40,8 +40,8 @@ export default function Sequencings() {
           'aria-labelledby': 'sequencing-button',
         }}
       >
-        <MenuItem onClick={() => {navigate('sequencing/seq_runs'); handleClose()}}> Sequencing Runs </MenuItem>
-        <MenuItem onClick={() => {navigate('sequencing/seq_files'); handleClose()}}> Sequencing Files </MenuItem>
+        <MenuItem onClick={() => {navigate('sequencing/seqLibrary'); handleClose()}}> Sequencing Runs </MenuItem>
+        <MenuItem onClick={() => {navigate('sequencing/seqFile'); handleClose()}}> Sequencing Files </MenuItem>
       </Menu>
     </>
   );

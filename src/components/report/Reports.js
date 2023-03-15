@@ -29,7 +29,7 @@ export default function Reports() {
         onClick={handleClick}
         endIcon={<KeyboardArrowDown />}
       >
-        QC Result
+        Report
       </Button>
       <Menu
         id="report-menu"
