@@ -76,37 +76,6 @@ export default function SeqLibrarys() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Seq Lib', width: 100},
-    { field: 'seqRun_name', headerName: 'Seq Run', width: 150},
-    { field: 'libType', headerName: 'Lib Type', width: 100},
-    // { field: 'dnaLibrary_name', headerName: 'DLib Name', width: 150},
-    // { field: 'dnaLibrary_dnaLibMultiplex_i7Primer_rcSeq', headerName: 'DIndex', width: 150},
-    // { field: 'dnaLibrary_dnaLibMultiplex_i7Primer_name', headerName: 'DIndex ID', width: 150},
-    // { field: 'dnaLibrary_dnaLibMultiplex_i5Primer_fSeq', headerName: 'DIndex2', width: 150},
-    // { field: 'dnaLibrary_dnaLibMultiplex_i5Primer_name', headerName: 'DIndex2 ID', width: 150},
-    // { field: 'rnaLibrary_name', headerName: 'RLib Name', width: 150},
-    // { field: 'rnaLibrary_rnaLibMultiplex_i7Primer_rcSeq', headerName: 'RIndex', width: 150},
-    // { field: 'rnaLibrary_rnaLibMultiplex_i7Primer_name', headerName: 'RIndex ID', width: 150},
-    // { field: 'rnaLibrary_rnaLibMultiplex_i5Primer_fSeq', headerName: 'RIndex2', width: 150},
-    // { field: 'rnaLibrary_rnaLibMultiplex_i5Primer_name', headerName: 'RIndex2 ID', width: 150},
-    {field:'library_name', headerName:'Lib Name'},
-    {field:'i7Primer_rcSeq', headerName:'I7 Index'},
-    {field:'i7Primer_name', headerName:'I7 Index ID'},
-    {field:'i5Primer_fSeq', headerName:'I5 Index'},
-    {field:'i5Primer_name', headerName:'I5 Index ID'},
-    { field: 'status', 
-      headerName: 'Status', 
-      width: 150,
-      type: 'singleSelect',
-      valueOptions: ['Success','Fail'], 
-      editable: true 
-    },
-    {
-      field: 'createdAt',
-      headerName: 'Created At',
-      width: 200,
-      type: 'dateTime',
-    },
     {
       field: 'actions',
       type: 'actions',
@@ -117,6 +86,29 @@ export default function SeqLibrarys() {
         <SeqLibrarysActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
+    { field: 'name', headerName: 'Seq Lib', flex: 1},
+    { field: 'seqRun_name', headerName: 'Seq Run', flex: 1},
+    { field: 'libType', headerName: 'Lib Type', flex: 1},
+    {field:'library_name', headerName:'Lib Name', flex: 1},
+    {field:'i7Primer_rcSeq', headerName:'I7 Index', flex: 1},
+    {field:'i7Primer_name', headerName:'I7 Index ID', flex: 1},
+    {field:'i5Primer_fSeq', headerName:'I5 Index', flex: 1},
+    {field:'i5Primer_name', headerName:'I5 Index ID', flex: 1},
+    { field: 'status', 
+      headerName: 'Status', 
+      flex: 1,
+      type: 'singleSelect',
+      valueOptions: ['Success','Fail'], 
+      editable: true
+    },
+    {
+      field: 'createdAt',
+      headerName: 'Created At',
+      flex: 1,
+      type: 'dateTime',
+      
+    },
+    
   ],
   [rows, rowModesModel]
   );

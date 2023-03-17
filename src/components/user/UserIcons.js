@@ -1,5 +1,7 @@
 import { Notifications } from '@mui/icons-material';
 import { Avatar, Badge, Box, IconButton, Tooltip } from '@mui/material';
+import { deepOrange, deepPurple, orange } from '@mui/material/colors';
+
 import React, { useState } from 'react';
 import { useValue } from '../../context/ContextProvider';
 import UserMenu from './UserMenu';
@@ -16,13 +18,13 @@ const UserIcons = () => {
   return (
     <Box>
       <IconButton size="large" color="inherit">
-        <Badge color="error" badgeContent={20}>
+        <Badge color="error" badgeContent={0}>
           <Notifications />
         </Badge>
       </IconButton>
       <Tooltip title="Open User Settings">
         <IconButton onClick={(e) => setAnchorUserMenu(e.currentTarget)}>
-          <Avatar src={currentUser?.photoURL} alt={currentUser?.name}>
+          <Avatar sx={{ bgcolor: orange[500] }} src={currentUser?.photoURL} alt={currentUser?.name}>
             {currentUser?.name?.charAt(0).toUpperCase()}
           </Avatar>
         </IconButton>

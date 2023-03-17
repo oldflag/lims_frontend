@@ -551,6 +551,11 @@ const reducer = (state, action) => {
     case 'CLOSE_SAMPLESHEET':
       return { ...state, openSampleSheet: false };
 
+    case 'OPEN_DIGEST':
+      return { ...state, openDigest: true };
+    case 'CLOSE_DIGEST':
+      return { ...state, openDigest: false };
+
 
     
 

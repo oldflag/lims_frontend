@@ -92,6 +92,7 @@ const initialState = {
   i5Primers: [],
 
   openSampleSheet: false,
+  openDigest: false,
   
 
 };

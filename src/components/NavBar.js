@@ -24,7 +24,7 @@ const NavBar = () => {
       <AppBar>
         <Container maxWidth="lg">
           <Toolbar disableGutters>
-            <Typography variant='h6' component='h1' noWrap sx={{flexGrow:1}}>
+            <Typography variant='h6' component='h6' noWrap sx={{flexGrow:1}}>
               LIMS
             </Typography>
             <Stack direction={'row'} spacing={1}>
