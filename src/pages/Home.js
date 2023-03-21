@@ -54,6 +54,8 @@ import Digest from './report/digest/Digest';
 import Qcreport from './report/qcreport/Qcreport';
 import SeqRunReport from './report/seqrunreport/SeqRunReport';
 
+import Protected from '../components/Protected';
+
 
 const Home = () => {
 
@@ -308,7 +310,7 @@ const linklist = useMemo(
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Routes>
           {linklist.map((item) => (
-            <Route key={item.title} path={item.link} element={item.component} />
+            <Route key={item.title} path={item.link} element={<Protected currentUser={currentUser}> {item.component}</Protected>} />
           ))}
         </Routes>
     </Box>

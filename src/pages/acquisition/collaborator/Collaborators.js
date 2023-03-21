@@ -107,24 +107,25 @@ export default function Collaborators() {
         <CollaboratorsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', width: 150, editable: true },
-    { field: 'contactName', headerName: 'Contact Name', width: 150, editable: true },
-    { field: 'contactEmail', headerName: 'Email', width: 150, editable: true },
-    { field: 'contactPhone', headerName: 'Phone', width: 150, editable: true },
-    { field: 'note', headerName: 'Note', width: 250, editable: true },
-    { field: 'url', headerName: 'URL', width: 150, editable: true },
+    { field: 'name', headerName: 'Name', flex: 1, editable: true },
+    { field: 'contactName', headerName: 'Contact Name', flex: 1, editable: true },
+    { field: 'contactEmail', headerName: 'Email', flex: 1, editable: true },
+    { field: 'contactPhone', headerName: 'Phone', flex: 1, editable: true },
+    { field: 'note', headerName: 'Note', flex: 2, editable: true },
+    { field: 'url', headerName: 'URL', flex: 1, editable: true },
     {
       field: 'active',
       headerName: 'Active',
-      width: 100,
+      flex: 1,
       type: 'boolean',
       editable: true,
     },
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 150,
+      flex: 1,
       type: 'date',
+      // dateSetting:{locale: "en-US"}
     },
     
   ],

@@ -79,16 +79,16 @@ export default function DnaLibrarys() {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      width: 150,
+      flex: 1,
       cellClassName: 'actions',
       renderCell: (params) => (
         <DnaLibrarysActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Library Name', width: 150},
-    { field: 'lysis_batch_name', headerName: 'Batch Name', width: 120, },
-    { field: 'lysis_name', headerName: 'Lysis Name', width: 120},
-    { field: 'reagentInfo', headerName: 'Reagent Info', width: 200, editable: true },
+    { field: 'name', headerName: 'Library Name', flex: 1},
+    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'lysis_name', headerName: 'Lysis Name', flex: 1},
+    { field: 'reagentInfo', headerName: 'Reagent Info', flex: 1, editable: true },
     { field: 'status', 
       headerName: 'Status', 
       width: 100,
@@ -96,12 +96,12 @@ export default function DnaLibrarys() {
       valueOptions: ['Success','Fail'], 
       editable: true 
     },
-    { field: 'memo', headerName: 'Memo', width: 200, editable: true },
-    { field: 'operator', headerName: 'Operator', width: 150, editable: true },
+    { field: 'memo', headerName: 'Memo', flex: 2, editable: true },
+    { field: 'operator', headerName: 'Operator', flex: 1, editable: true },
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 150,
+      flex: 1,
       type: 'dateTime',
     },
     

@@ -103,23 +103,23 @@ export default function Projects() {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      width: 150,
+      flex: 1,
       cellClassName: 'actions',
       renderCell: (params) => (
         <ProjectsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', width: 200, editable: true },
-    { field: 'description', headerName: 'Description', width: 250, editable: true },
+    { field: 'name', headerName: 'Name', flex: 1, editable: true },
+    { field: 'description', headerName: 'Description', flex: 2, editable: true },
     {
       field: 'collaborator_name',
       headerName: 'Collaborator',
-      width: 200,
+      flex: 1,
       editable: false
     },
     { field: 'status', 
       headerName: 'Status', 
-      width: 100,
+      flex: 1,
       type: 'singleSelect',
       valueOptions: ['Active','Hold','Inactive'], 
       editable: true 
@@ -129,7 +129,7 @@ export default function Projects() {
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 200,
+      flex: 1,
       type: 'dateTime',
     },
     

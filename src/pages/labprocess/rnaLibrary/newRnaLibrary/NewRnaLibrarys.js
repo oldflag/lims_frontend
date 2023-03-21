@@ -163,13 +163,13 @@ export default function RnaLibrarys() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'lysis_batch_name', headerName: 'Batch Name', width: 200, },
-    { field: 'lysis_name', headerName: 'Lysis Name', width: 200 },
-    { field: 'beadsRatio1', headerName: 'beadsRatio1', width: 200 },
-    { field: 'beadsRatio2', headerName: 'beadsRatio2', width: 200 },
-    { field: 'qcConcent', headerName: 'QC Concentration', width: 200 },
-    { field: 'status', headerName: 'Status', width: 150 },
-    { field: 'memo', headerName: 'Memo', width: 250 },  
+    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'lysis_name', headerName: 'Lysis Name', flex: 1 },
+    { field: 'beadsRatio1', headerName: 'beadsRatio1', flex: 1 },
+    { field: 'beadsRatio2', headerName: 'beadsRatio2', flex: 1 },
+    { field: 'qcConcent', headerName: 'QC Concentration', flex: 1 },
+    { field: 'status', headerName: 'Status', flex: 1 },
+    { field: 'memo', headerName: 'Memo',flex: 2 },  
   ],
   [rows]
   );

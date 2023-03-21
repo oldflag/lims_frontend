@@ -102,34 +102,34 @@ export default function Experiments() {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      width: 150,
+      flex: 1,
       cellClassName: 'actions',
       renderCell: (params) => (
         <ExperimentsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', width: 150, editable: true },
-    { field: 'short_description', headerName: 'Description', width: 200, editable: true },
-    { field: 'long_description', headerName: 'Details', width: 250, editable: true },
-    { field: 'priority', headerName: 'Priority', width: 100, editable: true },
+    { field: 'name', headerName: 'Name', flex: 1, editable: true },
+    { field: 'short_description', headerName: 'Description', flex: 1, editable: true },
+    { field: 'long_description', headerName: 'Details', flex: 2, editable: true },
+    { field: 'priority', headerName: 'Priority', flex: 1, editable: true },
     { field: 'status', 
       headerName: 'Status', 
-      width: 100,
+      flex: 1,
       type: 'singleSelect',
       valueOptions: ['Active','Hold','Inactive'], 
       editable: true 
     },
-    { field: 'metadata', headerName: 'Additional Info', width: 150, editable: true },
+    { field: 'metadata', headerName: 'Additional Info', flex: 1, editable: true },
     {
       field: 'project_name',
       headerName: 'Project',
-      width: 150,
+      flex: 1,
       editable: false
     },
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 150,
+      flex: 1,
       type: 'dateTime',
     },
     

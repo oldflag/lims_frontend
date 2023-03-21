@@ -101,29 +101,29 @@ export default function Patn5s() {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      width: 150,
+      flex: 1,
       cellClassName: 'actions',
       renderCell: (params) => (
         <Patn5sActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', width: 150, editable: true },
+    { field: 'name', headerName: 'Name', flex: 1, editable: true },
     { field: 'manufacturer', headerName: 'Manufacturer', width: 200, editable: true },
-    { field: 'part', headerName: 'PART#', width: 150, editable: true },
-    { field: 'lot', headerName: 'LOT#', width: 150, editable: true },
-    { field: 'status', headerName: 'Status', width: 150, editable: true },
-    { field: 'metadata', headerName: 'Meta Info', width: 150, editable: true },
+    { field: 'part', headerName: 'PART#', flex: 1, editable: true },
+    { field: 'lot', headerName: 'LOT#', flex: 1, editable: true },
+    { field: 'status', headerName: 'Status', flex: 1, editable: true },
+    { field: 'metadata', headerName: 'Meta Info', flex: 1, editable: true },
     {
       field: 'expiration_date',
       headerName: 'Expiration Date',
-      width: 150,
+      flex: 1,
       type: 'date',
       editable: true
     },
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 150,
+      flex: 1,
       type: 'dateTime',
     },
     

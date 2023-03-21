@@ -103,7 +103,7 @@ export default function Donors() {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      width: 150,
+      flex: 1,
       cellClassName: 'actions',
       renderCell: (params) => (
         <DonorsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
@@ -112,30 +112,30 @@ export default function Donors() {
     { field: 'name', headerName: 'Name', width: 200, editable: true },
     { field: 'sex', 
       headerName: 'Sex', 
-      width: 150,
+      flex: 1,
       type: 'singleSelect',
       valueOptions: ['F','M','UNK'],  
       editable: true },
-    { field: 'ancestry', headerName: 'Ancestry', width: 150, editable: true },
-    { field: 'species', headerName: 'Species', width: 150, editable: true },
+    { field: 'ancestry', headerName: 'Ancestry', flex: 1, editable: true },
+    { field: 'species', headerName: 'Species', flex: 1, editable: true },
     { field: 'status', 
       headerName: 'Status', 
-      width: 100,
+      flex: 1,
       type: 'singleSelect',
       valueOptions: ['Active','Hold','Inactive'], 
       editable: true 
     },
-    { field: 'metadata', headerName: 'Additional Info', width: 150, editable: true },
+    { field: 'metadata', headerName: 'Additional Info', flex: 1, editable: true },
     {
       field: 'collaborator_name',
       headerName: 'Collaborator',
-      width: 150,
+      flex: 1,
       editable: false
     },
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 150,
+      flex: 1,
       type: 'dateTime',
     },
     

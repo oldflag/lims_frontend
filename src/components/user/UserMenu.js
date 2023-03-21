@@ -6,7 +6,7 @@ import { useValue } from '../../context/ContextProvider';
 import useCheckToken from '../../hooks/useCheckToken';
 
 const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }) => {
-  useCheckToken()
+  // useCheckToken()
   const { dispatch } = useValue();
   const handleCloseUserMenu = () => {
     setAnchorUserMenu(null);

@@ -11,6 +11,7 @@ import {
 
 import { grey } from '@mui/material/colors';
 import UsersActions from './UsersActions';
+import useCheckToken from '../../hooks/useCheckToken';
 
 
 function EditToolbar(props) {
@@ -34,6 +35,7 @@ function EditToolbar(props) {
 }
 
 export default function UserTable() {
+  // useCheckToken()
 
   const {
     state: { users },

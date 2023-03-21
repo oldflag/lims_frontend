@@ -102,15 +102,15 @@ export default function Batchs() {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      width: 150,
+      flex: 1,
       cellClassName: 'actions',
       renderCell: (params) => (
         <BatchsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', width: 200, editable: true },
-    { field: 'type', headerName: 'Type', width: 150, editable: true },
-    { field: 'priority', headerName: 'Priority', width: 150, editable: true },
+    { field: 'name', headerName: 'Name', flex: 1, editable: true },
+    { field: 'type', headerName: 'Type', flex: 1, editable: true },
+    { field: 'priority', headerName: 'Priority', flex: 1, editable: true },
     { field: 'status', 
       headerName: 'Status', 
       width: 100,
@@ -122,7 +122,7 @@ export default function Batchs() {
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 200,
+      flex: 1,
       type: 'dateTime',
     },
     

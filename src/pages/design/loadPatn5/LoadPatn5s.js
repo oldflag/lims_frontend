@@ -102,36 +102,36 @@ export default function LoadPatn5s() {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      width: 150,
+      flex: 1,
       cellClassName: 'actions',
       renderCell: (params) => (
         <LoadPatn5sActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'loadName', headerName: 'Load Name', width: 150, editable: true },
-    { field: 'tubeNum', headerName: 'Tube #', width: 100, editable: true },
+    { field: 'loadName', headerName: 'Load Name', flex: 1, editable: true },
+    { field: 'tubeNum', headerName: 'Tube #', flex: 1, editable: true },
     {
       field: 'patn5_name',
       headerName: 'pATn5',
-      width: 150,
+      flex: 1,
       editable: false
     },
-    { field: 'dnaInfo', headerName: 'DNA Info', width: 150, editable: true },
+    { field: 'dnaInfo', headerName: 'DNA Info', flex: 1, editable: true },
     { field: 'status', 
       headerName: 'Status', 
-      width: 100,
+      flex: 1,
       type: 'singleSelect',
       valueOptions: ['Active','Hold','Inactive'], 
       editable: true 
     },
-    { field: 'memo', headerName: 'Memo', width: 200, editable: true },
-    { field: 'expiration_date', headerName: 'Expiration Date', type:'date', width: 150, editable: true },
+    { field: 'memo', headerName: 'Memo', flex: 2, editable: true },
+    { field: 'expiration_date', headerName: 'Expiration Date', type:'date', flex: 1, editable: true },
 
     
     {
       field: 'createdAt',
       headerName: 'Created At',
-      width: 200,
+      flex: 1,
       type: 'dateTime',
     },
     
