@@ -310,7 +310,7 @@ const linklist = useMemo(
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Routes>
           <Route key="dashboard" path="/dashboard" element={<Dashboard {...{ setSelectedLink, link: 'dashboard' }} />} />
-          {/* <Route key="root" path="/" element={<Dashboard {...{ setSelectedLink, link: 'dashboard' }} />} /> */}
+          <Route key="lims" path="/" element={<Dashboard {...{ setSelectedLink, link: 'dashboard' }} />} />
           {linklist.map((item) => (
             <Route key={item.title} path={item.link} element={<Protected currentUser={currentUser}> {item.component}</Protected>} />
           ))}
