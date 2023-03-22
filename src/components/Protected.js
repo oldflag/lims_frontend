@@ -9,7 +9,7 @@ const  Protected = ({currentUser, children}) => {
 
     if (!currentUser) {
 
-        return <Navigate to="dashborad" replace />;
+        return <Navigate to="/dashboard" replace />;
 
     }
 

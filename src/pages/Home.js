@@ -10,7 +10,7 @@ import Notification from '../components/Notification';
 import NavBar from '../components/NavBar';
 import Login from '../components/user/Login';
 import Register from '../components/user/Register';
-import Dashboard from './dashboard/dashboard';
+import Dashboard from './dashboard/Dashboard';
 import Collaborators from './acquisition/collaborator/Collaborators';
 import Donors from './acquisition/donor/Donors';
 import Projects from './acquisition/project/Projects';
@@ -70,8 +70,8 @@ const linklist = useMemo(
     () => [
       {
         title: 'Dashboard',
-        link: '',
-        component: <Dashboard {...{ setSelectedLink, link: '' }} />,
+        link: 'dashboard',
+        component: <Dashboard {...{ setSelectedLink, link: 'dashboard' }} />,
       },
       {
         title: 'Users',
@@ -309,6 +309,8 @@ const linklist = useMemo(
     <NavBar />
     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Routes>
+          <Route key="dashboard" path="/dashboard" element={<Dashboard {...{ setSelectedLink, link: 'dashboard' }} />} />
+          {/* <Route key="root" path="/" element={<Dashboard {...{ setSelectedLink, link: 'dashboard' }} />} /> */}
           {linklist.map((item) => (
             <Route key={item.title} path={item.link} element={<Protected currentUser={currentUser}> {item.component}</Protected>} />
           ))}

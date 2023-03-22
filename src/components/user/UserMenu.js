@@ -28,7 +28,7 @@ const UserMenu = ({ anchorUserMenu, setAnchorUserMenu }) => {
         Profile
       </MenuItem>
       <MenuItem
-        onClick={() => {dispatch({ type: 'UPDATE_USER', payload: null }); navigate('/');}}
+        onClick={() => {dispatch({ type: 'UPDATE_USER', payload: null }); navigate('/dashboard');}}
       >
         <ListItemIcon>
           <Logout fontSize="small" />
