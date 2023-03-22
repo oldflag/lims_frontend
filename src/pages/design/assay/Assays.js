@@ -164,7 +164,7 @@ export default function Assays() {
       headerName: 'Antibody',
       type:'singleSelect',
       valueOptions: antibodylist,
-       width: 100, editable: true },
+       width: 250, editable: true },
     { field: 'antibodyConcentration', headerName: 'AB Conc.', width: 100, editable: true },
     { field: 'antibodyConcUnit', headerName: 'AB Conc. Unit', width: 100, editable: true },
     { field: 'antibodyVolume', headerName: 'AB Vol.', width: 100, editable: true },

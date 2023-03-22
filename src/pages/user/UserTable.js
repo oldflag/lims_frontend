@@ -42,7 +42,7 @@ export default function UserTable() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   const [rowId, setRowId] = useState(null);
 
   useEffect(() => {

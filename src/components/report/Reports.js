@@ -4,8 +4,13 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { KeyboardArrowDown } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useValue } from '../../context/ContextProvider';
 
 export default function Reports() {
+
+  const {
+    dispatch,
+  } = useValue();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -40,8 +45,13 @@ export default function Reports() {
           'aria-labelledby': 'report-button',
         }}
       >
-        <MenuItem onClick={() => {navigate('report/samplesheet'); handleClose()}}> Sample Sheet  </MenuItem>
-        <MenuItem onClick={() => {navigate('report/digest'); handleClose()}}> Digest for Analysis  </MenuItem>
+        {/* <MenuItem onClick={() => {navigate('report/samplesheet'); handleClose()}}> Sample Sheet  </MenuItem> */}
+         <MenuItem onClick={() => { navigate('/sequencing/seqLibrary');
+                                    dispatch({ type: 'OPEN_SAMPLESHEET' }); 
+                                    handleClose()}}> Sample Sheet  </MenuItem>
+        <MenuItem onClick={() => { navigate('/sequencing/seqFile'); 
+                                   dispatch({ type: 'OPEN_DIGEST' }); 
+                                   handleClose()}}> Digest for Analysis  </MenuItem>
         <MenuItem onClick={() => {navigate('report/seqrun'); handleClose()}}> Sequencing Run Report  </MenuItem>
         <MenuItem onClick={() => {navigate('report/qcreport'); handleClose()}}> QC Report </MenuItem>
       </Menu>
