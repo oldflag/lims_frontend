@@ -14,6 +14,7 @@ import {
 import { getPtPreps } from '../../../actions/ptPrep';
 import PtPrepsActions from './PtPrepsActions'
 import AddForm from '../../../components/labprocess/ptPrep/AddForm';
+import PtPrepSDMenu from '../../../components/labprocess/ptPrep/ptPrepSDMenu';
 
 function EditToolbar(props) {
 
@@ -142,13 +143,16 @@ export default function PtPreps() {
         },
       }}
     >
-      <Typography
-        variant="h6"
-        component="h6"
-        sx={{ textAlign: 'center', mt: 2, mb: 2 }}
-      >
-        Paired-Tag Preparation
-      </Typography>
+      <Box sx={{ m:2, display:'flex'}}>
+        < PtPrepSDMenu />
+        <Typography
+          variant="h6"
+          component="h6"
+          sx={{ textAlign: 'center', mt: 2, mb: 2 }}
+        >
+          Paired-Tag Preparation
+        </Typography>
+      </Box>
       <DataGrid
         sx={{
         m: 2,

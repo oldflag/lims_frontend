@@ -60,7 +60,15 @@ const AddForm =  () => {
     const status = statusRef.current.value;
     const metadata = metadataRef.current.value;
 
-    console.log(assaysValue)
+    if(assaysValue.length === 0) 
+      return dispatch({
+        type: 'UPDATE_ALERT',
+        payload: {
+          open: true,
+          severity: 'error',
+          message: 'There is no assay associated with this batch. Please generate assays',
+        },
+      });
 
     for (let element of assaysValue) {
 

@@ -55,6 +55,9 @@ import Qcreport from './report/qcreport/Qcreport';
 import SeqRunReport from './report/seqrunreport/SeqRunReport';
 
 import Protected from '../components/Protected';
+import NucleiIncubations from './labprocess/ptPrep/nucleiIncubation/NucleiIncubations';
+import RnaRTs from './labprocess/ptPrep/rnaRT/RnaRTs';
+import WashAndTags from './labprocess/ptPrep/washAndTag/WashAndTags';
 
 
 const Home = () => {
@@ -148,6 +151,21 @@ const linklist = useMemo(
         title: 'Paired-Tag Preparation',
         link: 'labprocess/ptPrep',
         component: <PtPreps {...{ setSelectedLink, link: 'labprocess/ptPrep' }} />,
+      },
+      {
+        title: 'Nuclei Incubation',
+        link: 'labprocess/ptPrep/nucleiIncubation',
+        component: <NucleiIncubations {...{ setSelectedLink, link: 'labprocess/ptPrep/nucleiIncubation' }} />,
+      },
+      {
+        title: 'RNA RT',
+        link: 'labprocess/ptPrep/rnaRT',
+        component: <RnaRTs {...{ setSelectedLink, link: 'labprocess/ptPrep/rnaRT' }} />,
+      },
+      {
+        title: 'Wash And Tag',
+        link: 'labprocess/ptPrep/washAndTag',
+        component: <WashAndTags {...{ setSelectedLink, link: 'labprocess/ptPrep/washAndTag' }} />,
       },
       {
         title: 'Split&Pool',

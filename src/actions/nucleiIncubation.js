@@ -4,7 +4,6 @@ const url = process.env.REACT_APP_SERVER_URL + '/nucleiIncubation';
 
 export const register = async (nucleiIncubation, dispatch) => {
   dispatch({ type: 'START_LOADING' });
-  console.log(nucleiIncubation)
   const result = await fetchData(
     { url: url + '/register', body: nucleiIncubation },
     dispatch

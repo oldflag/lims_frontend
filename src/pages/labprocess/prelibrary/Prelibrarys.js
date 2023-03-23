@@ -24,16 +24,20 @@ import {
 
 import { getLysiss } from '../../../actions/lysis';
 import PreLibrarySDMenu from '../../../components/labprocess/preLibrary/preLibrarySDMenu'
+import { getDoubleSizeSelects } from '../../../actions/doubleSizeSelect';
+import { getLinearAmpAnchors } from '../../../actions/linearAmpAnchor';
+import { getPreAmps } from '../../../actions/preAmp'
+import { getTdtTailings } from '../../../actions/tdtTailing'
 
 
 
 function EditToolbar(props) {
 
   const {
-    state: { currentUser, selectedPrelibrarys, loading},
+    state: { currentUser, selectedPrelibrarys },
     dispatch,
   } = useValue();
-  
+
   const [submitStatus, setSubmitStatus] = useState(false);
   
 
@@ -82,7 +86,7 @@ function EditToolbar(props) {
                 // "tubeNum":+element.tubeNum,
                 },dispatch)
 
-  }
+    }
 
 // dispatch({type: 'END_LOADING'})
     dispatch({ type: 'CLOSE_PRELIB' })
@@ -119,7 +123,7 @@ EditToolbar.propTypes = {
 export default function Prelibrarys() {
 
   const {
-    state: { lysiss, openPrelibrary, loading},
+    state: { lysiss, openPrelibrary, loading, doubleSizeSelects, linearAmpAnchors, preAmps, tdtTailings},
     dispatch,
   } = useValue();
 
@@ -127,6 +131,10 @@ export default function Prelibrarys() {
 
   useEffect(() => {
     if (lysiss.length === 0) getLysiss(dispatch);
+    if (doubleSizeSelects.length === 0) getDoubleSizeSelects(dispatch);
+    if (linearAmpAnchors.length === 0) getLinearAmpAnchors(dispatch);
+    if (preAmps.length === 0) getPreAmps(dispatch);
+    if (tdtTailings.length === 0) getTdtTailings(dispatch);
   }, []);
 
   const [rows, setRows] = useState(lysiss);

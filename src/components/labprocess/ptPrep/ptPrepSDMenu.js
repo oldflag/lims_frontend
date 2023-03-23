@@ -1,10 +1,9 @@
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
-import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
-import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
-import CropIcon from '@mui/icons-material/Crop';
+import HubIcon from '@mui/icons-material/Hub';
+import TagIcon from '@mui/icons-material/Tag';
+import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
 import { useNavigate } from 'react-router-dom';
 import NavigateNextTwoToneIcon from '@mui/icons-material/NavigateNextTwoTone';
 import { useValue } from '../../../context/ContextProvider'
@@ -22,7 +21,7 @@ import { useValue } from '../../../context/ContextProvider'
 //   },
 // }));
 
-const PreLibrarySDMenu = () => {
+const PtPrepSDMenu = () => {
 
    const {
     dispatch
@@ -33,7 +32,7 @@ const PreLibrarySDMenu = () => {
   return (
   // <Box sx={{ position: 'relative', mt: 3, height: 50 }}>
     <SpeedDial
-        ariaLabel="PreLibrary Processes"
+        ariaLabel="PtPrep Processes"
         icon={<NavigateNextTwoToneIcon />}
         direction={"right"}
         
@@ -41,24 +40,24 @@ const PreLibrarySDMenu = () => {
       <SpeedDialAction 
           key='New' 
           icon={<AddBoxIcon />} 
-          tooltipTitle='New PreLibrary' 
+          tooltipTitle='New Paired-Tag Preparation' 
           // tooltipOpen
           // tooltipPlacement='bottom-start' 
-          onClick={() => {navigate('/labprocess/prelibrary')}}/>
+          onClick={() => {navigate('/labprocess/ptPrep')}}/>
       <SpeedDialAction 
-          key='TDT Tailing' 
-          icon={<ManageHistoryIcon />} 
-          tooltipTitle='TDT Tailing' 
+          key='Nuclei_Incubation' 
+          icon={<HubIcon />} 
+          tooltipTitle='Nuclei Incubation' 
           // tooltipOpen
           // tooltipPlacement='top' 
-          onClick={() => {navigate('/labprocess/prelibrary/tdtTailing')}} />
+          onClick={() => {navigate('/labprocess/ptPrep/nucleiIncubation')}} />
       <SpeedDialAction 
-          key='LinearAmpAnchor' 
-          icon={<DynamicFeedIcon />} 
-          tooltipTitle='Linear Amplification with Anchor' 
+          key='WashAndTag' 
+          icon={<TagIcon />} 
+          tooltipTitle='Wash and Tag' 
           // tooltipOpen
           // tooltipPlacement='top'  
-          onClick={() => {navigate('/labprocess/prelibrary/linearAmpAnchor')}} />
+          onClick={() => {navigate('/labprocess/ptPrep/washAndTag')}} />
           {/* onClick={() => {
             navigate('/sequencing/seqLibrary')
             dispatch({ type: 'OPEN_SAMPLESHEET' })
@@ -66,22 +65,16 @@ const PreLibrarySDMenu = () => {
             } /> */}
           
       <SpeedDialAction 
-          key='PreAmplication' 
-          icon={<SignalCellularAltIcon />} 
-          tooltipTitle='PreAmplication' 
+          key='rnaRT' 
+          icon={<FlipCameraAndroidIcon />} 
+          tooltipTitle='RNA RT' 
           // tooltipOpen
           // tooltipPlacement='top' 
-          onClick={() => {navigate('/labprocess/prelibrary/preAmp')}} />
-      <SpeedDialAction 
-          key='Double Size Selection' 
-          icon={<CropIcon />} 
-          tooltipTitle='Double Size Selection' 
-          // tooltipOpen
-          // tooltipPlacement='top' 
-          onClick={() => {navigate('/labprocess/prelibrary/doubleSizeSelect')}} />
+          onClick={() => {navigate('/labprocess/ptPrep/rnaRT')}} />
+      
     </SpeedDial>
   // </Box>
   );
 }
 
-export default PreLibrarySDMenu
+export default PtPrepSDMenu

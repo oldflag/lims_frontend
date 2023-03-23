@@ -4,7 +4,7 @@ const url = process.env.REACT_APP_SERVER_URL + '/sample';
 
 export const register = async (sample, dispatch) => {
   dispatch({ type: 'START_LOADING' });
-  console.log(sample)
+  // console.log(sample)
   const result = await fetchData(
     { url: url + '/register', body: sample },
     dispatch
