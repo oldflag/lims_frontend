@@ -97,6 +97,14 @@ const AddForm =  () => {
 
       }
     }
+    dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'success',
+        message: 'Lyses has been created successfully',
+      },
+    });
 
     dispatch({ type: 'CLOSE_LYSIS' });
 

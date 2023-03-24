@@ -103,8 +103,6 @@ export default function Assays() {
             status ,
             metadata, id } = updatedRow;
 
-    console.log(updatedRow)
-
     const sampleId = samples.filter((item) => {return item.name===sample_name})[0].id
     const antibodyId = antibodies.filter((item) => {return item.name===antibody_name})[0].id
     let result;

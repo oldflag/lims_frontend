@@ -4,12 +4,10 @@ const url = process.env.REACT_APP_SERVER_URL + '/seqLibrary';
 
 export const register = async (seqLibrary, dispatch) => {
   dispatch({ type: 'START_LOADING' });
-  console.log(seqLibrary)
   const result = await fetchData(
     { url: url + '/register', body: seqLibrary },
     dispatch
   );
-  console.log(result)
   if (result) {
     dispatch({ type: 'UPDATE_SEQLIBRARY', payload: result });
     dispatch({

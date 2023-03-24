@@ -26,13 +26,24 @@ import {
 } from '@mui/x-data-grid';
 
 import { getDoubleSizeSelects } from '../../../../actions/doubleSizeSelect';
+import { getRnaAdapters } from '../../../../actions/rnaAdapter';
+import { getRnaLibMultiplexs } from '../../../../actions/rnaLibMultiplex';
+import { getRnaLibrarys } from '../../../../actions/rnaLibrary';
+import { getRnaSplitEnzymes } from '../../../../actions/rnaSplitEnzyme';
 
 function EditToolbar(props) {
 
   const {
-    state: { currentUser, selectedRnaLibrarys },
+    state: { currentUser, selectedRnaLibrarys,  rnaLibrarys, rnaSplitEnzymes, rnaLibMultiplexs, rnaAdapters  },
     dispatch,
   } = useValue();
+
+  useEffect(() => {
+    if (rnaAdapters.length === 0) getRnaAdapters(dispatch);
+    if (rnaLibMultiplexs.length === 0) getRnaLibMultiplexs(dispatch);
+    if (rnaLibrarys.length === 0) getRnaLibrarys(dispatch);
+    if (rnaSplitEnzymes.length === 0) getRnaSplitEnzymes(dispatch);
+  }, []);
   
   const [submitStatus, setSubmitStatus] = useState(false);
   
@@ -169,7 +180,7 @@ export default function RnaLibrarys() {
     { field: 'beadsRatio2', headerName: 'beadsRatio2', flex: 1 },
     { field: 'qcConcent', headerName: 'QC Concentration', flex: 1 },
     { field: 'status', headerName: 'Status', flex: 1 },
-    { field: 'memo', headerName: 'Memo',flex: 2 },  
+    { field: 'memo', headerName: 'Memo',flex: 1 },  
   ],
   [rows]
   );

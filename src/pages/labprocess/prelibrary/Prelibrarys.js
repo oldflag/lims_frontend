@@ -172,10 +172,10 @@ export default function Prelibrarys() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'batch_name', headerName: 'Batch Name', width: 250, },
-    { field: 'name', headerName: 'Lysis Name', width: 200 },
-    { field: 'quantity', headerName: 'Quantity', width: 200, editable: true },
-    { field: 'quantityUnit', headerName: 'Quantity Unit', width: 200, editable: true },
+    { field: 'batch_name', headerName: 'Batch Name', flex: 1 },
+    { field: 'name', headerName: 'Lysis Name', flex: 1 },
+    { field: 'quantity', headerName: 'Quantity', flex: 1, editable: true },
+    { field: 'quantityUnit', headerName: 'Quantity Unit', flex: 1, editable: true },
     { field: 'status', 
       headerName: 'Status', 
       width: 150,
@@ -183,7 +183,7 @@ export default function Prelibrarys() {
       valueOptions: ['Success','Fail'], 
       editable: true 
     },
-    { field: 'memo', headerName: 'Memo', width: 250, editable: true },
+    { field: 'memo', headerName: 'Memo', flex: 1, editable: true },
     
   ],
   [rows, rowModesModel]

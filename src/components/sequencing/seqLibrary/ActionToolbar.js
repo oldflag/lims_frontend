@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { register as registerSeqLibrary } from '../../../actions/seqLibrary';
 import { register as registerSeqRun } from '../../../actions/seqRun';
+import { getSeqLibrarys } from '../../../actions/seqLibrary';
 
 
 export default function ActionToolbar(props) {
@@ -88,6 +89,8 @@ export default function ActionToolbar(props) {
                   },dispatch)
 
     }
+
+    getSeqLibrarys(dispatch) 
 
 // dispatch({type: 'END_LOADING'})
     dispatch({ type: 'CLOSE_SEQLIB' })

@@ -24,13 +24,23 @@ import {
 
 import { getDoubleSizeSelects } from '../../../../actions/doubleSizeSelect';
 import DnaLibrarySDMenu from '../../../../components/labprocess/dnaLibrary/dnaLibrarySDMenu';
-
+import { getDnaAdapters } from '../../../../actions/dnaAdapter';
+import { getDnaLibMultiplexs } from '../../../../actions/dnaLibMultiplex';
+import { getDnaLibrarys } from '../../../../actions/dnaLibrary';
+import { getDnaSplitEnzymes } from '../../../../actions/dnaSplitEnzyme';
 function EditToolbar(props) {
 
   const {
-    state: { currentUser, selectedDnaLibrarys },
+    state: { currentUser, selectedDnaLibrarys, dnaLibrarys, dnaSplitEnzymes, dnaLibMultiplexs, dnaAdapters  },
     dispatch,
   } = useValue();
+
+  useEffect(() => {
+    if (dnaAdapters.length === 0) getDnaAdapters(dispatch);
+    if (dnaLibMultiplexs.length === 0) getDnaLibMultiplexs(dispatch);
+    if (dnaLibrarys.length === 0) getDnaLibrarys(dispatch);
+    if (dnaSplitEnzymes.length === 0) getDnaSplitEnzymes(dispatch);
+  }, []);
   
   const [submitStatus, setSubmitStatus] = useState(false);
   
@@ -161,13 +171,13 @@ export default function NewDnaLibrarys() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'lysis_batch_name', headerName: 'Batch Name', width: 200,}, //headerAlign:'right' },
-    { field: 'lysis_name', headerName: 'Lysis Name', width: 200 },
-    { field: 'beadsRatio1', headerName: 'beadsRatio1', width: 200 },
-    { field: 'beadsRatio2', headerName: 'beadsRatio2', width: 200 },
-    { field: 'qcConcent', headerName: 'QC Concentration', width: 200 },
-    { field: 'status', headerName: 'Status', width: 150 },
-    { field: 'memo', headerName: 'Memo', width: 150 },  
+    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 1}, //headerAlign:'right' },
+    { field: 'lysis_name', headerName: 'Lysis Name', flex: 1 },
+    { field: 'beadsRatio1', headerName: 'beadsRatio1', flex: 1 },
+    { field: 'beadsRatio2', headerName: 'beadsRatio2', flex: 1 },
+    { field: 'qcConcent', headerName: 'QC Concentration', flex: 1 },
+    { field: 'status', headerName: 'Status', flex: 1 },
+    { field: 'memo', headerName: 'Memo', flex: 1},  
   ],
   [rows]
   );

@@ -189,18 +189,18 @@ export default function SeqLibrarys() {
 
   const dnaColumns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Library Name', width: 150},
-    { field: 'lysis_batch_name', headerName: 'Batch Name', width: 150, },
-    { field: 'lysis_name', headerName: 'Lysis Name', width: 150}, 
+    { field: 'name', headerName: 'Library Name', flex: 1},
+    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'lysis_name', headerName: 'Lysis Name', flex: 1}, 
   ],
   [dnaRows]
   );
 
   const rnaColumns = useMemo(
     () =>  [
-    { field: 'name', headerName: 'Library Name', width: 150},
-    { field: 'lysis_batch_name', headerName: 'Batch Name', width: 150 },
-    { field: 'lysis_name', headerName: 'Lysis Name', width: 150}, 
+    { field: 'name', headerName: 'Library Name', flex: 1},
+    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 1 },
+    { field: 'lysis_name', headerName: 'Lysis Name', flex: 1}, 
   ],
   [rnaRows]
   );
