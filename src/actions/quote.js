@@ -1,26 +1,27 @@
 import fetchData from './utils/fetchData';
 
-const url = process.env.REACT_APP_SERVER_URL + '/assay';
+const url = process.env.REACT_APP_SERVER_URL + '/quote';
 
-export const register = async (assay, dispatch) => {
+export const register = async (quote, dispatch) => {
   dispatch({ type: 'START_LOADING' });
-  console.log(assay)
   const result = await fetchData(
-    { url: url + '/register', body: assay },
+    { url: url + '/register', body: quote },
     dispatch
   );
+
+  console.log(result)
   
   if (result) {
-    dispatch({ type: 'UPDATE_ASSAY', payload: result });
+    dispatch({ type: 'UPDATE_QUOTE', payload: result });
     dispatch({
       type: 'UPDATE_ALERT',
       payload: {
         open: true,
         severity: 'success',
-        message: 'A new assay has been created successfully',
+        message: 'A new quote has been created successfully',
       },
     });
-    dispatch({ type: 'CLOSE_ASSAY' });
+    dispatch({ type: 'CLOSE_QUOTE' });
 
   }
 
@@ -28,25 +29,25 @@ export const register = async (assay, dispatch) => {
 };
 
 
-export const getAssays = async (dispatch) => {
+export const getQuotes = async (dispatch) => {
 
   dispatch({ type: 'START_LOADING' });
 
   const result = await fetchData({ url, method: 'GET' }, dispatch);
   
   if (result) {
-    dispatch({ type: 'UPDATE_ASSAYS', payload: result });
+    dispatch({ type: 'UPDATE_QUOTES', payload: result });
   }
 
   dispatch({ type: 'END_LOADING' });
 };
 
-export const updateStatus = (updatedFields, assayId, dispatch) => {
+export const updateStatus = (updatedFields, quoteId, dispatch) => {
 
 
   return fetchData(
     {
-      url: `${url}/updateStatus/${assayId}`,
+      url: `${url}/updateStatus/${quoteId}`,
       method: 'PATCH',
       body: updatedFields,
     },
@@ -69,11 +70,11 @@ export const deleteOne = async (id, dispatch) => {
       payload: {
         open: true,
         severity: 'success',
-        message: 'The assay has been deleted successfully',
+        message: 'The quote has been deleted successfully',
       },
     });
 
-    dispatch({ type: 'DELETE_ASSAY', payload: result.id });
+    dispatch({ type: 'DELETE_QUOTE', payload: result.id });
   
   }
 

@@ -201,7 +201,7 @@ export default function Assays() {
         mt :1,
         ml: "auto",
         mr: "auto",
-        height: 700,
+        height: "100vh",
         width: '100%',
         // boxShadow: 2,
         // borderRadius: 2,
@@ -240,6 +240,7 @@ export default function Assays() {
         editMode="row"
         rowsPerPageOptions={[12, 20, 24]}
         pageSize={pageSize}
+        autoHeight={true}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}
         onRowModesModelChange={(newModel) => setRowModesModel(newModel)}

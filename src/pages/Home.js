@@ -22,7 +22,6 @@ import Reagents from './inventory/reagent/Reagents';
 import Experiments from './design/experiment/Experiments';
 import Samples from './design/sample/Samples';
 import Batchs from './design/batch/Batchs';
-import Quotes from './design/quote/Quotes';
 import Assays from './design/assay/Assays';
 import LoadPatn5s from './design/loadPatn5/LoadPatn5s';
 import PtPreps from './labprocess/ptPrep/PtPreps';
@@ -58,6 +57,8 @@ import Protected from '../components/Protected';
 import NucleiIncubations from './labprocess/ptPrep/nucleiIncubation/NucleiIncubations';
 import RnaRTs from './labprocess/ptPrep/rnaRT/RnaRTs';
 import WashAndTags from './labprocess/ptPrep/washAndTag/WashAndTags';
+import Quotes from './account/quote/Quotes';
+import MinQuoteViews from './account/quote/MinQuoteViews';
 
 
 const Home = () => {
@@ -303,6 +304,21 @@ const linklist = useMemo(
         link: 'report/seqrun',
         component: <SeqRunReport {...{ setSelectedLink, link: 'report/seqrun' }} />,
       },
+      {
+        title: 'Quotes',
+        link: 'account/quote',
+        component: <Quotes {...{ setSelectedLink, link: 'account/quote' }} />,
+      },
+      {
+        title: 'Minimum Quote View',
+        link: 'account/minquoteview',
+        component: <MinQuoteViews {...{ setSelectedLink, link: 'account/minquoteview' }} />,
+      },
+      // {
+      //   title: 'Accounts',
+      //   link: 'account/accounts',
+      //   component: <Quotes {...{ setSelectedLink, link: 'account/quote' }} />,
+      // },
       
 
     ],

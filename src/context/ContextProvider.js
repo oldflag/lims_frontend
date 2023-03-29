@@ -93,6 +93,9 @@ const initialState = {
 
   openSampleSheet: false,
   openDigest: false,
+
+  quotes: [],
+  openQuote: false,
   
 
 };

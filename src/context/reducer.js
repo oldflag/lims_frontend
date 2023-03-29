@@ -556,6 +556,24 @@ const reducer = (state, action) => {
     case 'CLOSE_DIGEST':
       return { ...state, openDigest: false };
 
+    case 'UPDATE_QUOTE':
+      return { ...state, quotes: [...state.quotes, action.payload] };
+    
+    case 'UPDATE_QUOTES':
+      return { ...state, quotes: action.payload};
+    
+    case 'DELETE_QUOTE':
+      return {
+        ...state,
+        quotes: state.quotes.filter((aQuote) => aQuote.id !== action.payload),
+      };
+    
+    case 'OPEN_QUOTE':
+      return { ...state, openQuote: true };
+
+    case 'CLOSE_QUOTE':
+      return { ...state, openQuote: false };
+
 
     
 

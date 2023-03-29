@@ -52,28 +52,28 @@ export default function UserTable() {
 
   const columns = useMemo(
     () => [
-      { field: 'id', headerName: 'Id', width: 220 },
-      { field: 'name', headerName: 'Name', width: 170 },
-      { field: 'email', headerName: 'Email', width: 200 },
+      { field: 'id', headerName: 'Id', flex: 1 },
+      { field: 'name', headerName: 'Name', flex: 1  },
+      { field: 'email', headerName: 'Email', flex: 1  },
       {
         field: 'role',
         headerName: 'Role',
-        width: 100,
+        flex: 1 ,
         type: 'singleSelect',
-        valueOptions: ['BASIC','USER','MANAGER','ADMIN'],
+        valueOptions: ['BASIC','USER','MANAGER','ADMIN', 'ACCOUNT'],
         editable: true,
       },
       {
         field: 'active',
         headerName: 'Active',
-        width: 100,
+        flex: 1 ,
         type: 'boolean',
         editable: true,
       },
       {
         field: 'createdAt',
         headerName: 'Created At',
-        width: 200,
+        flex: 1 ,
         type: 'dateTime',
         // renderCell: (params) =>
         //   moment(params.row.createdAt).format('YYYY-MM-DD HH:MM:SS'),
@@ -82,13 +82,13 @@ export default function UserTable() {
         field: 'lastLogin',
         headerName: 'Last Login',
         type: 'dateTime',
-        width: 220,
+        flex: 1 ,
       },
       {
         field: 'actions',
         type: 'actions',
         headerName: 'Actions',
-        width: 100,
+        flex: 1 ,
         cellClassName: 'actions',
         renderCell: (params) => (
           <UsersActions {...{ params, rowId, setRowId }} />
@@ -101,7 +101,7 @@ export default function UserTable() {
   return (
     <Box
       sx={{
-        height: 400,
+        height: 700,
         width: '100%',
       }}
     >

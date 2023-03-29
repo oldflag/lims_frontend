@@ -7,10 +7,10 @@ const fetchData = async (
     : { 'Content-Type': 'application/json' };
   body = body ? { body: JSON.stringify(body) } : {};
   try {
-    console.log(body)
+    // console.log(body)
     const response = await fetch(url, { method, headers, ...body });
     const data = await response.json();
-    console.log(data)
+    // console.log(data)
     if (!data.success) {
       if (response.status === 401)
         dispatch({ type: 'UPDATE_USER', payload: null });

@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { KeyboardArrowDown } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
-export default function Designs() {
+export default function Accounts() {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -22,30 +22,25 @@ export default function Designs() {
     <>
       <Button
         color="inherit"
-        id="design-button"
-        aria-controls={open ? 'design-menu' : undefined}
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         endIcon={<KeyboardArrowDown />}
       >
-        Design
+        Account
       </Button>
       <Menu
-        id="design-menu"
+        id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          'aria-labelledby': 'design-button',
+          'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={() => {navigate('design/experiments'); handleClose()}}> Experiments </MenuItem>
-        <MenuItem onClick={() => {navigate('design/samples'); handleClose()}}> Samples </MenuItem>
-        <MenuItem onClick={() => {navigate('design/loadPatn5s'); handleClose()}}> Load pATn5 </MenuItem>
-        <MenuItem onClick={() => {navigate('account/minquoteview');handleClose()}}> Quotes </MenuItem>
-        <MenuItem onClick={() => {navigate('design/batchs');handleClose()}}> Batches </MenuItem>
-        <MenuItem onClick={() => {navigate('design/assays');handleClose()}}> Assays </MenuItem>
+        <MenuItem onClick={() => {navigate('account/quote'); handleClose()}}> Quotes </MenuItem>
       </Menu>
     </>
   );

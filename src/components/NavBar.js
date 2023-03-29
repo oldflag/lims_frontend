@@ -11,6 +11,7 @@ import Labprocesses from './labprocess/Labprocesses';
 import QCresults from './qcresult/QCresults';
 import Sequencings from './sequencing/Sequencings';
 import Reports from './report/Reports';
+import Accounts from './account/Accounts';
 
 const NavBar = () => {
 
@@ -22,7 +23,7 @@ const NavBar = () => {
   return (
     <>
       <AppBar>
-        <Container maxWidth="lg">
+        <Container maxWidth={ false }>
           <Toolbar disableGutters>
             <Typography variant='h6' component='h6' noWrap sx={{flexGrow:1}}>
               LIMS
@@ -31,13 +32,14 @@ const NavBar = () => {
               {currentUser && (
                 <>
                {(currentUser.role === "ADMIN") && <Users />}
+               {(["ACCOUNT", "ADMIN"].includes(currentUser.role)) && <Accounts /> }
               <Acquisitions />
               <Inventories />
-              <Designs />
-              <Labprocesses />
-              <QCresults />
-              <Sequencings />
-              <Reports />
+              {(currentUser.role !== "ACCOUNT") && <Designs /> }
+              {(currentUser.role !== "ACCOUNT") && <Labprocesses />}
+              {(currentUser.role !== "ACCOUNT") && <QCresults />}
+              {(currentUser.role !== "ACCOUNT") && <Sequencings />}
+              {(currentUser.role !== "ACCOUNT") && <Reports />}
               </>
               )}
       

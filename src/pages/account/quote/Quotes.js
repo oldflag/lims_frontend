@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
-import { register, updateStatus } from '../../../actions/batch';
+import { register, updateStatus } from '../../../actions/quote';
 
 
 import {
@@ -12,9 +12,9 @@ import {
   GridToolbarContainer,
 } from '@mui/x-data-grid';
 
-import { getBatchs } from '../../../actions/batch';
-import BatchsActions from './BatchsActions'
-import AddForm from '../../../components/design/batch/AddForm';
+import { getQuotes } from '../../../actions/quote';
+import QuotesActions from './QuotesActions'
+import AddForm from '../../../components/account/quote/AddForm';
 
 function EditToolbar(props) {
 
@@ -24,7 +24,7 @@ function EditToolbar(props) {
 
   const handleClick = () => {
     
-    dispatch({ type: 'OPEN_BATCH' })
+    dispatch({ type: 'OPEN_QUOTE' })
   };
 
   return (
@@ -41,27 +41,27 @@ EditToolbar.propTypes = {
   setRows: PropTypes.func.isRequired,
 };
 
-export default function Batchs() {
+export default function Quotes() {
 
   const {
-    state: { batchs },
+    state: { quotes },
     dispatch,
   } = useValue();
 
   const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
-    if (batchs.length === 0) getBatchs(dispatch);
+    if (quotes.length === 0) getQuotes(dispatch);
   }, []);
 
-  const [rows, setRows] = useState(batchs);
+  const [rows, setRows] = useState(quotes);
   const [rowModesModel, setRowModesModel] = useState({});
 
   useEffect(() => {
 
-    setRows(batchs)
+    setRows(quotes)
     
-  }, [batchs]);
+  }, [quotes]);
 
 
   const handleRowEditStart = (params, event) => {
@@ -80,16 +80,16 @@ export default function Batchs() {
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
 
-    const { id, name, type, priority, status, metadata, quoteId} = updatedRow;
+    const { name, quantity, description, poNum, memo, invoiceNum, confirmNum, lineNum, catalogNum, serialNum, id} = updatedRow;
 
     let result;
 
     if (isNewRecord){
       result = await register(updatedRow, dispatch)
     } else{
-      result = await updateStatus({ name, name, type, priority, status, metadata, quoteId}, id, dispatch);
+      result = await updateStatus({ name, quantity, description, poNum, memo, invoiceNum, confirmNum, lineNum, catalogNum, serialNum}, id, dispatch);
       if(result) {
-        getBatchs(dispatch)
+        getQuotes(dispatch)
       }
     }
 
@@ -98,6 +98,7 @@ export default function Batchs() {
 
   const columns = useMemo(
     () =>  [
+    
     {
       field: 'actions',
       type: 'actions',
@@ -105,21 +106,26 @@ export default function Batchs() {
       flex: 1,
       cellClassName: 'actions',
       renderCell: (params) => (
-        <BatchsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+        <QuotesActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', flex: 1, editable: true },
-    { field: 'type', headerName: 'Type', flex: 1, editable: true },
-    { field: 'quote_name', headerName: 'Quote #', flex: 1, editable: true },
-    { field: 'priority', headerName: 'Priority', flex: 1, editable: true },
-    { field: 'status', 
-      headerName: 'Status', 
+    { field: 'name', headerName: 'Quote #', width: 200, editable: true },
+    {
+      field: 'collaborator_name',
+      headerName: 'Collaborator',
       flex: 1,
-      type: 'singleSelect',
-      valueOptions: ['Active','Hold','Inactive'], 
-      editable: true 
+      editable: false
     },
-    { field: 'metadata', headerName: 'Additional Info', flex: 2, editable: true },
+    { field: 'description', headerName: 'Production Description', flex: 2, editable: true, },
+    { field: 'quantity', headerName: 'Quantity', flex: 1, editable: true },
+    { field: 'memo', headerName: 'Detail Information', flex: 3, editable: true },
+    { field: 'quoteDate', headerName: 'Quote Date', flex: 1, editable: true },
+    { field: 'poNum', headerName: 'PO #', flex: 1, editable: true },
+    { field: 'invoiceNum', headerName: 'Invoice #', flex: 1, editable: true },
+    { field: 'confirmNum', headerName: 'Confirm #', flex: 1, editable: true },
+    { field: 'lineNum', headerName: 'Line #', flex: 1, editable: true },
+    { field: 'catalogNum', headerName: 'Catalog #', flex: 1, editable: true },
+    { field: 'serialNum', headerName: 'Serial #', flex: 1, editable: true },
     {
       field: 'createdAt',
       headerName: 'Created At',
@@ -156,7 +162,7 @@ export default function Batchs() {
         component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
-        Batchs
+        Quotes
       </Typography>
       <DataGrid
         sx={{

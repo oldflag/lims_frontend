@@ -8,17 +8,27 @@ import {
   DialogTitle,
   IconButton,
   TextField,
+  Autocomplete
 } from '@mui/material';
 
-import { useRef} from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { register } from '../../../actions/batch';
 import { useValue } from '../../../context/ContextProvider';
+import { getQuotes } from '../../../actions/quote';
 
 const AddForm = () => {
   const {
-    state: { openBatch },
+    state: { openBatch, quotes },
     dispatch,
   } = useValue();
+
+  useEffect(() => {
+    if (quotes.length === 0) getQuotes(dispatch);
+  },[]);
+
+  const quoteOptions = quotes.map(({ name, id }) => ({ label:name, id:id }));
+
+  const [quoteValue, setQuoteValue] = useState(quoteOptions[0]);
 
   const nameRef = useRef();
   const typeRef = useRef();
@@ -42,7 +52,9 @@ const AddForm = () => {
                     "type":type, 
                     "priority":priority, 
                     "status":status, 
-                    "metadata":metadata}, 
+                    "metadata":metadata,
+                    "quoteId":quoteValue.id,
+                  }, 
                   dispatch)
 
   };
@@ -119,6 +131,16 @@ const AddForm = () => {
               type="text"
               fullWidth
               inputRef={metadataRef}
+            />
+            <Autocomplete
+              disablePortal
+              id="quote_"
+              options={quoteOptions}
+              value={quoteValue}
+              onChange={(e, newValue) => {
+                setQuoteValue(newValue)
+              }}
+              renderInput={(params) => <TextField {...params} label="Quote #" variant="standard" />}
             />
 
         </DialogContent>
