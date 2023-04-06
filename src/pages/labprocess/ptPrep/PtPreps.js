@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography, Box } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/ptPrep';
+import moment from 'moment';
 
 
 import {
@@ -117,7 +118,7 @@ export default function PtPreps() {
     { field: 'memo', headerName: 'Memo', flex: 1, editable: true },
     { field: 'operator', headerName: 'Operator', flex: 2, editable: true },
     { field: 'metadata', headerName: 'Additional Info', flex: 1, editable: true },
-    { field: 'createdAt',headerName: 'Created At',flex: 1,type: 'dateTime'},
+    { field: 'createdAt',headerName: 'Created At',flex: 1,type: 'dateTime', valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),},
     
   ],
   [rows, rowModesModel]

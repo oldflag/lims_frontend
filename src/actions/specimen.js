@@ -3,6 +3,7 @@ import fetchData from './utils/fetchData';
 const url = process.env.REACT_APP_SERVER_URL + '/specimen';
 
 export const register = async (specimen, dispatch) => {
+  console.log(specimen)
   dispatch({ type: 'START_LOADING' });
   const result = await fetchData(
     { url: url + '/register', body: specimen },

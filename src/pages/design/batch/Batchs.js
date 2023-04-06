@@ -15,6 +15,7 @@ import {
 import { getBatchs } from '../../../actions/batch';
 import BatchsActions from './BatchsActions'
 import AddForm from '../../../components/design/batch/AddForm';
+import moment from 'moment';
 
 function EditToolbar(props) {
 
@@ -125,6 +126,7 @@ export default function Batchs() {
       headerName: 'Created At',
       flex: 1,
       type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
     },
     
   ],

@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/loadPatn5';
+import moment from 'moment';
 
 
 import {
@@ -125,7 +126,7 @@ export default function LoadPatn5s() {
       editable: true 
     },
     { field: 'memo', headerName: 'Memo', flex: 2, editable: true },
-    { field: 'expiration_date', headerName: 'Expiration Date', type:'date', flex: 1, editable: true },
+    { field: 'expiration_date', headerName: 'Expiration Date', type:'date', flex: 1, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
 
     
     {
@@ -133,6 +134,7 @@ export default function LoadPatn5s() {
       headerName: 'Created At',
       flex: 1,
       type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
     },
     
   ],

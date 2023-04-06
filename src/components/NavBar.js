@@ -26,7 +26,7 @@ const NavBar = () => {
         <Container maxWidth={ false }>
           <Toolbar disableGutters>
             <Typography variant='h6' component='h6' noWrap sx={{flexGrow:1}}>
-              LIMS
+              {(currentUser) ? ((currentUser.role === "ACCOUNT") ? "ACCOUNT" : "LIMS") : "Epigenome Technologies Inc."}
             </Typography>
             <Stack direction={'row'} spacing={1}>
               {currentUser && (

@@ -19,20 +19,26 @@ import { useEffect, useRef, useState } from 'react';
 import { register } from '../../../actions/specimen';
 import { useValue } from '../../../context/ContextProvider';
 import { getDonors } from '../../../actions/donor';
+import { getProjects} from '../../../actions/project'
+import { getSpecimens } from '../../../actions/specimen';
 
 const AddForm = () => {
   const {
-    state: { openSpecimen, donors },
+    state: { openSpecimen, specimens, donors, projects },
     dispatch,
   } = useValue();
 
   useEffect(() => {
     if (donors.length === 0) getDonors(dispatch);
+    if (projects.length === 0) getProjects(dispatch);
+    if (specimens.length === 0) getSpecimens(dispatch);
   },[]);
 
   const donorOptions = donors.map(({ name, id }) => ({ label:name, id:id }));
+  const projectOptions = projects.map(({ name, id }) => ({ label:name, id:id }));
 
   const [donorValue, setDonorValue] = useState(donorOptions[0]);
+  const [projectValue, setProjectValue] = useState(donorOptions[0]);
   const [collectionDateValue, setCollectionDateValue] = useState(null);
   const [receiptDateValue, setReceiptDateValue] = useState(null);
 
@@ -60,7 +66,21 @@ const AddForm = () => {
     const uberon_id = uberon_idRef.current.value;
     const metadata = metadataRef.current.value;
 
-    console.log(donorValue)
+    let uniq = specimens.find(element => element.name === name)
+
+    if(uniq){
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'Specimen name already exists. Please try a different name!'
+        },
+      });
+      return
+    }
+
+    
     await register({"name":name, 
                     "tissue":tissue, 
                     "tissue_amount":tissue_amount, 
@@ -70,7 +90,8 @@ const AddForm = () => {
                     "uberon_id":uberon_id,
                     "collection_date":collectionDateValue,
                     "metadata":metadata, 
-                    "donorId":donorValue.id}, 
+                    "donorId":donorValue.id,
+                    "projectId":projectValue.id}, 
                   dispatch)
 
   };
@@ -111,6 +132,17 @@ const AddForm = () => {
             />
             <Autocomplete
               disablePortal
+              id="project_"
+              options={projectOptions}
+              value={projectValue}
+              onChange={(e, newValue) => {
+                setProjectValue(newValue)
+              }}
+              renderInput={(params) => <TextField {...params} label="Project" variant="standard" />}
+              required
+            />
+            <Autocomplete
+              disablePortal
               id="donor_"
               options={donorOptions}
               value={donorValue}
@@ -127,6 +159,7 @@ const AddForm = () => {
               type="text"
               fullWidth
               inputRef={speciesRef}
+              required
             />
             <TextField
               margin="normal"
@@ -136,6 +169,7 @@ const AddForm = () => {
               type="text"
               fullWidth
               inputRef={tissueRef}
+              required
             />
             <TextField
               margin="normal"
@@ -175,6 +209,7 @@ const AddForm = () => {
                   setReceiptDateValue(newValue);
                 }}
                 renderInput={(params) => <TextField {...params} sx={{width: '100%', mt:2}}/>}
+                required
               />
             </LocalizationProvider>
             <TextField

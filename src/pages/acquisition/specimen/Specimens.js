@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/specimen';
+import moment from 'moment';
 
 
 import {
@@ -99,7 +100,7 @@ export default function Specimens() {
             memo,
             storage_condition,
             metadata,
-            donorId} = updatedRow;
+            donorId, projectId} = updatedRow;
 
     let result;
 
@@ -124,7 +125,8 @@ export default function Specimens() {
                                     memo,
                                     storage_condition,
                                     metadata,
-                                    donorId}, id, dispatch);
+                                    donorId,
+                                    projectId}, id, dispatch);
       if(result) {
         getSpecimens(dispatch)
       }
@@ -146,13 +148,14 @@ export default function Specimens() {
       ),
     },
     { field: 'name', headerName: 'Name', width: 150, editable: true },
+    { field: 'project_name', headerName: 'Project', width: 100, editable: false},
     { field: 'donor_name', headerName: 'Donor', width: 100, editable: false},
     { field: 'species', headerName: 'Species', width: 150, editable: true },
     { field: 'tissue', headerName: 'Tissue', width: 150, editable: true },
     { field: 'tissue_amount', headerName: 'Amount', width: 150, editable: true },
     { field: 'tissue_amount_unit', headerName: 'Unit', width: 150, editable: true },
-    { field: 'collection_date', headerName: 'Collection Date', type:'date', width: 150, editable: true },
-    { field: 'receipt_date', headerName: 'Receipt Date', type:'date', width: 150, editable: true },
+    { field: 'collection_date', headerName: 'Collection Date', type:'date', width: 150, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
+    { field: 'receipt_date', headerName: 'Receipt Date', type:'date', width: 150, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
     { field: 'uberon_id', headerName: 'Uberon', width: 150, editable: true },
     { field: 'memo', headerName: 'Memo', width: 150, editable: true },
     { field: 'qc_note', headerName: 'QC Note', width: 150, editable: true },
@@ -161,7 +164,7 @@ export default function Specimens() {
     { field: 'cell_count_result', headerName: 'Cell #2', width: 150, editable: true },
     { field: 'nuclei_count_result', headerName: 'Nuclei #', width: 150, editable: true },
     { field: 'freeze_thaw', headerName: 'Freeze Thaw', width: 150, editable: true },
-    { field: 'last_frozen_date', headerName: 'Frozen Date', type:'datetime', width: 150, editable: true },
+    { field: 'last_frozen_date', headerName: 'Frozen Date', type:'datetime', width: 150, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
     { field: 'storage_condition', headerName: 'Storage Cond.', width: 150, editable: true },
     { field: 'metadata', headerName: 'Meta Data', width: 150, editable: true },
     

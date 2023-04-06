@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/quote';
+import moment from 'moment';
 
 
 import {
@@ -119,12 +120,13 @@ export default function Quotes() {
     { field: 'description', headerName: 'Production Description', flex: 2, editable: true },
     { field: 'quantity', headerName: 'Quantity', flex: 1, editable: true },
     { field: 'memo', headerName: 'Detail Information', flex: 3, editable: true, },
-    { field: 'quoteDate', headerName: 'Quote Date', flex: 1, editable: true },
+    { field: 'quoteDate', headerName: 'Quote Date', flex: 1, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
     {
       field: 'createdAt',
       headerName: 'Created At',
       flex: 1,
       type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
     },
     
   ],

@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/sample';
+import moment from 'moment';
 
 
 import {
@@ -80,14 +81,14 @@ export default function Samples() {
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
 
-    const { id, name, extract_date, extract_method, process_date,process_method,nuclei_count, nuclei_count_result, status, metadata} = updatedRow;
+    const { id, name, extract_date, extract_method,nuclei_count, nuclei_count_result, status, metadata} = updatedRow;
 
     let result;
 
     if (isNewRecord){
       result = await register(updatedRow, dispatch)
     } else{
-      result = await updateStatus({ name, extract_date, extract_method, process_date,process_method,nuclei_count, nuclei_count_result, status, metadata}, id, dispatch);
+      result = await updateStatus({ name, extract_date, extract_method, nuclei_count, nuclei_count_result, status, metadata}, id, dispatch);
       if(result) {
         getSamples(dispatch)
       }
@@ -116,10 +117,10 @@ export default function Samples() {
       editable: false
     },
     { field: 'nuclei_count', headerName: 'Nuclei Count', flex: 1, editable: true },
-    { field: 'extract_date', headerName: 'Extraction Date', type:'date', flex: 1, editable: true },
+    { field: 'extract_date', headerName: 'Extraction Date', type:'date', flex: 1, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
     { field: 'extract_method', headerName: 'Extraction Method', flex: 1, editable: true },
-    { field: 'process_date', headerName: 'Processing Date', type:'date', flex: 1, editable: true },
-    { field: 'process_method', headerName: 'Processing Method', flex: 1, editable: true },
+    // { field: 'process_date', headerName: 'Processing Date', type:'date', flex: 1, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
+    // { field: 'process_method', headerName: 'Processing Method', flex: 1, editable: true },
     { field: 'status', 
       headerName: 'Status', 
       flex: 1,
@@ -134,6 +135,7 @@ export default function Samples() {
       headerName: 'Created At',
       flex: 1,
       type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
     },
     
   ],

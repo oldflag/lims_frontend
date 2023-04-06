@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography, Box } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/patn5';
+import moment from 'moment';
 
 
 import {
@@ -118,13 +119,15 @@ export default function Patn5s() {
       headerName: 'Expiration Date',
       flex: 1,
       type: 'date',
-      editable: true
+      editable: true,
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"),
     },
     {
       field: 'createdAt',
       headerName: 'Created At',
       flex: 1,
       type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
     },
     
   ],

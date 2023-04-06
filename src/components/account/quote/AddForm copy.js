@@ -11,14 +11,18 @@ import {
   IconButton,
   TextField,
 } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 import { useEffect, useRef, useState } from 'react';
-import { register } from '../../../actions/donor';
+import { register } from '../../../actions/quote';
 import { useValue } from '../../../context/ContextProvider';
 import { getCollaborators } from '../../../actions/collaborator';
 
 const AddForm = () => {
   const {
-    state: { openDonor, collaborators },
+    state: { openQuote, collaborators },
     dispatch,
   } = useValue();
 
@@ -29,49 +33,42 @@ const AddForm = () => {
   const collaboratorOptions = collaborators.map(({ name, id }) => ({ label:name, id:id }));
 
   const [collaboratorValue, setCollaboratorValue] = useState(collaboratorOptions[0]);
+  const [quoteDateValue, setQuoteDateValue] = useState(null);
 
   const nameRef = useRef();
-  const ageRef = useRef();
-  const sexRef = useRef();
-  const ancestryRef = useRef();
-  const speciesRef = useRef();
-  const statusRef = useRef();
-  const metadataRef = useRef();
+  const descriptionRef = useRef();
+  const qtyRef = useRef();
+  const memoRef = useRef();
+  // const metadataRef = useRef();
   // const collaboratorRef = useRef();
 
 
   const handleClose = () => {
-    dispatch({ type: 'CLOSE_DONOR' });
+    dispatch({ type: 'CLOSE_QUOTE' });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     const name = nameRef.current.value;
-    const age = ageRef.current.value;
-    const sex = sexRef.current.value;
-    const ancestry = ancestryRef.current.value;
-    const species = speciesRef.current.value;
-    const status = statusRef.current.value;
-    const metadata = metadataRef.current.value;
+    const description = descriptionRef.current.value;
+    const qty = qtyRef.current.value;
+    const memo = memoRef.current.value;
 
-    console.log(collaboratorValue)
     await register({"name":name, 
-                    "age":age, 
-                    "sex":sex, 
-                    "ancestry":ancestry, 
-                    "species":species, 
-                    "status":status, 
-                    "metadata":metadata,
+                    "description":description, 
+                    "quantity":qty, 
+                    "memo":memo,
+                    "quoteDate":quoteDateValue, 
                     "collaboratorId":collaboratorValue.id}, 
                   dispatch)
 
   };
 
   return (
-    <Dialog open={openDonor} onClose={handleClose}>
+    <Dialog open={openQuote} onClose={handleClose}>
       <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
-        "Register New Donor"
+        "Register New Quote"
         <IconButton
           sx={{
             position: 'absolute',
@@ -87,7 +84,7 @@ const AddForm = () => {
       <form onSubmit={handleSubmit}>
         <DialogContent dividers>
           <DialogContentText>
-            Please fill a new donor's information in the fields below:
+            Please fill a new quote's information in the fields below:
           </DialogContentText>
           
             <TextField
@@ -95,77 +92,14 @@ const AddForm = () => {
               margin="normal"
               variant="standard"
               id="name"
-              label="Name"
+              label="Quote #"
               type="text"
               fullWidth
               inputRef={nameRef}
               inputProps={{ minLength: 2 }}
               required
             />
-            <TextField
-              margin="normal"
-              variant="standard"
-              id="age"
-              label="Age"
-              type="text"
-              fullWidth
-              inputRef={ageRef}
-              inputProps={{ minLength: 1 }}
-            />
-          
-            <FormControl fullWidth>
-              <InputLabel id="input_sex">Sex</InputLabel>
-              <Select
-                labelId="input_sex"
-                id="sex"
-                inputRef={sexRef}
-                label="Sex"
-              >
-                <MenuItem value={'F'}>F</MenuItem>
-                <MenuItem value={'M'}>M</MenuItem>
-                <MenuItem value={'UNK'}>UNK</MenuItem>
-              </Select>
-            </FormControl>
-            
-            <TextField
-              margin="normal"
-              variant="standard"
-              id="ancestry"
-              label="Ancestry"
-              type="text"
-              fullWidth
-              inputRef={ancestryRef}
-            />
 
-            <TextField
-              margin="normal"
-              variant="standard"
-              id="species"
-              label="Species"
-              type="text"
-              fullWidth
-              inputRef={speciesRef}
-            />
-
-            <TextField
-              margin="normal"
-              variant="standard"
-              id="status"
-              label="Status"
-              type="text"
-              fullWidth
-              inputRef={statusRef}
-            />
-
-            <TextField
-              margin="normal"
-              variant="standard"
-              id="metadata"
-              label="Meta Data"
-              type="text"
-              fullWidth
-              inputRef={metadataRef}
-            />
 
             <Autocomplete
               disablePortal
@@ -175,8 +109,59 @@ const AddForm = () => {
               onChange={(e, newValue) => {
                 setCollaboratorValue(newValue)
               }}
-              renderInput={(params) => <TextField {...params} label="Collaborator" variant="standard" />}
+              renderInput={(params) => <TextField {...params} label="Customer" variant="standard" />}
+              required
             />
+
+            
+            <TextField
+              margin="normal"
+              variant="standard"
+              id="description"
+              label="Production Description"
+              type="text"
+              multiline
+              rows={2}
+              fullWidth
+              inputRef={descriptionRef}
+              required
+            />
+
+            <TextField
+              margin="normal"
+              variant="standard"
+              id="qty"
+              label="Quantity"
+              type="text"
+              fullWidth
+              inputRef={qtyRef}
+            />
+
+            <TextField
+              margin="normal"
+              variant="standard"
+              id="memo"
+              label="Detail Information"
+              type="text"
+              multiline
+              rows={4}
+              fullWidth
+              inputRef={memoRef}
+              required
+            />
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Quote Date"
+                value={quoteDateValue}
+                onChange={(newValue) => {
+                  setQuoteDateValue(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} sx={{width: '100%', mt:2}}/>}
+                required
+              />
+            </LocalizationProvider>
+
         </DialogContent>
         <DialogActions sx={{ px: '19px' }}>
           <Button type="submit" variant="contained" endIcon={<Send />}>

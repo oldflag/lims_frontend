@@ -6,6 +6,7 @@ import { Fab, Grid, Typography } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/seqLibrary';
 import DigestInputForm from '../../../components/sequencing/seqFile/DigestInputForm'
+import moment from 'moment';
 
 
 import {
@@ -105,6 +106,7 @@ export default function SeqFiles() {
       headerName: 'Created At',
       flex: 1,
       type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
       
     },
     

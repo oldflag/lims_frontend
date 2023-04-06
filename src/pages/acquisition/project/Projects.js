@@ -5,7 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/project';
-
+import moment from 'moment';
 
 import {
   DataGrid,
@@ -15,6 +15,7 @@ import {
 import { getProjects } from '../../../actions/project';
 import ProjectsActions from './ProjectsActions'
 import AddForm from '../../../components/acquisition/project/AddForm';
+
 
 function EditToolbar(props) {
 
@@ -131,6 +132,7 @@ export default function Projects() {
       headerName: 'Created At',
       flex: 1,
       type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
     },
     
   ],

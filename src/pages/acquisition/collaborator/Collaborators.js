@@ -1,9 +1,11 @@
 import {useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import AddIcon from '@mui/icons-material/Add';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Fab, Typography, Box } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/collaborator';
+import moment from 'moment';
 
 
 import {
@@ -11,9 +13,10 @@ import {
   GridToolbarContainer,
 } from '@mui/x-data-grid';
 
-import { getCollaborators } from '../../../actions/collaborator';
+import { getCollaborators, registerMany } from '../../../actions/collaborator';
 import CollaboratorsActions from './CollaboratorsActions'
 import AddForm from '../../../components/acquisition/collaborator/AddForm';
+import importData from '../../../actions/utils/importData';
 
 function EditToolbar(props) {
 
@@ -26,10 +29,72 @@ function EditToolbar(props) {
     dispatch({ type: 'OPEN_COLLABORATOR' })
   };
 
+  const cbFileData = async(data) => {
+
+    console.log(data)
+
+
+    if(data?.length ===0 ){
+
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'No data are loaded. Please check the input file!'
+        },
+      });
+      return
+    }
+
+    const headerlist = Object.keys(data[0]);
+    if(!headerlist.includes('name')){
+
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'Please check header names: name(required), contactName, contactEmail, contactPhone, note, url'
+        },
+      });
+      return
+    }
+
+      await registerMany(data, dispatch)
+    
+  }
+
+  const handleClickFile = (e) => {
+
+   
+    importData(e.target.files[0], 1, cbFileData)
+    
+  };
+
+  const handleUploadInfo = (e) => {
+
+     dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'info',
+        message: 'header(1st row): name contactName contactEmail contactPhone note url'
+      },
+    });
+    
+
+  }
+
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
-      <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
+      <Fab size="small" color="primary" aria-label="add" onClick={handleClick} sx={{ml:1}} >
         <AddIcon />
+      </Fab>
+      
+      <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
+        <input hidden accept="*" type="file" onChange={handleClickFile}/>
+        <UploadFileIcon onClick={handleUploadInfo}/>
       </Fab>
     </GridToolbarContainer>
   );
@@ -125,6 +190,7 @@ export default function Collaborators() {
       headerName: 'Created At',
       flex: 1,
       type: 'date',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
       // dateSetting:{locale: "en-US"}
     },
     

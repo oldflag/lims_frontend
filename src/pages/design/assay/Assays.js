@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/assay';
+import moment from 'moment';
 
 
 import {
@@ -172,6 +173,7 @@ export default function Assays() {
       headerName: 'Assay Date',
       width: 150,
       type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"),
     },
 
     { field: 'status', 
@@ -187,6 +189,7 @@ export default function Assays() {
       headerName: 'Created At',
       width: 170,
       type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
     },
     
   ],

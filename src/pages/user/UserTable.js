@@ -12,6 +12,7 @@ import {
 import { grey } from '@mui/material/colors';
 import UsersActions from './UsersActions';
 import useCheckToken from '../../hooks/useCheckToken';
+import moment from 'moment';
 
 
 function EditToolbar(props) {
@@ -75,6 +76,7 @@ export default function UserTable() {
         headerName: 'Created At',
         flex: 1 ,
         type: 'dateTime',
+        valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
         // renderCell: (params) =>
         //   moment(params.row.createdAt).format('YYYY-MM-DD HH:MM:SS'),
       },
@@ -83,6 +85,7 @@ export default function UserTable() {
         headerName: 'Last Login',
         type: 'dateTime',
         flex: 1 ,
+        valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
       },
       {
         field: 'actions',

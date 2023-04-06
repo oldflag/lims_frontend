@@ -28,6 +28,33 @@ export const register = async (collaborator, dispatch) => {
   dispatch({ type: 'END_LOADING' });
 };
 
+export const registerMany = async (collaborators, dispatch) => {
+  dispatch({ type: 'START_LOADING' });
+
+  const result = await fetchData(
+    { url: url + '/registerMany', body: collaborators },
+    dispatch
+  );
+
+
+  if (result) {
+    dispatch({ type: 'UPDATE_COLLABORATORS', payload: result });
+    dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'success',
+        message: 'A new collaborator has been created successfully',
+      },
+    });
+    // dispatch({ type: 'CLOSE_COLLABORATOR' });
+
+  }
+
+  dispatch({ type: 'END_LOADING' });
+};
+
+
 
 export const getCollaborators = async (dispatch) => {
 

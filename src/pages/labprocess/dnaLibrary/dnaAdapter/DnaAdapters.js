@@ -6,6 +6,7 @@ import { Fab, Typography } from '@mui/material';
 import { useValue } from '../../../../context/ContextProvider';
 import { register, updateStatus } from '../../../../actions/dnaAdapter';
 import DnaLibrarySDMenu from '../../../../components/labprocess/dnaLibrary/dnaLibrarySDMenu';
+import moment from 'moment';
 
 
 import {
@@ -102,6 +103,7 @@ export default function DnaAdapters() {
       headerName: 'Created At',
       flex: 1,
       type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
     },
    
   ],

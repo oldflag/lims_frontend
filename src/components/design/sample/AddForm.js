@@ -19,15 +19,17 @@ import { getSpecimens } from '../../../actions/specimen';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { getSamples } from '../../../actions/sample';
 
 const AddForm = () => {
   const {
-    state: { openSample, specimens },
+    state: { openSample, specimens, samples },
     dispatch,
   } = useValue();
 
   useEffect(() => {
     if (specimens.length === 0) getSpecimens(dispatch);
+    if (samples.length === 0) getSamples(dispatch);
   },[]);
 
   const specimenOptions = specimens.map(({ name, id }) => ({ label:name, id:id }));
@@ -52,6 +54,20 @@ const AddForm = () => {
     const extract_method = extract_methodRef.current.value;
     const status = statusRef.current.value;
     const metadata = metadataRef.current.value;
+
+    let uniq = samples.find(element => element.name === name)
+
+    if(uniq){
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'The sample name already exists. Please try a different name!'
+        },
+      });
+      return
+    }
 
     await register({"name":name, 
                     "extract_date":extractDateValue, 
