@@ -31,6 +31,7 @@ const AddForm = () => {
   const [collaboratorValue, setCollaboratorValue] = useState(collaboratorOptions[0]);
 
   const nameRef = useRef();
+  const typeRef = useRef();
   const descriptionRef = useRef();
   const statusRef = useRef();
   const metadataRef = useRef();
@@ -43,11 +44,13 @@ const AddForm = () => {
     e.preventDefault();
   
     const name = nameRef.current.value;
+    const typename = typeRef.current.value;
     const status = statusRef.current.value;
     const description = descriptionRef.current.value;
     const metadata = metadataRef.current.value;
 
-    await register({"name":name, 
+    await register({"name":name,
+                    "type":typename, 
                     "description":description, 
                     "status":status, 
                     "metadata":metadata,
@@ -90,6 +93,19 @@ const AddForm = () => {
               inputProps={{ minLength: 2 }}
               required
             />
+
+            <TextField
+              autoFocus
+              margin="normal"
+              variant="standard"
+              id="type_"
+              label="Type"
+              type="text"
+              fullWidth
+              inputRef={nameRef}
+              inputProps={{ minLength: 1 }}
+              required
+            />
  
             <TextField
               margin="normal"
@@ -97,8 +113,11 @@ const AddForm = () => {
               id="description"
               label="Description"
               type="text"
+              multiline
+              rows={2}
               fullWidth
               inputRef={descriptionRef}
+              required
             />
 
             <TextField
@@ -115,7 +134,7 @@ const AddForm = () => {
               margin="normal"
               variant="standard"
               id="metadata"
-              label="Meta Data"
+              label="Additional Info"
               type="text"
               fullWidth
               inputRef={metadataRef}
@@ -130,6 +149,7 @@ const AddForm = () => {
                 setCollaboratorValue(newValue)
               }}
               renderInput={(params) => <TextField {...params} label="Collaborator" variant="standard" />}
+              required
             />
         </DialogContent>
         <DialogActions sx={{ px: '19px' }}>

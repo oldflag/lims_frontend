@@ -81,14 +81,14 @@ export default function Projects() {
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
 
-    const { name, description, status, metadata, id} = updatedRow;
+    const { name, type, description, status, metadata, id} = updatedRow;
 
     let result;
 
     if (isNewRecord){
       result = await register(updatedRow, dispatch)
     } else{
-      result = await updateStatus({ name, description, status, metadata}, id, dispatch);
+      result = await updateStatus({ name, type, description, status, metadata}, id, dispatch);
       if(result) {
         getProjects(dispatch)
       }
@@ -111,6 +111,7 @@ export default function Projects() {
       ),
     },
     { field: 'name', headerName: 'Name', flex: 1, editable: true },
+    { field: 'type', headerName: 'Type', flex: 1, editable: true },
     { field: 'description', headerName: 'Description', flex: 2, editable: true },
     {
       field: 'collaborator_name',

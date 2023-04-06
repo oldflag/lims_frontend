@@ -11,10 +11,15 @@ import {
   IconButton,
   TextField,
 } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 import { useEffect, useRef, useState } from 'react';
 import { register } from '../../../actions/experiment';
 import { useValue } from '../../../context/ContextProvider';
 import { getProjects } from '../../../actions/project';
+// import { dayjs } from 'dayjs';
 
 const AddForm = () => {
   const {
@@ -25,6 +30,8 @@ const AddForm = () => {
   useEffect(() => {
     if (projects.length === 0) getProjects(dispatch);
   },[]);
+
+  const [expDateValue, setExpDateValue] = useState(null);
 
   const projectOptions = projects.map(({ name, id }) => ({ label:name, id:id }));
 
@@ -107,19 +114,33 @@ const AddForm = () => {
               rows={2}
               fullWidth
               inputRef={short_descriptionRef}
+              required
             />
 
             <TextField
               margin="normal"
               variant="standard"
-              id="short_description"
+              id="long_description"
               label="Details"
               type="text"
               fullWidth
               multiline
               rows={4}
               inputRef={long_descriptionRef}
+              required
             />
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Experiment Date"
+                value={expDateValue}
+                onChange={(newValue) => {
+                  setExpDateValue(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} sx={{width: '100%', mt:2}}/>}
+              />
+            </LocalizationProvider>
+
 
             <TextField
               margin="normal"

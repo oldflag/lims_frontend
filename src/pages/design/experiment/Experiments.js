@@ -81,14 +81,14 @@ export default function Experiments() {
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
 
-    const { id, name, short_description, long_description, priority, status, metadata} = updatedRow;
+    const { id, name, short_description, long_description, exp_date, priority, status, metadata} = updatedRow;
 
     let result;
 
     if (isNewRecord){
       result = await register(updatedRow, dispatch)
     } else{
-      result = await updateStatus({ name, short_description, long_description, priority, status, metadata}, id, dispatch);
+      result = await updateStatus({ name, short_description, long_description, exp_date, priority, status, metadata}, id, dispatch);
       if(result) {
         getExperiments(dispatch)
       }
@@ -112,6 +112,7 @@ export default function Experiments() {
     { field: 'name', headerName: 'Name', flex: 1, editable: true },
     { field: 'short_description', headerName: 'Description', flex: 1, editable: true },
     { field: 'long_description', headerName: 'Details', flex: 2, editable: true },
+    { field: 'exp_date', headerName: 'Experiment Date', type:'date', flex:1, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
     { field: 'priority', headerName: 'Priority', flex: 1, editable: true },
     { field: 'status', 
       headerName: 'Status', 
