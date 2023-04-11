@@ -91,7 +91,7 @@ const AddForm =  () => {
               id="spLayout_"
               label="Split&Pool Layout"
               type="text"
-              defaultValue={"Layout 1"}
+              defaultValue={"4PLx96Well"}
               fullWidth
               inputRef={spLayoutRef}
             />

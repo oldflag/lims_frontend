@@ -29,7 +29,7 @@ export default function Acquisitions() {
         onClick={handleClick}
         endIcon={<KeyboardArrowDown />}
       >
-        Acquisition
+        Projects
       </Button>
       <Menu
         id="basic-menu"
@@ -42,8 +42,7 @@ export default function Acquisitions() {
       >
         <MenuItem onClick={() => {navigate('acquisition/collaborators'); handleClose()}}> Collaborators </MenuItem>
         <MenuItem onClick={() => {navigate('acquisition/projects');handleClose()}}> Projects </MenuItem>
-        <MenuItem onClick={() => {navigate('acquisition/donors'); handleClose()}}> Donors </MenuItem>
-        <MenuItem onClick={() => {navigate('acquisition/specimens');handleClose()}}> Specimens </MenuItem>
+        <MenuItem onClick={() => {navigate('account/minquoteview');handleClose()}}> Quotes </MenuItem>
       </Menu>
     </>
   );

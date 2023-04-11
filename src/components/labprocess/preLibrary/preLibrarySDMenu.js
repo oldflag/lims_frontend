@@ -36,6 +36,7 @@ const PreLibrarySDMenu = () => {
         ariaLabel="PreLibrary Processes"
         icon={<NavigateNextTwoToneIcon />}
         direction={"right"}
+        open='true'
         
     >
       <SpeedDialAction 

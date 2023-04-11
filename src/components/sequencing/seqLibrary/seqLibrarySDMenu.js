@@ -36,12 +36,13 @@ const SeqLibrarySDMenu = () => {
         ariaLabel="RNA Library Processes"
         icon={<NavigateNextTwoToneIcon />}
         direction={"right"}
+        open='true'
         
     >
       <SpeedDialAction 
           key='New' 
           icon={<AddBoxIcon />} 
-          tooltipTitle='New Library' 
+          tooltipTitle='New Seq Run' 
           // tooltipOpen
           // tooltipPlacement='bottom-start' 
           onClick={() => {navigate('/sequencing/newSeqLibrary')}}/>

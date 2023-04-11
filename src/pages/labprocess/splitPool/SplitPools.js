@@ -110,9 +110,9 @@ export default function SplitPools() {
       ),
     },
     { field: 'batch_name', headerName: 'Batch Name', flex: 1, },
-    { field: 'spLayout', headerName: 'Layout Info', flex: 1, editable: true },
+    { field: 'spLayout', headerName: 'Plate Info', flex: 1, editable: true },
     { field: 'reagentInfo', headerName: 'Reagent Info', flex: 1, editable: true },
-    { field: 'qcClumps', headerName: 'QC Clumps', flex: 1, editable: true },
+    // { field: 'qcClumps', headerName: 'QC Clumps', flex: 1, editable: true },
 
     { field: 'status', 
       headerName: 'Status', 

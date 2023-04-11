@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { KeyboardArrowDown } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
-export default function Inventories() {
+export default function Acquisitions2() {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -22,30 +22,28 @@ export default function Inventories() {
     <>
       <Button
         color="inherit"
-        id="inventory-button"
-        aria-controls={open ? 'inventory-menu' : undefined}
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        // onMouseOver={handleClick}
         endIcon={<KeyboardArrowDown />}
       >
-        Inventory
+        Samples
       </Button>
       <Menu
-        id="inventory-menu"
+        id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          'aria-labelledby': 'inventory-button',
+          'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={() => {navigate('inventory/antibodies'); handleClose()}}> Antibody </MenuItem>
-        <MenuItem onClick={() => {navigate('inventory/patn5s'); handleClose()}}> pATn5 </MenuItem>
-        <MenuItem onClick={() => {navigate('inventory/reagents');handleClose()}}> Reagents </MenuItem>
-        <MenuItem onClick={() => {navigate('design/loadPatn5s'); handleClose()}}> Load pATn5 </MenuItem>
-
+        <MenuItem onClick={() => {navigate('acquisition/donors'); handleClose()}}> Donors </MenuItem>
+        <MenuItem onClick={() => {navigate('acquisition/specimens');handleClose()}}> Specimens </MenuItem>
+        <MenuItem onClick={() => {navigate('design/samples'); handleClose()}}> Samples </MenuItem>
+        {/* <MenuItem onClick={() => {navigate('account/minquoteview');handleClose()}}> Quotes </MenuItem> */}
       </Menu>
     </>
   );

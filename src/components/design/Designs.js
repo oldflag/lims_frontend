@@ -40,12 +40,13 @@ export default function Designs() {
           'aria-labelledby': 'design-button',
         }}
       >
+        {/* <MenuItem onClick={() => {navigate('design/samples'); handleClose()}}> Samples </MenuItem> */}
         <MenuItem onClick={() => {navigate('design/experiments'); handleClose()}}> Experiments </MenuItem>
-        <MenuItem onClick={() => {navigate('design/samples'); handleClose()}}> Samples </MenuItem>
-        <MenuItem onClick={() => {navigate('design/loadPatn5s'); handleClose()}}> Load pATn5 </MenuItem>
-        <MenuItem onClick={() => {navigate('account/minquoteview');handleClose()}}> Quotes </MenuItem>
         <MenuItem onClick={() => {navigate('design/batchs');handleClose()}}> Batches </MenuItem>
         <MenuItem onClick={() => {navigate('design/assays');handleClose()}}> Assays </MenuItem>
+        
+        
+        
       </Menu>
     </>
   );

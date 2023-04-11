@@ -43,8 +43,8 @@ export default function Labprocesses() {
         <MenuItem onClick={() => {navigate('labprocess/splitPool'); handleClose()}}> Split&Pool </MenuItem>
         <MenuItem onClick={() => {navigate('labprocess/lysis');handleClose()}}> Lysis </MenuItem>
         <MenuItem onClick={() => {navigate('labprocess/prelibrary');handleClose()}}> Prelibrary </MenuItem>
-        <MenuItem onClick={() => {navigate('labprocess/rnaLibrary/rnaLibrary');handleClose()}}> RNA Library </MenuItem>
         <MenuItem onClick={() => {navigate('labprocess/dnaLibrary/dnaLibrary');handleClose()}}> DNA Library </MenuItem>
+        <MenuItem onClick={() => {navigate('labprocess/rnaLibrary/rnaLibrary');handleClose()}}> RNA Library </MenuItem>
       </Menu>
     </>
   );

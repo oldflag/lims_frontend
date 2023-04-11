@@ -4,6 +4,8 @@ import {Lock, Menu} from '@mui/icons-material'
 import { useValue } from '../context/ContextProvider';
 import UserIcons from './user/UserIcons';
 import Acquisitions from './acquisition/Acquisitions';
+import Acquisitions2 from './acquisition/Acquisitions2';
+
 import Users from './user/Users';
 import Inventories from './inventory/Inventories';
 import Designs from './design/Designs';
@@ -34,6 +36,7 @@ const NavBar = () => {
                {(currentUser.role === "ADMIN") && <Users />}
                {(["ACCOUNT", "ADMIN"].includes(currentUser.role)) && <Accounts /> }
               <Acquisitions />
+              <Acquisitions2 />
               <Inventories />
               {(currentUser.role !== "ACCOUNT") && <Designs /> }
               {(currentUser.role !== "ACCOUNT") && <Labprocesses />}

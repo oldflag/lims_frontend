@@ -53,7 +53,7 @@ export default function UserTable() {
 
   const columns = useMemo(
     () => [
-      { field: 'id', headerName: 'Id', flex: 1 },
+      // { field: 'id', headerName: 'ID', flex: 1 },
       { field: 'name', headerName: 'Name', flex: 1  },
       { field: 'email', headerName: 'Email', flex: 1  },
       {
@@ -127,12 +127,6 @@ export default function UserTable() {
           top: params.isFirstVisible ? 0 : 5,
           bottom: params.isLastVisible ? 0 : 5,
         })}
-        sx={{
-          [`& .${gridClasses.row}`]: {
-            bgcolor: (theme) =>
-              theme.palette.mode === 'light' ? grey[200] : grey[900],
-          },
-        }}
         onCellEditCommit={(params) => setRowId(params.id)}
         components={{
           Toolbar: EditToolbar,

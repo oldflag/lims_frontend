@@ -31,6 +31,7 @@ const RnaLibrarySDMenu = () => {
         icon={<NavigateNextTwoToneIcon />}
         direction={"right"}
         sx={{width:"30%"}}
+        open='true'
     >
       <SpeedDialAction 
           key='New' 

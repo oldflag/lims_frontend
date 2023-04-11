@@ -33,6 +33,7 @@ const DnaLibrarySDMenu = () => {
         ariaLabel="DNA Library Processes"
         icon={<NavigateNextTwoToneIcon />}
         direction={"right"}
+        open='true'
     >
       <SpeedDialAction 
           key='New' 

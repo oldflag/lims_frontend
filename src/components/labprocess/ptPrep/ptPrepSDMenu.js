@@ -35,6 +35,7 @@ const PtPrepSDMenu = () => {
         ariaLabel="PtPrep Processes"
         icon={<NavigateNextTwoToneIcon />}
         direction={"right"}
+        open='true'
         
     >
       <SpeedDialAction 
