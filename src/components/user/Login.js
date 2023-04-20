@@ -10,18 +10,23 @@ import {
   TextField,
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
-import { login, register } from '../../actions/user';
+import { login, register, getUsers } from '../../actions/user';
 import { useValue } from '../../context/ContextProvider';
 import GoogleOneTapLogin from './GoogleOneTapLogin';
 import PasswordField from './PasswordField';
 
 const Login = () => {
   const {
-    state: { openLogin },
+    state: { openLogin, users },
     dispatch,
   } = useValue();
+
+  useEffect(() => {
+    if (users.length === 0) getUsers(dispatch);
+  }, []);
+
   const [title, setTitle] = useState('Login');
-  const [isRegister, setIsRegister] = useState(false);
+  const [isRegister, setIsRegister] = useState(users.length === 0 ? true: false);
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
