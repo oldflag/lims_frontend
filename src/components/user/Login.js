@@ -26,7 +26,7 @@ const Login = () => {
   }, []);
 
   const [title, setTitle] = useState('Login');
-  const [isRegister, setIsRegister] = useState(users.length === 0 ? true: false);
+  const [isRegister, setIsRegister] = useState(false);
   const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
