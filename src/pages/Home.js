@@ -48,6 +48,7 @@ import TapeStation from './qcresult/tapestation/TapeStation';
 import SeqLibrarys from './sequencing/seqLibrary/SeqLibrarys';
 import NewSeqLibrarys from './sequencing/newSeqLibrary/NewSeqLibrarys'
 import SeqFiles from './sequencing/seqFile/SeqFiles';
+import SeqRuns from './sequencing/seqRun/SeqRuns';
 import SampleSheet from './report/samplesheet/SampleSheet';
 import Digest from './report/digest/Digest';
 import Qcreport from './report/qcreport/Qcreport';
@@ -283,6 +284,11 @@ const linklist = useMemo(
         title: 'Sequencing Files',
         link: 'sequencing/seqFile',
         component: <SeqFiles {...{ setSelectedLink, link: 'sequencing/seqFile' }} />,
+      },
+      {
+        title: 'Sequencing Runs',
+        link: 'sequencing/seqRun',
+        component: <SeqRuns {...{ setSelectedLink, link: 'sequencing/seqRun' }} />,
       },
       {
         title: 'Sample Sheet',

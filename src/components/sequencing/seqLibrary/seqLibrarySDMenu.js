@@ -2,6 +2,7 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import AddLinkIcon from '@mui/icons-material/AddLink';
+import AdfScannerIcon from '@mui/icons-material/AdfScanner';
 import ScienceIcon from '@mui/icons-material/Science';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import ListAltIcon from '@mui/icons-material/ListAlt';
@@ -47,6 +48,13 @@ const SeqLibrarySDMenu = () => {
           // tooltipPlacement='bottom-start' 
           onClick={() => {navigate('/sequencing/newSeqLibrary')}}/>
       <SpeedDialAction 
+          key='Seq Run' 
+          icon={<AdfScannerIcon />} 
+          tooltipTitle='Seq Run' 
+          // tooltipOpen
+          // tooltipPlacement='top' 
+          onClick={() => {navigate('/sequencing/seqRun')}} />
+      <SpeedDialAction 
           key='Seq Library' 
           icon={<ScienceIcon />} 
           tooltipTitle='Seq Library' 
@@ -83,7 +91,20 @@ const SeqLibrarySDMenu = () => {
             navigate('/sequencing/seqFile')
             dispatch({ type: 'OPEN_DIGEST' })
             }
-            } />    
+            } />
+
+      <SpeedDialAction 
+          key='runreport' 
+          icon={<ListAltIcon />} 
+          tooltipTitle='Seq Run Report' 
+          // tooltipOpen
+          // tooltipPlacement='top'  
+          // onClick={() => {navigate('/sequencing/sampleSheet')}} />
+          onClick={() => {
+            navigate('/sequencing/seqRun')
+            dispatch({ type: 'OPEN_SEQRUNREPORT' })
+            }
+            } />      
       {/* <SpeedDialAction 
           key='Multiplexing' 
           icon={<DynamicFeedIcon />} 

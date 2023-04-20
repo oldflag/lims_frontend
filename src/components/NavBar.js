@@ -1,6 +1,7 @@
 import React from 'react'
-import {AppBar, Box, Button, Container, IconButton, Toolbar, Typography, Stack} from '@mui/material'
+import {AppBar, Box, Button, Container, IconButton, Toolbar, Typography, Stack, Link} from '@mui/material'
 import {Lock, Menu} from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
 import { useValue } from '../context/ContextProvider';
 import UserIcons from './user/UserIcons';
 import Acquisitions from './acquisition/Acquisitions';
@@ -14,6 +15,8 @@ import QCresults from './qcresult/QCresults';
 import Sequencings from './sequencing/Sequencings';
 import Reports from './report/Reports';
 import Accounts from './account/Accounts';
+import logo from '../images/epigenome_logo.png'
+
 
 const NavBar = () => {
 
@@ -21,6 +24,8 @@ const NavBar = () => {
     state: { currentUser },
     dispatch,
   } = useValue();
+
+  const navigate = useNavigate()
 
   return (
     <>
@@ -30,9 +35,24 @@ const NavBar = () => {
             <Typography variant='h6' component='h6' noWrap sx={{flexGrow:1}}>
               {(currentUser) ? ((currentUser.role === "ACCOUNT") ? "ACCOUNT" : "LIMS") : "Epigenome Technologies Inc."}
             </Typography>
+            {/* <Link href="/">
+              <Box
+                component="img"
+                sx={{ height: 50 }}
+                alt="Logo"
+                src={logo}
+              />
+            </Link>  */}
             <Stack direction={'row'} spacing={1}>
               {currentUser && (
                 <>
+               <Button
+                color="inherit"
+                // startIcon={<Lock />}
+                onClick={() => navigate('/dashboard')}
+              >
+                Dashboard
+              </Button> 
                {(currentUser.role === "ADMIN") && <Users />}
                {(["ACCOUNT", "ADMIN"].includes(currentUser.role)) && <Accounts /> }
               <Acquisitions />

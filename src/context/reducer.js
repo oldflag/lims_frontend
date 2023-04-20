@@ -556,6 +556,11 @@ const reducer = (state, action) => {
     case 'CLOSE_DIGEST':
       return { ...state, openDigest: false };
 
+    case 'OPEN_SEQRUNREPORT':
+      return { ...state, openSeqRunReport: true };
+    case 'CLOSE_SEQRUNREPORT':
+      return { ...state, openSeqRunReport: false };
+
     case 'UPDATE_QUOTE':
       return { ...state, quotes: [...state.quotes, action.payload] };
     
