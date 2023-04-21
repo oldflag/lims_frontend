@@ -26,6 +26,8 @@ const AddForm = () => {
     if (collaborators.length === 0) getCollaborators(dispatch);
   },[]);
 
+
+
   const collaboratorOptions = collaborators.map(({ name, id }) => ({ label:name, id:id }));
 
   const [collaboratorValue, setCollaboratorValue] = useState(collaboratorOptions[0]);
@@ -62,7 +64,7 @@ const AddForm = () => {
   return (
     <Dialog open={openProject} onClose={handleClose}>
       <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
-        "Register New Project"
+        Register New Project
         <IconButton
           sx={{
             position: 'absolute',
@@ -95,14 +97,13 @@ const AddForm = () => {
             />
 
             <TextField
-              autoFocus
               margin="normal"
               variant="standard"
               id="type_"
               label="Type"
               type="text"
               fullWidth
-              inputRef={nameRef}
+              inputRef={typeRef}
               inputProps={{ minLength: 1 }}
               required
             />
