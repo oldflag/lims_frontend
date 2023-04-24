@@ -53,6 +53,21 @@ export const updateStatus = (updatedFields, projectId, dispatch) => {
 
 };
 
+export const updateRelatedSpecimen = (specimens, projectId, dispatch) => {
+
+  console.log(projectId)
+  console.log(specimens)
+  return fetchData(
+    {
+      url: `${url}/updateRelatedSpecimens/${projectId}`,
+      method: 'PATCH',
+      body: specimens,
+    },
+    dispatch
+  );
+
+};
+
 export const deleteOne = async (id, dispatch) => {
   dispatch({ type: 'START_LOADING' });
 

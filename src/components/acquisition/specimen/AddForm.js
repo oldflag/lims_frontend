@@ -99,7 +99,7 @@ const AddForm = () => {
   return (
     <Dialog open={openSpecimen} onClose={handleClose}>
       <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
-        "Register New Specimen"
+        Register New Specimen
         <IconButton
           sx={{
             position: 'absolute',
@@ -138,8 +138,8 @@ const AddForm = () => {
               onChange={(e, newValue) => {
                 setProjectValue(newValue)
               }}
-              renderInput={(params) => <TextField {...params} label="Project" variant="standard" />}
-              required
+              renderInput={(params) => <TextField {...params} label="Project" variant="standard" required />}
+              
             />
             <Autocomplete
               disablePortal

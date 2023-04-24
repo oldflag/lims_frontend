@@ -34,7 +34,7 @@ const importData = (file, headerrow, fn) => {
       //parse data
 
         const bstr = event.target.result
-        const workBook = XLSX.read(bstr, { type: "binary" })
+        const workBook = XLSX.read(bstr, { type: "binary", cellDates: true, dateNF:"mm/dd/yyyy" })
 
         //get first sheet
         const workSheetName = workBook.SheetNames[0]
