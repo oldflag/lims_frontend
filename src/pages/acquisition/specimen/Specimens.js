@@ -246,8 +246,8 @@ export default function Specimens() {
         <SpecimensActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', width: 150, editable: true },
-    { field: 'project_name', headerName: 'Project', width: 100, editable: false},
+    { field: 'name', headerName: 'Name', width: 200, editable: true },
+    { field: 'project_name', headerName: 'Project', width: 150, editable: false},
     { field: 'donor_name', headerName: 'Donor', width: 100, editable: false},
     { field: 'species', headerName: 'Species', width: 150, editable: true },
     { field: 'tissue', headerName: 'Tissue', width: 150, editable: true },

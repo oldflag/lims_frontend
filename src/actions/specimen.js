@@ -55,6 +55,22 @@ export const updateStatus = (updatedFields, specimenId, dispatch) => {
 
 };
 
+
+export const updateRelatedSample = (samples, specimenId, dispatch) => {
+
+  console.log(specimenId)
+  console.log(samples)
+  return fetchData(
+    {
+      url: `${url}/updateRelatedSamples/${specimenId}`,
+      method: 'PATCH',
+      body: samples,
+    },
+    dispatch
+  );
+
+};
+
 export const deleteOne = async (id, dispatch) => {
   dispatch({ type: 'START_LOADING' });
 

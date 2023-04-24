@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/sample';
 import moment from 'moment';
@@ -16,22 +17,116 @@ import {
 import { getSamples } from '../../../actions/sample';
 import SamplesActions from './SamplesActions'
 import AddForm from '../../../components/design/sample/AddForm';
+import {getSpecimens, updateRelatedSample} from '../../../actions/specimen'
+import importData from '../../../actions/utils/importData';
 
 function EditToolbar(props) {
 
   const {
+    state: { specimens,},
     dispatch,
   } = useValue();
+
+  useEffect(() => {
+    if (specimens.length === 0) getSpecimens(dispatch);
+  }, []);
 
   const handleClick = () => {
     
     dispatch({ type: 'OPEN_SAMPLE' })
   };
 
+  const cbFileData = async(data) => {
+
+    // console.log(data)
+
+
+    if(data?.length ===0 ){
+
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'No data are loaded. Please check the input file!'
+        },
+      });
+      return
+    }
+
+    const headerList = Object.keys(data[0]);
+    if(!headerList.includes('name')){
+
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'Please check header names: name(required), specimen_name(required), extraction_date, extraction_methon, nuclei_count'
+        },
+      });
+      return
+    }
+
+    for( let aIndex in data){
+
+      let aItem = data[aIndex]
+      let relatedSpecimen = specimens.filter((item) => {return item.name === aItem.specimen_name}) 
+
+      if (relatedSpecimen.length === 0) {
+
+        // dispatch({
+        //   type: 'UPDATE_ALERT',
+        //   payload: {
+        //     open: true,
+        //     severity: 'error',
+        //     message: 'No project name for the specimen'+aSpecimen.project_name
+        //     },
+        // });
+        
+        continue;
+
+      }
+      delete aItem.specimen_name
+
+      await updateRelatedSample(aItem, relatedSpecimen[0].id, dispatch)
+
+    }
+
+    getSamples(dispatch);
+      
+    
+  }
+
+  const handleClickFile = (e) => {
+
+   
+    importData(e.target.files[0], 1, cbFileData)
+    
+  };
+
+  const handleUploadInfo = (e) => {
+
+     dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'info',
+        message: 'header(1st row): name(required), specimen_name(required), extraction_date, extraction_method, nuclei_count'
+      },
+    });
+    
+
+  }
+
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
       <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
         <AddIcon />
+      </Fab>
+      <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
+        <input hidden accept="*" type="file" onChange={handleClickFile}/>
+        <UploadFileIcon onClick={handleUploadInfo}/>
       </Fab>
     </GridToolbarContainer>
   );

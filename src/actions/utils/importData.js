@@ -20,7 +20,7 @@ const importData = (file, headerrow, fn) => {
         data.forEach(row => {
             let rowData = {}
             row.forEach((element, index) => {
-            rowData[headers[index]] = element
+            rowData[headers[index]] = typeof element === "number" ? element.toString() : element
             })
             rows.push(rowData)
 
