@@ -26,6 +26,30 @@ export const register = async (batch, dispatch) => {
   dispatch({ type: 'END_LOADING' });
 };
 
+export const registerFromFile = async (batch, dispatch) => {
+  // dispatch({ type: 'START_LOADING' });
+  const result = await fetchData(
+    { url: url + '/register', body: batch },
+    dispatch
+  );
+
+  if (result) {
+    dispatch({ type: 'UPDATE_BATCH', payload: result });
+    // dispatch({
+    //   type: 'UPDATE_ALERT',
+    //   payload: {
+    //     open: true,
+    //     severity: 'success',
+    //     message: 'A new batch has been created successfully',
+    //   },
+    // });
+    // dispatch({ type: 'CLOSE_BATCH' });
+
+  }
+
+  // dispatch({ type: 'END_LOADING' });
+};
+
 
 export const getBatchs = async (dispatch) => {
 

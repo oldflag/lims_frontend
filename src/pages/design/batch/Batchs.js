@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/batch';
 
@@ -16,6 +17,8 @@ import { getBatchs } from '../../../actions/batch';
 import BatchsActions from './BatchsActions'
 import AddForm from '../../../components/design/batch/AddForm';
 import moment from 'moment';
+import importData from '../../../actions/utils/importData';
+import {registerFromFile} from '../../../actions/batch'
 
 function EditToolbar(props) {
 
@@ -28,10 +31,86 @@ function EditToolbar(props) {
     dispatch({ type: 'OPEN_BATCH' })
   };
 
+  const cbFileData = async(data) => {
+
+    console.log(data)
+
+    if(data?.length ===0 ){
+
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'No data are loaded. Please check the input file!'
+        },
+      });
+      return
+    }
+
+    const headerList = Object.keys(data[0]);
+    if(!headerList.includes('name')){
+
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'Please check header names: name(required), createdAt'
+        },
+      });
+      return
+    }
+
+    for( let aIndex in data){
+
+      let aBatch = data[aIndex]
+
+      if (!aBatch.name) {
+        
+        continue;
+
+      }
+
+      await registerFromFile(aBatch, dispatch)
+
+    }
+
+    // getExperiments(dispatch);
+      
+    
+  }
+
+  const handleClickFile = (e) => {
+
+   
+    importData(e.target.files[0], 1, cbFileData, 'Batch')
+    
+  };
+
+  const handleUploadInfo = (e) => {
+
+     dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'info',
+        message: 'Tab name: Batch, header(1st row): name(required), createdAt'
+      },
+    });
+    
+
+  }
+
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
       <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
         <AddIcon />
+      </Fab>
+
+      <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
+        <input hidden accept="*" type="file" onChange={handleClickFile}/>
+        <UploadFileIcon onClick={handleUploadInfo}/>
       </Fab>
     </GridToolbarContainer>
   );

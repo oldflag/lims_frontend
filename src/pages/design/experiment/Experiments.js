@@ -39,9 +39,6 @@ function EditToolbar(props) {
 
   const cbFileData = async(data) => {
 
-    console.log(data)
-
-
     if(data?.length ===0 ){
 
       dispatch({
