@@ -55,13 +55,28 @@ export const updateStatus = (updatedFields, projectId, dispatch) => {
 
 export const updateRelatedSpecimen = (specimens, projectId, dispatch) => {
 
-  console.log(projectId)
-  console.log(specimens)
+  // console.log(projectId)
+  // console.log(specimens)
   return fetchData(
     {
       url: `${url}/updateRelatedSpecimens/${projectId}`,
       method: 'PATCH',
       body: specimens,
+    },
+    dispatch
+  );
+
+};
+
+export const updateRelatedExperiment = (experiments, projectId, dispatch) => {
+
+  console.log(projectId)
+  console.log(experiments)
+  return fetchData(
+    {
+      url: `${url}/updateRelatedExperiments/${projectId}`,
+      method: 'PATCH',
+      body: experiments,
     },
     dispatch
   );

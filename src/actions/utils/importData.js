@@ -2,7 +2,7 @@ import * as XLSX from 'xlsx'
 
 const EXTENSIONS = ['xlsx', 'xls', 'csv']
 
-const importData = (file, headerrow, fn) => {
+const importData = (file, headerRow, fn, tabName='') => {
 
     
     // let header;
@@ -37,10 +37,10 @@ const importData = (file, headerrow, fn) => {
         const workBook = XLSX.read(bstr, { type: "binary", cellDates: true, dateNF:"mm/dd/yyyy" })
 
         //get first sheet
-        const workSheetName = workBook.SheetNames[0]
+        const workSheetName = tabName ? tabName : workBook.SheetNames[0]
         const workSheet = workBook.Sheets[workSheetName]
         //convert to array
-        const fileData = XLSX.utils.sheet_to_json(workSheet, { header: headerrow })
+        const fileData = XLSX.utils.sheet_to_json(workSheet, { header: headerRow })
 
         let header = fileData[0]
         //   const heads = headers.map(head => ({ title: head, field: head }))

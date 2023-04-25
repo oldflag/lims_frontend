@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/experiment';
 import moment from 'moment';
@@ -16,22 +17,110 @@ import {
 import { getExperiments } from '../../../actions/experiment';
 import ExperimentsActions from './ExperimentsActions'
 import AddForm from '../../../components/design/experiment/AddForm';
+import importData from '../../../actions/utils/importData';
+import {getProjects, updateRelatedExperiment} from '../../../actions/project'
 
 function EditToolbar(props) {
 
   const {
-    dispatch,
+    state: { projects,},
+    dispatch, 
   } = useValue();
+
+  useEffect(() => {
+    if (projects.length === 0) getProjects(dispatch);
+  }, []);
 
   const handleClick = () => {
     
     dispatch({ type: 'OPEN_EXPERIMENT' })
   };
 
+
+  const cbFileData = async(data) => {
+
+    console.log(data)
+
+
+    if(data?.length ===0 ){
+
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'No data are loaded. Please check the input file!'
+        },
+      });
+      return
+    }
+
+    const headerList = Object.keys(data[0]);
+    if(!headerList.includes('name')){
+
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'Please check header names: name(required), project_name(required), short_description, long_description, exp_date'
+        },
+      });
+      return
+    }
+
+    for( let aIndex in data){
+
+      let aExperiment = data[aIndex]
+      let relatedProject = projects.filter((item) => {return item.name === aExperiment.project_name}) 
+
+      if (relatedProject.length === 0) {
+        
+        continue;
+
+      }
+      delete aExperiment.project_name
+
+      await updateRelatedExperiment(aExperiment, relatedProject[0].id, dispatch)
+
+    }
+
+    getExperiments(dispatch);
+      
+    
+  }
+
+  const handleClickFile = (e) => {
+
+   
+    importData(e.target.files[0], 1, cbFileData, 'Experiment')
+    
+  };
+
+  const handleUploadInfo = (e) => {
+
+     dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'info',
+        message: 'Tab name: Experiment, header(1st row): name(required), project_name(required), short_description, long_description, exp_date'
+      },
+    });
+    
+
+  }
+
+
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
       <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
         <AddIcon />
+      </Fab>
+
+      <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
+        <input hidden accept="*" type="file" onChange={handleClickFile}/>
+        <UploadFileIcon onClick={handleUploadInfo}/>
       </Fab>
     </GridToolbarContainer>
   );
