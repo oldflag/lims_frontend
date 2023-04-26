@@ -68,7 +68,7 @@ function EditToolbar(props) {
   const handleClickFile = (e) => {
 
    
-    importData(e.target.files[0], 1, cbFileData)
+    importData(e.target.files[0], 1, cbFileData, 'Collaborator')
     
   };
 
