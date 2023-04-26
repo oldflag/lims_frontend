@@ -30,12 +30,12 @@ export const register = async (quote, dispatch) => {
 
 export const registerFromFile = async (quote, dispatch) => {
   // dispatch({ type: 'START_LOADING' });
-  // console.log(quote)
+  console.log(quote)
   const result = await fetchData(
     { url: url + '/import', body: quote },
     dispatch
   );
-  
+  console.log(result)
   if (result.code) {
     dispatch({
       type: 'UPDATE_ALERT',
