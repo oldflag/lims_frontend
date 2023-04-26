@@ -32,7 +32,7 @@ export const getLoadPatn5s = async (dispatch) => {
   dispatch({ type: 'START_LOADING' });
 
   const result = await fetchData({ url, method: 'GET' }, dispatch);
-  console.log(result)
+  // console.log(result)
   if (result) {
     dispatch({ type: 'UPDATE_LOADPATN5S', payload: result });
   }

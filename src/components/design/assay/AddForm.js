@@ -53,7 +53,7 @@ const AddForm = () => {
                                         return item.type === typeValue})
                                       .map(({tubeNum, barcode}) => ({tubeNum, barcode}))
                         )},[typeValue])
-  console.log(tubebarcodeValue)
+  // console.log(tubebarcodeValue)
   const statusRef = useRef();
   const metadataRef = useRef();
 

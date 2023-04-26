@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/assay';
 import moment from 'moment';
@@ -13,27 +14,107 @@ import {
   GridToolbarContainer,
 } from '@mui/x-data-grid';
 
-import { getAssays } from '../../../actions/assay';
+import { getAssays, registerFromFile } from '../../../actions/assay';
 import { getAntibodies } from '../../../actions/antibody';
 import { getSamples } from '../../../actions/sample';
+import { getExperiments } from '../../../actions/experiment';
+import { getBatchs } from '../../../actions/batch';
+
 import AssaysActions from './AssaysActions'
 import AddForm from '../../../components/design/assay/AddForm';
+import importData from '../../../actions/utils/importData';
+
 
 function EditToolbar(props) {
 
   const {
+    // state: { assays, antibodies, samples, experiments, batchs },
     dispatch,
   } = useValue();
+
+  // useEffect(() => {
+  //   if (assays.length === 0) getAssays(dispatch);
+  //   if (antibodies.length === 0) getAntibodies(dispatch);
+  //   if (samples.length === 0) getSamples(dispatch);
+  //   if (experiments.length === 0) getExperiments(dispatch);
+  //   if (batchs.length === 0) getBatchs(dispatch);
+  // }, []);
+
 
   const handleClick = () => {
     
     dispatch({ type: 'OPEN_ASSAY' })
   };
 
+  const cbFileData = async(data) => {
+
+    // console.log(data)
+
+    if(data?.length ===0 ){
+
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'No data are loaded. Please check the input file!'
+        },
+      });
+      return
+    }
+
+    for( let aIndex in data){
+
+      let aAssay = data[aIndex]
+
+      // console.log(aAssay)
+
+      if (!aAssay.batch_name) {
+        
+        continue;
+
+      }
+
+      await registerFromFile(aAssay, dispatch)
+
+    }
+
+    // getExperiments(dispatch);
+      
+    
+  }
+
+  const handleClickFile = (e) => {
+
+   
+    importData(e.target.files[0], 1, cbFileData, 'Assay')
+    
+  };
+
+  const handleUploadInfo = (e) => {
+
+     dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'info',
+        message: 'Tab name: Assay, header(1st row): batch_name(required),sample_name,experiment_name,numOfNuclei,tubeNum,barcode,antibody_name,antibodyConcentration,antibodyConcUnit,antibodyVolume,antibodyVolUnit,assayDate'
+      },
+    });
+    
+
+  }
+
+
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
       <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
         <AddIcon />
+      </Fab>
+
+       <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
+        <input hidden accept="*" type="file" onChange={handleClickFile}/>
+        <UploadFileIcon onClick={handleUploadInfo}/>
       </Fab>
     </GridToolbarContainer>
   );

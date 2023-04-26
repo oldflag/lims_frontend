@@ -27,6 +27,28 @@ export const register = async (assay, dispatch) => {
   dispatch({ type: 'END_LOADING' });
 };
 
+export const registerFromFile = async (assay, dispatch) => {
+  // dispatch({ type: 'START_LOADING' });
+  // console.log(assay)
+  const result = await fetchData(
+    { url: url + '/import', body: assay },
+    dispatch
+  );
+  
+  if (result.code) {
+    dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: "Skip "+assay.sample_name+" due to: "+ result.meta.cause,
+      },
+    });
+    
+  } else {
+    dispatch({ type: 'UPDATE_ASSAY', payload: result });
+  }
+};
 
 export const getAssays = async (dispatch) => {
 

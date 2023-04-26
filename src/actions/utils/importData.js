@@ -40,7 +40,7 @@ const importData = (file, headerRow, fn, tabName='') => {
         const workSheetName = tabName ? tabName : workBook.SheetNames[0]
         const workSheet = workBook.Sheets[workSheetName]
         //convert to array
-        const fileData = XLSX.utils.sheet_to_json(workSheet, { header: headerRow })
+        const fileData = XLSX.utils.sheet_to_json(workSheet, { header: headerRow, blankrows: false })
 
         let header = fileData[0]
         //   const heads = headers.map(head => ({ title: head, field: head }))
