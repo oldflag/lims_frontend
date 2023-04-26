@@ -54,7 +54,7 @@ const NavBar = () => {
                 Dashboard
               </Button> 
                {(currentUser.role === "ADMIN") && <Users />}
-               {(["ACCOUNT", "ADMIN"].includes(currentUser.role)) && <Accounts /> }
+               {(["ACCOUNT", "ADMIN", "MANAGER"].includes(currentUser.role)) && <Accounts /> }
               <Acquisitions />
               <Acquisitions2 />
               <Inventories />
