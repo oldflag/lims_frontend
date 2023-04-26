@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import { Fab, Typography } from '@mui/material';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/quote';
 import moment from 'moment';
@@ -13,9 +14,10 @@ import {
   GridToolbarContainer,
 } from '@mui/x-data-grid';
 
-import { getQuotes } from '../../../actions/quote';
+import { getQuotes, registerFromFile } from '../../../actions/quote';
 import QuotesActions from './QuotesActions'
 import AddForm from '../../../components/account/quote/AddForm';
+import importData from '../../../actions/utils/importData';
 
 function EditToolbar(props) {
 
@@ -28,10 +30,74 @@ function EditToolbar(props) {
     dispatch({ type: 'OPEN_QUOTE' })
   };
 
+
+  const cbFileData = async(data) => {
+
+    // console.log(data)
+
+    if(data?.length ===0 ){
+
+      dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: 'No data are loaded. Please check the input file!'
+        },
+      });
+      return
+    }
+
+    for( let aIndex in data){
+
+      let aQuote = data[aIndex]
+
+      // console.log(aQuote)
+
+      if (!aQuote.name) {
+        
+        continue;
+
+      }
+
+      await registerFromFile(aQuote, dispatch)
+
+    }
+
+    getQuotes(dispatch);
+      
+    
+  }
+
+  const handleClickFile = (e) => {
+
+   
+    importData(e.target.files[0], 1, cbFileData, 'Quote')
+    
+  };
+
+  const handleUploadInfo = (e) => {
+
+     dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'info',
+        message: 'Tab name: Quote, header(1st row): name(required),poNum,invoiceNum,collaborator,lineNum,catalogNum,serialNum,description,quantity,memo,quoteDate'
+      },
+    });
+    
+
+  }
+
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
       <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
         <AddIcon />
+      </Fab>
+      <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
+        <input hidden accept="*" type="file" onChange={handleClickFile}/>
+        <UploadFileIcon onClick={handleUploadInfo}/>
       </Fab>
     </GridToolbarContainer>
   );
@@ -49,7 +115,7 @@ export default function Quotes() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(12);
 
   useEffect(() => {
     if (quotes.length === 0) getQuotes(dispatch);
@@ -130,13 +196,13 @@ export default function Quotes() {
     { field: 'lineNum', headerName: 'Line #', flex: 1, editable: true },
     { field: 'catalogNum', headerName: 'Catalog #', flex: 1, editable: true },
     { field: 'serialNum', headerName: 'Serial #', flex: 1, editable: true },
-    {
-      field: 'createdAt',
-      headerName: 'Created At',
-      flex: 1,
-      type: 'dateTime',
-      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
-    },
+    // {
+    //   field: 'createdAt',
+    //   headerName: 'Created At',
+    //   flex: 1,
+    //   type: 'dateTime',
+    //   valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
+    // },
     
   ],
   [rows, rowModesModel]
@@ -181,7 +247,7 @@ export default function Quotes() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[12, 24, 36]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

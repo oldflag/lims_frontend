@@ -28,6 +28,28 @@ export const register = async (quote, dispatch) => {
   dispatch({ type: 'END_LOADING' });
 };
 
+export const registerFromFile = async (quote, dispatch) => {
+  // dispatch({ type: 'START_LOADING' });
+  // console.log(quote)
+  const result = await fetchData(
+    { url: url + '/import', body: quote },
+    dispatch
+  );
+  
+  if (result.code) {
+    dispatch({
+      type: 'UPDATE_ALERT',
+      payload: {
+        open: true,
+        severity: 'error',
+        message: "Skip "+quote.name+" due to: "+ result.meta.cause,
+      },
+    });
+    
+  } else {
+    dispatch({ type: 'UPDATE_QUOTE', payload: result });
+  }
+};
 
 export const getQuotes = async (dispatch) => {
 
