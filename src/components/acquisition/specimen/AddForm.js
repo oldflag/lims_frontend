@@ -90,7 +90,7 @@ const AddForm = () => {
                     "uberon_id":uberon_id,
                     "collection_date":collectionDateValue,
                     "metadata":metadata, 
-                    "donorId":donorValue.id,
+                    // "donorId":donorValue ? donorValue.id : '',
                     "projectId":projectValue.id}, 
                   dispatch)
 
