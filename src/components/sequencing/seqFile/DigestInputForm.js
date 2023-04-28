@@ -85,6 +85,8 @@ const DigestInputForm = () => {
         for( let j in aAssays){
 
           let y = aAssays[j];
+          
+          console.log(y)
 
           text = text + y.sample_name + ',' + y.id + ',' + y.batch_name + ',' + y.antibody_target + ',' +y.tubeNum + ',' + y.barcode + ','  
 
