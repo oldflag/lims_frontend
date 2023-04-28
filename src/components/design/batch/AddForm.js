@@ -8,7 +8,8 @@ import {
   DialogTitle,
   IconButton,
   TextField,
-  Autocomplete
+  Autocomplete,
+  MenuItem, FormControl, Select, InputLabel,
 } from '@mui/material';
 
 import { useRef, useEffect, useState } from 'react';
@@ -93,15 +94,30 @@ const AddForm = () => {
               required
             />
 
-            <TextField
+            {/* <TextField
               margin="normal"
               variant="standard"
               id="type"
-              label="TYPE"
+              label="Type"
               type="text"
               fullWidth
               inputRef={typeRef}
-            />
+            /> */}
+
+            <FormControl fullWidth>
+              <InputLabel id="type">Type</InputLabel>
+              <Select
+                labelId="type_"
+                id="type__"
+                inputRef={typeRef}
+                label="Type"
+                required
+              >
+                <MenuItem value={'Commercial'}>Commercial</MenuItem>
+                <MenuItem value={'Grant'}>Grant</MenuItem>
+                <MenuItem value={'In-house'}>In-house</MenuItem>
+              </Select>
+            </FormControl>
 
              <TextField
               margin="normal"

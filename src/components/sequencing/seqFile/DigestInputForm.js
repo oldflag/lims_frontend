@@ -86,8 +86,6 @@ const DigestInputForm = () => {
 
           let y = aAssays[j];
           
-          console.log(y)
-
           text = text + y.sample_name + ',' + y.id + ',' + y.batch_name + ',' + y.antibody_target + ',' +y.tubeNum + ',' + y.barcode + ','  
 
           text = text + x.libType.toLowerCase() +','+ x.lysis_name + ',' +x.name + ',' + x.file1+','+x.file2+'\n' 

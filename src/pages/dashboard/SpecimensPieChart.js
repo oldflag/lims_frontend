@@ -42,8 +42,8 @@ export default function SpecimensPieChart() {
       others = 0
 
     specimens.forEach((specimen) => {
-      if (specimen.species === 'human') return human++;
-      if (specimen.species === 'mouse') return mouse++;
+      if (specimen.species.toLowerCase() === 'human') return human++;
+      if (specimen.species.toLowerCase() === 'mouse') return mouse++;
       others++;
     });
     setSpeciesGroups([
