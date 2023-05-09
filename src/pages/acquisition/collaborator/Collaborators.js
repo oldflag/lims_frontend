@@ -231,6 +231,11 @@ export default function Collaborators() {
         // boxShadow: 3,
         borderRadius: 2,
         }}
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
+        }}
 
         checkboxSelection={true}
         rows={rows}

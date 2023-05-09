@@ -301,6 +301,11 @@ export default function Specimens() {
         // boxShadow: 3,
         borderRadius: 2,
         }}
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'receipt_date', sort: 'desc' }],
+          },
+        }}
 
         checkboxSelection={true}
         rows={rows}

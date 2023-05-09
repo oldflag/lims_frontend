@@ -241,6 +241,12 @@ export default function Quotes() {
         // boxShadow: 3,
         borderRadius: 2,
         }}
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'name', sort: 'desc' }],
+          },
+        }}   
+
 
         checkboxSelection={true}
         rows={rows}

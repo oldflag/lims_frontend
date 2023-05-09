@@ -43,8 +43,9 @@ import DnaSplitEnzymes from './labprocess/dnaLibrary/dnaSplitEnzyme/DnaSplitEnzy
 import DnaAdapters from './labprocess/dnaLibrary/dnaAdapter/DnaAdapters';
 import DnaLibMultiplexs from './labprocess/dnaLibrary/dnaLibMultiplex/DnaLibMultiplexs';
 import Qpcr from './qcresult/qpcr/Qpcr';
-import SizeSelection from './qcresult/sizeselection/SizeSelection';
-import TapeStation from './qcresult/tapestation/TapeStation';
+import SizeSelection from './qcresult/sizeSelection/SizeSelection';
+import TapeStations from './qcresult/tapeStation/TapeStations';
+import NewTapeStations from './qcresult/newTapeStation/NewTapeStations';
 import SeqLibrarys from './sequencing/seqLibrary/SeqLibrarys';
 import NewSeqLibrarys from './sequencing/newSeqLibrary/NewSeqLibrarys'
 import SeqFiles from './sequencing/seqFile/SeqFiles';
@@ -262,13 +263,18 @@ const linklist = useMemo(
       },
       {
         title: 'Size Selection',
-        link: 'qcresult/sizeselection',
-        component: <SizeSelection {...{ setSelectedLink, link: 'qcresult/sizeselection' }} />,
+        link: 'qcresult/sizeSelection',
+        component: <SizeSelection {...{ setSelectedLink, link: 'qcresult/sizeSelection' }} />,
       },
       {
         title: 'TapeStation',
-        link: 'qcresult/tapestation',
-        component: <TapeStation {...{ setSelectedLink, link: 'qcresult/tapestation' }} />,
+        link: 'qcresult/tapeStation',
+        component: <TapeStations {...{ setSelectedLink, link: 'qcresult/tapeStation' }} />,
+      },
+      {
+        title: 'New TapeStation',
+        link: 'qcresult/newTapeStation',
+        component: <NewTapeStations {...{ setSelectedLink, link: 'qcresult/newTapeStation' }} />,
       },
       {
         title: 'Sequencing Librarys',

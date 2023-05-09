@@ -579,6 +579,25 @@ const reducer = (state, action) => {
     case 'CLOSE_QUOTE':
       return { ...state, openQuote: false };
 
+    
+    case 'UPDATE_TAPESTATION':
+      return { ...state, tapeStations: [...state.tapeStations, action.payload] };
+    
+    case 'UPDATE_TAPESTATIONS':
+      return { ...state, tapeStations: action.payload};
+    
+    case 'DELETE_TAPESTATION':
+      return {
+        ...state,
+        tapeStations: state.tapeStations.filter((aItem) => aItem.id !== action.payload),
+      };
+    case 'OPEN_TAPESTATION':
+      return { ...state, openTapeStation: true };
+    case 'CLOSE_TAPESTATION':
+      return { ...state, openTapeStation: false };
+    case 'UPDATE_TAPESTATIONSELECT':
+      return { ...state, selectedTapeStations: action.payload};
+
 
     
 

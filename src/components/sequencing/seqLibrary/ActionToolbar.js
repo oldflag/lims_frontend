@@ -71,7 +71,7 @@ export default function ActionToolbar(props) {
       
       let seqLibraryId = uuidv4()
 
-      console.log(aItem)
+      // console.log(aItem)
 
       aItem.libType.toUpperCase() === 'DNA' ? 
 

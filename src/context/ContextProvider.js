@@ -97,6 +97,10 @@ const initialState = {
 
   quotes: [],
   openQuote: false,
+
+  tapeStations: [],
+  openTapeStation: false,
+  selectedTapeStations: [],
   
 
 };

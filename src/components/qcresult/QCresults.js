@@ -41,7 +41,7 @@ export default function QCresults() {
         }}
       >
         <MenuItem onClick={() => {navigate('qcresult/sizeselection'); handleClose()}}> Size Selectoin  </MenuItem>
-        <MenuItem onClick={() => {navigate('qcresult/tapestation'); handleClose()}}> TapeStation </MenuItem>
+        <MenuItem onClick={() => {navigate('qcresult/tapeStation'); handleClose()}}> TapeStation </MenuItem>
         <MenuItem onClick={() => {navigate('qcresult/qpcr');handleClose()}}> qPCR </MenuItem>
       </Menu>
     </>
