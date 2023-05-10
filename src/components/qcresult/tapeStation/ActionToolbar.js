@@ -64,8 +64,8 @@ export default function ActionToolbar(props) {
     try {
       const uploadResult = await uploadFile(file, newFileName, file.type)
     } catch (error) {
-      const { requestId, cfId, extendedRequestId, httpStatusCode } = error.$metadata
-      console.log({ requestId, cfId, extendedRequestId, httpStatusCode })
+      const {httpStatusCode } = error.$metadata
+      console.log({ httpStatusCode })
       return dispatch({
         type: 'UPDATE_ALERT',
         payload: {

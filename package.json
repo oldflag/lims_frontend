@@ -30,6 +30,7 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
+    "start_prod": "export PORT=4000 && react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
