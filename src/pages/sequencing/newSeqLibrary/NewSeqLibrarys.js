@@ -128,7 +128,7 @@ export default function SeqLibrarys() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(12);
 
   useEffect(() => {
     if (dnaLibrarys.length === 0) getDnaLibrarys(dispatch);
@@ -241,7 +241,7 @@ export default function SeqLibrarys() {
           <ActionToolbar />
         </Grid>
       </Grid>
-      <Box sx={{ m:2, height: 500, display:'flex'}}>
+      <Box sx={{ m:2, height: 730, display:'flex'}}>
       <DataGrid
         sx={{
         m: 2,
@@ -257,7 +257,7 @@ export default function SeqLibrarys() {
         columns={dnaColumns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[6, 12, 24]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}
@@ -286,7 +286,7 @@ export default function SeqLibrarys() {
         columns={rnaColumns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[6, 12, 24]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

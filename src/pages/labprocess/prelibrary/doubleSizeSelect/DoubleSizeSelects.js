@@ -27,7 +27,7 @@ export default function DoubleSizeSelects() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(12);
 
   useEffect(() => {
     if (doubleSizeSelects.length === 0) getDoubleSizeSelects(dispatch);
@@ -88,7 +88,7 @@ export default function DoubleSizeSelects() {
         <DoubleSizeSelectsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 2, },
     { field: 'lysis_name', headerName: 'Lysis Name', flex: 1, editable: true },
     { field: 'reagentInfo', headerName: 'Reagent Info', flex: 1, editable: true },
     { field: 'beadsRatio1', headerName: 'beadsRatio1', flex: 1, editable: true },
@@ -155,7 +155,7 @@ export default function DoubleSizeSelects() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[6, 12, 24]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

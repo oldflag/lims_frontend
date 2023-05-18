@@ -188,7 +188,7 @@ export default function Batchs() {
         <BatchsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', flex: 1, editable: true },
+    { field: 'name', headerName: 'Name', flex: 2, editable: true },
     { field: 'type', headerName: 'Type', flex: 1, editable: true },
     { field: 'quote_name', headerName: 'Quote #', flex: 1, editable: true },
     { field: 'priority', headerName: 'Priority', flex: 1, editable: true },

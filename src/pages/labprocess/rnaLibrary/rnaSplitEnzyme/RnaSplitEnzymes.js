@@ -25,7 +25,7 @@ export default function RnaSplitEnzymes() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(12);
 
   useEffect(() => {
     if (rnaSplitEnzymes.length === 0) getRnaSplitEnzymes(dispatch);
@@ -85,7 +85,7 @@ export default function RnaSplitEnzymes() {
         <RnaSplitEnzymesActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'rnaLibrary_lysis_batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'rnaLibrary_lysis_batch_name', headerName: 'Batch Name', flex: 2, },
     { field: 'rnaLibrary_lysis_name', headerName: 'Lysis Name', flex: 1},
     { field: 'rnaLibrary_name', headerName: 'Library Name', flex: 1},
     { field: 'reagentInfo', headerName: 'Reagent Info', flex: 1, editable: true },

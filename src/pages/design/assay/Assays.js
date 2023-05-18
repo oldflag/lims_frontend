@@ -227,8 +227,8 @@ export default function Assays() {
         <AssaysActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'experiment_name', headerName: 'Experiment', width: 100, editable: true },
-    { field: 'batch_name', headerName: 'Batch', width: 150, editable: true },
+    { field: 'experiment_name', headerName: 'Experiment', width: 200, editable: true },
+    { field: 'batch_name', headerName: 'Batch', width: 200, editable: true },
     { field: 'sample_name', 
       headerName: 'Sample', 
       width: 150, 

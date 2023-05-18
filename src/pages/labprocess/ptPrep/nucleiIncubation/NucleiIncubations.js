@@ -86,7 +86,7 @@ export default function NucleiIncubations() {
         <NucleiIncubationsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'assay_batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'assay_batch_name', headerName: 'Batch Name', flex: 2, },
     { field: 'assay_tubeNum', headerName: 'Tube #', flex: 1, editable: true },
     { field: 'reagentInfo', headerName: 'Reagent Info', flex: 1, editable: true },
     { field: 'status', 

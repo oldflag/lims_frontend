@@ -28,7 +28,7 @@ export default function SeqRuns() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(12);
 
   useEffect(() => {
     if (seqRuns.length === 0) getSeqRuns(dispatch);
@@ -88,7 +88,7 @@ export default function SeqRuns() {
         <SeqRunsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Seq Run Name', flex: 1},
+    { field: 'name', headerName: 'Seq Run Name', flex: 2},
     {
       field: 'seqDate',
       headerName: 'Seq Date',
@@ -98,7 +98,7 @@ export default function SeqRuns() {
       valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"),
       
     },
-    { field: 'batch_name', headerName:'Batch Name', flex: 1, editable: true},
+    { field: 'batch_name', headerName:'Batch Name', flex: 2},
     { field: 'machine', headerName:'Machine', flex: 1, editable: true},
     { field: 'memo', headerName:'Memo', flex: 1, editable: true},
     { field: 'status', 
@@ -166,7 +166,7 @@ export default function SeqRuns() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[6, 12, 24]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

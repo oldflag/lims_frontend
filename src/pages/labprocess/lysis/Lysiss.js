@@ -109,7 +109,7 @@ export default function Lysiss() {
         <LysissActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'batch_name', headerName: 'Batch Name', flex: 2, },
     { field: 'name', headerName: 'Lysis Name', flex: 1 },
     { field: 'quantity', headerName: 'Quantity', flex: 1, editable: true },
     { field: 'quantityUnit', headerName: 'Quantity Unit', flex: 1, editable: true },

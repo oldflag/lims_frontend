@@ -27,7 +27,7 @@ export default function SeqLibrarys() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(12);
 
   useEffect(() => {
     if (seqLibrarys.length === 0) getSeqLibrarys(dispatch);
@@ -88,7 +88,7 @@ export default function SeqLibrarys() {
       ),
     },
     { field: 'name', headerName: 'Seq Lib', flex: 1},
-    { field: 'seqRun_name', headerName: 'Seq Run', flex: 1},
+    { field: 'seqRun_name', headerName: 'Seq Run', flex: 2},
     { field: 'libType', headerName: 'Lib Type', flex: 1},
     {field:'library_name', headerName:'Lib Name', flex: 1},
     {field:'i7Primer_rcSeq', headerName:'I7 Index', flex: 1},
@@ -160,7 +160,7 @@ export default function SeqLibrarys() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[6, 12, 24]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

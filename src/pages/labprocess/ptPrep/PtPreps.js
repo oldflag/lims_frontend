@@ -109,7 +109,7 @@ export default function PtPreps() {
         <PtPrepsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'assay_batch_name', headerName: 'Batch', flex: 1 },
+    { field: 'assay_batch_name', headerName: 'Batch', flex: 2 },
     { field: 'assay_tubeNum', headerName: 'Tube#', flex: 1},
     { field: 'nucleiIncubation_status', headerName: 'Incubation Status', flex: 1 },
     { field: 'washAndTag_status', headerName: 'WT Status', flex: 1 }, 

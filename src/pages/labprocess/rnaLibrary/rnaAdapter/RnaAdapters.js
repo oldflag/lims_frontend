@@ -26,7 +26,7 @@ export default function RnaAdapters() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(12);
 
   useEffect(() => {
     if (rnaAdapters.length === 0) getRnaAdapters(dispatch);
@@ -86,7 +86,7 @@ export default function RnaAdapters() {
         <RnaAdaptersActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'rnaLibrary_lysis_batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'rnaLibrary_lysis_batch_name', headerName: 'Batch Name', flex: 2, },
     { field: 'rnaLibrary_lysis_name', headerName: 'Lysis Name', flex: 1},
     { field: 'rnaLibrary_name', headerName: 'Library Name', flex: 1},
     { field: 'reagentInfo', headerName: 'Reagent Info', flex: 1, editable: true },

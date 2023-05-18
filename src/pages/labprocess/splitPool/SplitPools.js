@@ -109,7 +109,7 @@ export default function SplitPools() {
         <SplitPoolsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'batch_name', headerName: 'Batch Name', flex: 2, },
     { field: 'spLayout', headerName: 'Plate Info', flex: 1, editable: true },
     { field: 'reagentInfo', headerName: 'Reagent Info', flex: 1, editable: true },
     // { field: 'qcClumps', headerName: 'QC Clumps', flex: 1, editable: true },

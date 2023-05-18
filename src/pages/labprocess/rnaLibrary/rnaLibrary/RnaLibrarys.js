@@ -26,7 +26,7 @@ export default function RnaLibrarys() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(12);
 
   useEffect(() => {
     if (rnaLibrarys.length === 0) getRnaLibrarys(dispatch);
@@ -87,7 +87,7 @@ export default function RnaLibrarys() {
       ),
     },
     { field: 'name', headerName: 'Library Name', flex: 1},
-    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 2, },
     { field: 'lysis_name', headerName: 'Lysis Name', flex: 1},
     { field: 'reagentInfo', headerName: 'Reagent Info', flex: 1, editable: true },
     { field: 'status', 
@@ -151,7 +151,7 @@ export default function RnaLibrarys() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[6, 12, 24]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

@@ -86,7 +86,7 @@ export default function PreAmps() {
         <PreAmpsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 2, },
     { field: 'lysis_name', headerName: 'Lysis Name', flex: 1, editable: true },
     { field: 'reagentInfo', headerName: 'Reagent Info', flex: 1, editable: true },
     { field: 'status', 

@@ -195,10 +195,16 @@ export default function Experiments() {
         <ExperimentsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', flex: 1, editable: true },
-    { field: 'short_description', headerName: 'Description', flex: 1, editable: true },
-    { field: 'long_description', headerName: 'Details', flex: 2, editable: true },
+    { field: 'name', headerName: 'Name', flex: 2, editable: true },
+    { field: 'short_description', headerName: 'Description', flex: 2, editable: true },
+    { field: 'long_description', headerName: 'Details', flex: 3, editable: true },
     { field: 'exp_date', headerName: 'Experiment Date', type:'date', flex:1, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
+    {
+      field: 'project_name',
+      headerName: 'Project',
+      flex: 1,
+      editable: false
+    },
     { field: 'priority', headerName: 'Priority', flex: 1, editable: true },
     { field: 'status', 
       headerName: 'Status', 
@@ -208,12 +214,7 @@ export default function Experiments() {
       editable: true 
     },
     { field: 'metadata', headerName: 'Additional Info', flex: 1, editable: true },
-    {
-      field: 'project_name',
-      headerName: 'Project',
-      flex: 1,
-      editable: false
-    },
+    
     {
       field: 'createdAt',
       headerName: 'Created At',

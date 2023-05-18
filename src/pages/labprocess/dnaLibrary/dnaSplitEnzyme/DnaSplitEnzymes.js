@@ -26,7 +26,7 @@ export default function DnaSplitEnzymes() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(12);
 
   useEffect(() => {
     if (dnaSplitEnzymes.length === 0) getDnaSplitEnzymes(dispatch);
@@ -86,7 +86,7 @@ export default function DnaSplitEnzymes() {
         <DnaSplitEnzymesActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'dnaLibrary_lysis_batch_name', headerName: 'Batch Name', flex: 1, },
+    { field: 'dnaLibrary_lysis_batch_name', headerName: 'Batch Name', flex: 2, },
     { field: 'dnaLibrary_lysis_name', headerName: 'Lysis Name', flex: 1},
     { field: 'dnaLibrary_name', headerName: 'Library Name', flex: 1},
     { field: 'reagentInfo', headerName: 'Reagent Info', flex: 1, editable: true },
@@ -151,7 +151,7 @@ export default function DnaSplitEnzymes() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[6, 12, 24]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}
