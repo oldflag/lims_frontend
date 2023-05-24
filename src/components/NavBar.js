@@ -58,7 +58,8 @@ const NavBar = () => {
               <Acquisitions />
               <Acquisitions2 />
               <Inventories />
-              {(currentUser.role !== "ACCOUNT") && <Designs /> }
+              <Designs /> 
+              {/* {(currentUser.role !== "ACCOUNT") && <Designs /> } */}
               {(currentUser.role !== "ACCOUNT") && <Labprocesses />}
               {(currentUser.role !== "ACCOUNT") && <QCresults />}
               {(currentUser.role !== "ACCOUNT") && <Sequencings />}

@@ -54,7 +54,7 @@ const AddForm = () => {
                     "priority":priority, 
                     "status":status, 
                     "metadata":metadata,
-                    "quoteId":quoteValue.id,
+                    "quoteId":quoteValue ? quoteValue.id : quoteValue 
                   }, 
                   dispatch)
 
@@ -104,7 +104,7 @@ const AddForm = () => {
               inputRef={typeRef}
             /> */}
 
-            <FormControl fullWidth>
+            <FormControl required fullWidth>
               <InputLabel id="type">Type</InputLabel>
               <Select
                 labelId="type_"

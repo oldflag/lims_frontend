@@ -19,6 +19,7 @@ import AddForm from '../../../components/design/batch/AddForm';
 import moment from 'moment';
 import importData from '../../../actions/utils/importData';
 import {registerFromFile} from '../../../actions/batch'
+import { getQuotes } from '../../../actions/quote';
 
 function EditToolbar(props) {
 
@@ -124,15 +125,18 @@ EditToolbar.propTypes = {
 export default function Batchs() {
 
   const {
-    state: { batchs },
+    state: { batchs, quotes },
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(12);
 
   useEffect(() => {
     if (batchs.length === 0) getBatchs(dispatch);
+    if (quotes.length === 0) getQuotes(dispatch);
   }, []);
+
+  const quoteOptions = quotes.map(({ name, id }) => ({ value:id, label:name }));
 
   const [rows, setRows] = useState(batchs);
   const [rowModesModel, setRowModesModel] = useState({});
@@ -156,18 +160,18 @@ export default function Batchs() {
   const processRowUpdate = async (newRow) => {
     
     const isNewRecord = newRow.isNew
-
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
 
-    const { id, name, type, priority, status, metadata, quoteId} = updatedRow;
+    let { id, name, type, priority, status, metadata, quoteId, quote_name} = updatedRow;
+    quoteId = quote_name.length > 10 ? quote_name : quoteId
 
     let result;
 
     if (isNewRecord){
       result = await register(updatedRow, dispatch)
     } else{
-      result = await updateStatus({ name, name, type, priority, status, metadata, quoteId}, id, dispatch);
+      result = await updateStatus({ name, type, priority, status, metadata, quoteId}, id, dispatch);
       if(result) {
         getBatchs(dispatch)
       }
@@ -189,16 +193,24 @@ export default function Batchs() {
       ),
     },
     { field: 'name', headerName: 'Name', flex: 2, editable: true },
-    { field: 'type', headerName: 'Type', flex: 1, editable: true },
-    { field: 'quote_name', headerName: 'Quote #', flex: 1, editable: true },
-    { field: 'priority', headerName: 'Priority', flex: 1, editable: true },
-    { field: 'status', 
-      headerName: 'Status', 
+    // { field: 'type', headerName: 'Type', flex: 1, editable: true },
+    { field: 'type', 
+      headerName: 'Type', 
       flex: 1,
       type: 'singleSelect',
-      valueOptions: ['Active','Hold','Inactive'], 
+      valueOptions: ['N/A','Commercial','Grant','In-house'], 
       editable: true 
     },
+    // { field: 'quote_name', headerName: 'Quote #', flex: 1, editable: true },
+    { field: 'quote_name', 
+      headerName: 'Quote #', 
+      flex: 1,
+      type: 'singleSelect',
+      valueOptions: quoteOptions, 
+      editable: true 
+    },
+    // { field: 'priority', headerName: 'Priority', flex: 1, editable: true },
+    // { field: 'status', headerName: 'Status', flex: 1, editable: true },
     { field: 'metadata', headerName: 'Additional Info', flex: 2, editable: true },
     {
       field: 'createdAt',
@@ -251,7 +263,7 @@ export default function Batchs() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[6, 12, 24]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}
