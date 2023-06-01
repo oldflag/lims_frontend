@@ -107,7 +107,7 @@ const DigestInputForm = () => {
   };
 
   return (
-    <Dialog open={openDigest} onClose={handleClose}>
+    <Dialog open={openDigest} onClose={handleClose} PaperProps={{ sx: { width: "40%", height: "60%" } }}>
       <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
         Generate Digest Files
         <IconButton

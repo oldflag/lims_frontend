@@ -49,7 +49,7 @@ export default function Quotes() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (quotes.length === 0) getQuotes(dispatch);
@@ -119,7 +119,7 @@ export default function Quotes() {
     },
     { field: 'description', headerName: 'Production Description', flex: 2, editable: true },
     { field: 'quantity', headerName: 'Quantity', flex: 1, editable: true },
-    { field: 'memo', headerName: 'Detail Information', flex: 3, editable: true, },
+    { field: 'memo', headerName: 'Detail Information', flex: 4, editable: true, },
     { field: 'quoteDate', headerName: 'Quote Date', flex: 1, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
     {
       field: 'createdAt',
@@ -163,16 +163,27 @@ export default function Quotes() {
       <DataGrid
         sx={{
         m: 2,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
         }}
+        // rowHeight={30}
+        density='compact'
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'name', sort: 'desc' }],
+          },
+        }}   
 
         checkboxSelection={true}
         rows={rows}
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

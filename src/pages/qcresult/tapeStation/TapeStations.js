@@ -26,7 +26,7 @@ export default function TapeStations() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (tapeStations.length === 0) getTapeStations(dispatch);
@@ -177,7 +177,7 @@ export default function TapeStations() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

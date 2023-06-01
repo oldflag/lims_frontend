@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import Send from '@mui/icons-material/Send';
 import { Cancel } from '@mui/icons-material';
-import { Fab, Typography, Button } from '@mui/material';
+import { Fab, Typography, Button, Grid } from '@mui/material';
 import { useValue } from '../../../../context/ContextProvider';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -111,7 +111,7 @@ function EditToolbar(props) {
         <AddIcon />
       </Fab> }
       { submitStatus && <Button sx={{mr:2}} variant="contained" endIcon={<Send />} onClick={handleSendClick}>
-            Submit
+           Select & Submit
       </Button>}
       { submitStatus && <Button variant="contained" endIcon={<Cancel />} onClick={handleCancelClick}>
             Cancel
@@ -133,7 +133,7 @@ export default function RnaLibrarys() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (doubleSizeSelects.length === 0) getDoubleSizeSelects(dispatch);
@@ -180,7 +180,7 @@ export default function RnaLibrarys() {
     { field: 'beadsRatio2', headerName: 'beadsRatio2', flex: 1 },
     { field: 'qcConcent', headerName: 'QC Concentration', flex: 1 },
     { field: 'status', headerName: 'Status', flex: 1 },
-    { field: 'memo', headerName: 'Memo',flex: 1 },  
+    { field: 'memo', headerName: 'Note',flex: 1 },  
   ],
   [rows]
   );
@@ -206,22 +206,33 @@ export default function RnaLibrarys() {
       }}
     >
       <Box sx={{ m:2, display:'flex'}}>
-        <RnaLibrarySDMenu />
-      <Typography
-        variant="h6"
-        component="h6"
-        sx={{ textAlign: 'center', mt: 2, mb: 2, ml:20 }}
-      >
-       Create New RNA Libraries
-      </Typography>
+       <Grid container spacing={2} sx={{alignItems:'center'}}>
+          <Grid item xs={4}>
+          <RnaLibrarySDMenu />
+          </Grid>
+          <Grid item xs={4}>
+          <Typography
+            variant="h6"
+            component="h6"
+            sx={{ textAlign: 'center', mt: 2, mb: 2 }}
+          >
+          Create New RNA Libraries
+          </Typography>
+          </Grid>
+        </Grid>
       </Box>
       <DataGrid
         sx={{
         m: 2,
-        ml: 3,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
         }}
+        // rowHeight={30}
+        density='compact'
         // loading ={loading}
         // loading={loading==='true'} 
         isRowSelectable={(params) => !params.row.Status}
@@ -230,7 +241,7 @@ export default function RnaLibrarys() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

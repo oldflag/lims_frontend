@@ -38,7 +38,7 @@ const AddForm =  () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();  
-    const status = statusRef.current.value;
+    // const status = statusRef.current.value;
     const memo = memoRef.current.value;
     const spLayout = spLayoutRef.current.value;
 
@@ -46,7 +46,7 @@ const AddForm =  () => {
                     "batchId":batchValue.id,
                     "spLayout":spLayout,
                     "operator":currentUser.email,
-                    "status":status,
+                    // "status":status,
                     "memo":memo,
                     },dispatch)
 
@@ -55,7 +55,7 @@ const AddForm =  () => {
   return (
     <Dialog open={openSplitPool} onClose={handleClose}>
       <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
-        "Register New SplitPools"
+        Add A New SplitPools
         <IconButton
           sx={{
             position: 'absolute',
@@ -96,7 +96,7 @@ const AddForm =  () => {
               inputRef={spLayoutRef}
             />
 
-            <TextField
+            {/* <TextField
               margin="normal"
               variant="standard"
               id="status"
@@ -104,13 +104,13 @@ const AddForm =  () => {
               type="text"
               fullWidth
               inputRef={statusRef}
-            />
+            /> */}
 
             <TextField
               margin="normal"
               variant="standard"
               id="memo"
-              label="Memo"
+              label="Note"
               type="text"
               fullWidth
               inputRef={memoRef}

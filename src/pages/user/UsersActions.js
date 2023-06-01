@@ -37,8 +37,8 @@ const UsersActions = ({ params, rowId, setRowId }) => {
         <Fab
           color="primary"
           sx={{
-            width: 40,
-            height: 40,
+            width: 30,
+            height: 30,
             bgcolor: green[500],
             '&:hover': { bgcolor: green[700] },
           }}
@@ -49,8 +49,8 @@ const UsersActions = ({ params, rowId, setRowId }) => {
         <Fab
           color="primary"
           sx={{
-            width: 40,
-            height: 40,
+            width: 30,
+            height: 30,
           }}
           disabled={params.id !== rowId || loading}
           onClick={handleSubmit}

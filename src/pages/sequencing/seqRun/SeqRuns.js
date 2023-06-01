@@ -28,7 +28,7 @@ export default function SeqRuns() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (seqRuns.length === 0) getSeqRuns(dispatch);
@@ -100,7 +100,7 @@ export default function SeqRuns() {
     },
     { field: 'batch_name', headerName:'Batch Name', flex: 2},
     { field: 'machine', headerName:'Machine', flex: 1, editable: true},
-    { field: 'memo', headerName:'Memo', flex: 1, editable: true},
+    { field: 'memo', headerName:'Note', flex: 1, editable: true},
     { field: 'status', 
       headerName: 'Status', 
       flex: 1,
@@ -158,15 +158,26 @@ export default function SeqRuns() {
       <DataGrid
         sx={{
         m: 2,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
+        // rowHeight={30}
+        density='compact'
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
         checkboxSelection={true}
         rows={rows}
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[6, 12, 24]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

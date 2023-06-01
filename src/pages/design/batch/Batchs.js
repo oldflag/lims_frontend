@@ -1,9 +1,9 @@
 import {useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, Typography } from '@mui/material';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import { Fab, Typography, Box, IconButton } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/batch';
 
@@ -11,6 +11,7 @@ import { register, updateStatus } from '../../../actions/batch';
 import {
   DataGrid,
   GridToolbarContainer,
+  GridToolbarExport,
 } from '@mui/x-data-grid';
 
 import { getBatchs } from '../../../actions/batch';
@@ -113,6 +114,22 @@ function EditToolbar(props) {
         <input hidden accept="*" type="file" onChange={handleClickFile}/>
         <UploadFileIcon onClick={handleUploadInfo}/>
       </Fab>
+
+      <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
+        <GridToolbarExport size="small" color="primary" sx={{ml:1}}
+          csvOptions={{
+            fileName: 'Batches',
+          }}
+          startIcon={
+            // <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
+            <IconButton>
+              <FileDownloadIcon sx={{color:"white"}} />  
+            </IconButton>
+            // </Fab>
+            
+          }
+        />
+      </Fab>
     </GridToolbarContainer>
   );
 }
@@ -129,7 +146,7 @@ export default function Batchs() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (batchs.length === 0) getBatchs(dispatch);
@@ -211,7 +228,7 @@ export default function Batchs() {
     },
     // { field: 'priority', headerName: 'Priority', flex: 1, editable: true },
     // { field: 'status', headerName: 'Status', flex: 1, editable: true },
-    { field: 'metadata', headerName: 'Additional Info', flex: 2, editable: true },
+    { field: 'metadata', headerName: 'Note', flex: 2, editable: true },
     {
       field: 'createdAt',
       headerName: 'Created At',
@@ -249,13 +266,24 @@ export default function Batchs() {
         component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
-        Batchs
+        Batches
       </Typography>
       <DataGrid
         sx={{
         m: 2,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
+        // rowHeight={30}
+        density='compact'
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
 
         checkboxSelection={true}
@@ -263,7 +291,7 @@ export default function Batchs() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[6, 12, 24]}
+        rowsPerPageOptions={[20, 25, 100]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}
@@ -271,6 +299,7 @@ export default function Batchs() {
         onRowEditStart={handleRowEditStart}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
+        localeText={{toolbarExport:''}}
         components={{
           Toolbar: EditToolbar,
         }}

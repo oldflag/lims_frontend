@@ -128,7 +128,7 @@ export default function SeqLibrarys() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (dnaLibrarys.length === 0) getDnaLibrarys(dispatch);
@@ -245,10 +245,15 @@ export default function SeqLibrarys() {
       <DataGrid
         sx={{
         m: 2,
-        ml: 3,
-        boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
         }}
+        // rowHeight={30}
+        density='compact'
         // loading ={loading}
         // loading={loading==='true'} 
         isRowSelectable={(params) => !params.row.Status}
@@ -257,7 +262,7 @@ export default function SeqLibrarys() {
         columns={dnaColumns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[6, 12, 24]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}
@@ -275,18 +280,23 @@ export default function SeqLibrarys() {
         sx={{
         m: 2,
         ml: 3,
-        boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
         }}
-        // loading ={loading}
-        // loading={loading==='true'} 
+        // rowHeight={30}
+        density='compact'
+        
         isRowSelectable={(params) => !params.row.Status}
         checkboxSelection={openSeqLib}
         rows={rnaRows}
         columns={rnaColumns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[6, 12, 24]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

@@ -29,7 +29,7 @@ export default function NewTapeStations() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (dnaLibrarys.length === 0) getDnaLibrarys(dispatch);
@@ -151,7 +151,7 @@ export default function NewTapeStations() {
             component="h6"
             sx={{ textAlign: 'center', mt: 2, mb: 2 }}
           >
-          {"Select libraries and upload a result file"}
+          {"Select libraries and upload a tapestation result file"}
         </Typography>
         </Grid>
         <Grid item xs={4} >
@@ -165,21 +165,27 @@ export default function NewTapeStations() {
         sx={{
         m: 2,
         ml: 3,
-        boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
         }}
+        // rowHeight={30}
+        density='compact'
         initialState={{
           sorting: {
             sortModel: [{ field: 'createdAt', sort: 'desc' }],
           },
-        }}   
+        }}
         isRowSelectable={(params) => !params.row.Status}
         checkboxSelection={true}
         rows={dnaRows}
         columns={dnaColumns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}
@@ -197,21 +203,27 @@ export default function NewTapeStations() {
         sx={{
         m: 2,
         ml: 3,
-        boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
         }}
+        // rowHeight={30}
+        density='compact'
         initialState={{
           sorting: {
             sortModel: [{ field: 'createdAt', sort: 'desc' }],
           },
-        }}     
+        }}   
         isRowSelectable={(params) => !params.row.Status}
         checkboxSelection={true}
         rows={rnaRows}
         columns={rnaColumns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

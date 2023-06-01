@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import Send from '@mui/icons-material/Send';
 import { Cancel } from '@mui/icons-material';
-import { Fab, Typography, Button } from '@mui/material';
+import { Fab, Typography, Button, Grid } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -127,7 +127,7 @@ export default function Prelibrarys() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (lysiss.length === 0) getLysiss(dispatch);
@@ -183,7 +183,7 @@ export default function Prelibrarys() {
       valueOptions: ['Success','Fail'], 
       editable: true 
     },
-    { field: 'memo', headerName: 'Memo', flex: 1, editable: true },
+    { field: 'memo', headerName: 'Note', flex: 1, editable: true },
     
   ],
   [rows, rowModesModel]
@@ -210,22 +210,35 @@ export default function Prelibrarys() {
       }}
     >
       <Box sx={{ m:2, display:'flex'}}>
-        < PreLibrarySDMenu />
-        <Typography
-          variant="h6"
-          component="h6"
-          sx={{ textAlign: 'center', mt: 2, mb: 2, ml:40 }}
-        >
-          Prelibrary
-        </Typography>
+        <Grid container spacing={2} sx={{alignItems:'center'}}>
+          <Grid item xs={4}>
+          <PreLibrarySDMenu />
+          </Grid>
+          <Grid item xs={4}>
+          <Typography
+            variant="h6"
+            component="h6"
+            sx={{ textAlign: 'center', mt: 2, mb: 2 }}
+          >
+            Prelibrary
+          </Typography>
+          </Grid>
+        </Grid>
       </Box>
       <DataGrid
         sx={{
         m: 2,
         ml: 3,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
         }}
+        // rowHeight={30}
+        density='compact'
+        
         // loading ={loading}
         loading={loading==='true'} 
         isRowSelectable={(params) => !params.row.preLibStatus}
@@ -234,7 +247,7 @@ export default function Prelibrarys() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

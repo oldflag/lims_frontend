@@ -211,7 +211,7 @@ const AddForm =  () => {
               margin="normal"
               variant="standard"
               id="memo"
-              label="Memo"
+              label="Note"
               type="text"
               fullWidth
               inputRef={memoRef}

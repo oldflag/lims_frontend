@@ -1,8 +1,9 @@
 import {useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import AddIcon from '@mui/icons-material/Add';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { Fab, Typography, Box } from '@mui/material';
+import { Fab, Typography, Box, IconButton } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/collaborator';
 import moment from 'moment';
@@ -11,6 +12,7 @@ import moment from 'moment';
 import {
   DataGrid,
   GridToolbarContainer,
+  GridToolbarExport,
 } from '@mui/x-data-grid';
 
 import { getCollaborators, registerMany } from '../../../actions/collaborator';
@@ -88,6 +90,14 @@ function EditToolbar(props) {
 
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
+       {/* <Typography
+        variant="h6"
+        component="h6"
+        sx={{ textAlign: 'left', flexGrow: 1 }}
+      >
+        Collaborators
+      </Typography> */}
+
       <Fab size="small" color="primary" aria-label="add" onClick={handleClick} sx={{ml:1}} >
         <AddIcon />
       </Fab>
@@ -95,6 +105,22 @@ function EditToolbar(props) {
       <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
         <input hidden accept="*" type="file" onChange={handleClickFile}/>
         <UploadFileIcon onClick={handleUploadInfo}/>
+      </Fab>
+
+      <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
+        <GridToolbarExport size="small" color="primary" sx={{ml:1}}
+          csvOptions={{
+            fileName: 'Collaborators',
+          }}
+          startIcon={
+            // <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
+            <IconButton>
+              <FileDownloadIcon sx={{color:"white"}} />  
+            </IconButton>
+            // </Fab>
+            
+          }
+        />
       </Fab>
     </GridToolbarContainer>
   );
@@ -112,7 +138,7 @@ export default function Collaborators() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (collaborators.length === 0) getCollaborators(dispatch);
@@ -228,9 +254,15 @@ export default function Collaborators() {
       <DataGrid
         sx={{
         m: 2,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
         }}
+        // rowHeight={30}
+        density='compact'
         initialState={{
           sorting: {
             sortModel: [{ field: 'createdAt', sort: 'desc' }],
@@ -242,7 +274,7 @@ export default function Collaborators() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}
@@ -250,6 +282,7 @@ export default function Collaborators() {
         onRowEditStart={handleRowEditStart}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
+        localeText={{toolbarExport:''}}
         components={{
           Toolbar: EditToolbar,
         }}

@@ -2,7 +2,7 @@ import {useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, Typography } from '@mui/material';
+import { Fab, Typography, Grid } from '@mui/material';
 import { useValue } from '../../../../context/ContextProvider';
 import { register, updateStatus } from '../../../../actions/dnaAdapter';
 import DnaLibrarySDMenu from '../../../../components/labprocess/dnaLibrary/dnaLibrarySDMenu';
@@ -25,7 +25,7 @@ export default function DnaAdapters() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (dnaAdapters.length === 0) getDnaAdapters(dispatch);
@@ -96,7 +96,7 @@ export default function DnaAdapters() {
       valueOptions: ['Success','Fail'], 
       editable: true 
     },
-    { field: 'memo', headerName: 'Memo', flex: 2, editable: true },
+    { field: 'memo', headerName: 'Note', flex: 2, editable: true },
     { field: 'operator', headerName: 'Operator', flex: 1, editable: true },
     {
       field: 'createdAt',
@@ -130,27 +130,44 @@ export default function DnaAdapters() {
       }}
     >
       <Box sx={{ m:2, display:'flex'}}>
-        <DnaLibrarySDMenu />
-      <Typography
-        variant="h6"
-        component="h6"
-        sx={{ textAlign: 'center', mt: 2, mb: 2, ml:40 }}
-      >
-        DNA Adapter
-      </Typography>
+        <Grid container spacing={2} sx={{alignItems:'center'}}>
+          <Grid item xs={4}>
+          <DnaLibrarySDMenu />
+          </Grid>
+          <Grid item xs={4}>
+          <Typography
+            variant="h6"
+            component="h6"
+            sx={{ textAlign: 'center', mt: 2, mb: 2 }}
+          >
+           DNA Adapter
+          </Typography>
+          </Grid>
+        </Grid>
       </Box>
       <DataGrid
         sx={{
         m: 2,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
+        // rowHeight={30}
+        density='compact'
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
         checkboxSelection={true}
         rows={rows}
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[6, 12, 24]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

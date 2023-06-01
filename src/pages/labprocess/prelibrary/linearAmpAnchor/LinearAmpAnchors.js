@@ -2,7 +2,7 @@ import {useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, Typography } from '@mui/material';
+import { Fab, Typography, Grid } from '@mui/material';
 import { useValue } from '../../../../context/ContextProvider';
 import { register, updateStatus } from '../../../../actions/linearAmpAnchor';
 import moment from 'moment';
@@ -26,7 +26,7 @@ export default function LinearAmpAnchors() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (linearAmpAnchors.length === 0) getLinearAmpAnchors(dispatch);
@@ -87,7 +87,7 @@ export default function LinearAmpAnchors() {
       ),
     },
     { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 2, },
-    { field: 'lysis_name', headerName: 'Lysis Name', flex: 1, editable: true },
+    { field: 'lysis_name', headerName: 'Lysis Name', flex: 1 },
     { field: 'reagentInfo', headerName: 'Reagent Info', flex: 1, editable: true },
     { field: 'status', 
       headerName: 'Status', 
@@ -96,7 +96,7 @@ export default function LinearAmpAnchors() {
       valueOptions: ['Success','Fail'], 
       editable: true 
     },
-    { field: 'memo', headerName: 'Memo', flex: 2, editable: true },
+    { field: 'memo', headerName: 'Note', flex: 2, editable: true },
     { field: 'operator', headerName: 'Operator', flex: 1, editable: true },
     {
       field: 'createdAt',
@@ -130,27 +130,44 @@ export default function LinearAmpAnchors() {
       }}
     >
       <Box sx={{ m:2, display:'flex'}}>
-        < PreLibrarySDMenu />
-        <Typography
-          variant="h6"
-          component="h6"
-          sx={{ textAlign: 'center', mt: 2, mb: 2, ml:25 }}
-        >
-          Linear Amplication with Anchors
-        </Typography>
+        <Grid container spacing={2} sx={{alignItems:'center'}}>
+          <Grid item xs={4}>
+          <PreLibrarySDMenu />
+          </Grid>
+          <Grid item xs={4}>
+          <Typography
+            variant="h6"
+            component="h6"
+            sx={{ textAlign: 'center', mt: 2, mb: 2 }}
+          >
+            Linear Amplication with Anchors
+          </Typography>
+          </Grid>
+        </Grid>
       </Box>
       <DataGrid
         sx={{
         m: 2,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
+        // rowHeight={30}
+        density='compact'
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
         checkboxSelection={true}
         rows={rows}
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

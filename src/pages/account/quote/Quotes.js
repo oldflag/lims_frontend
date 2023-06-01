@@ -1,9 +1,9 @@
 import {useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
-import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, Typography } from '@mui/material';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import { Fab, Typography, Box, IconButton } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/quote';
 import moment from 'moment';
@@ -12,6 +12,7 @@ import moment from 'moment';
 import {
   DataGrid,
   GridToolbarContainer,
+  GridToolbarExport,
 } from '@mui/x-data-grid';
 
 import { getQuotes, registerFromFile } from '../../../actions/quote';
@@ -99,6 +100,23 @@ function EditToolbar(props) {
         <input hidden accept="*" type="file" onChange={handleClickFile}/>
         <UploadFileIcon onClick={handleUploadInfo}/>
       </Fab>
+
+      <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
+        <GridToolbarExport size="small" color="primary" sx={{ml:1}}
+          csvOptions={{
+            fileName: 'Quotes',
+          }}
+          startIcon={
+            // <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
+            <IconButton>
+              <FileDownloadIcon sx={{color:"white"}} />  
+            </IconButton>
+            // </Fab>
+            
+          }
+        />
+      </Fab>
+
     </GridToolbarContainer>
   );
 }
@@ -115,7 +133,7 @@ export default function Quotes() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (quotes.length === 0) getQuotes(dispatch);
@@ -238,9 +256,13 @@ export default function Quotes() {
       <DataGrid
         sx={{
         m: 2,
-        // boxShadow: 3,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
         }}
+        density='compact'
         initialState={{
           sorting: {
             sortModel: [{ field: 'name', sort: 'desc' }],
@@ -253,7 +275,7 @@ export default function Quotes() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[12, 24, 36]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}
@@ -261,6 +283,7 @@ export default function Quotes() {
         onRowEditStart={handleRowEditStart}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
+        localeText={{toolbarExport:''}}
         components={{
           Toolbar: EditToolbar,
         }}

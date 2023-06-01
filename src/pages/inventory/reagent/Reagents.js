@@ -48,7 +48,7 @@ export default function Reagents() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (reagents.length === 0) getReagents(dispatch);
@@ -113,7 +113,7 @@ export default function Reagents() {
     { field: 'part', headerName: 'PART#', flex: 1, editable: true },
     { field: 'lot', headerName: 'LOT#', flex: 1, editable: true },
     { field: 'status', headerName: 'Status', flex: 1, editable: true },
-    { field: 'metadata', headerName: 'Meta Info', flex: 1, editable: true },
+    { field: 'metadata', headerName: 'Note', flex: 1, editable: true },
     {
       field: 'expiration_date',
       headerName: 'Expiration Date',
@@ -164,8 +164,19 @@ export default function Reagents() {
       <DataGrid
         sx={{
         m: 2,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
+        // rowHeight={30}
+        density='compact'
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
 
         checkboxSelection={true}
@@ -173,7 +184,7 @@ export default function Reagents() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

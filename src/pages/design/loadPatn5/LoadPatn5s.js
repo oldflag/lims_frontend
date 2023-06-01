@@ -49,7 +49,7 @@ export default function LoadPatn5s() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (loadPatn5s.length === 0) getLoadPatn5s(dispatch);
@@ -125,7 +125,7 @@ export default function LoadPatn5s() {
       valueOptions: ['Active','Hold','Inactive'], 
       editable: true 
     },
-    { field: 'memo', headerName: 'Memo', flex: 2, editable: true },
+    { field: 'memo', headerName: 'Note', flex: 2, editable: true },
     { field: 'expiration_date', headerName: 'Expiration Date', type:'date', flex: 1, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
 
     
@@ -171,8 +171,19 @@ export default function LoadPatn5s() {
       <DataGrid
         sx={{
         m: 2,
-        // boxShadow: 3,
+       boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
+        // rowHeight={30}
+        density='compact'
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
 
         checkboxSelection={true}
@@ -180,7 +191,7 @@ export default function LoadPatn5s() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

@@ -1,7 +1,7 @@
 import {useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, Typography, Box } from '@mui/material';
+import { Fab, Typography, Box, Grid } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/ptPrep';
 import moment from 'moment';
@@ -49,7 +49,7 @@ export default function PtPreps() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (ptPreps.length === 0) getPtPreps(dispatch);
@@ -117,7 +117,7 @@ export default function PtPreps() {
     { field: 'status', headerName: 'Prep Status', flex: 1, editable: true },
     { field: 'memo', headerName: 'Memo', flex: 1, editable: true },
     { field: 'operator', headerName: 'Operator', flex: 2, editable: true },
-    { field: 'metadata', headerName: 'Additional Info', flex: 1, editable: true },
+    { field: 'metadata', headerName: 'Note', flex: 1, editable: true },
     { field: 'createdAt',headerName: 'Created At',flex: 1,type: 'dateTime', valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),},
     
   ],
@@ -145,20 +145,37 @@ export default function PtPreps() {
       }}
     >
       <Box sx={{ m:2, display:'flex'}}>
-        < PtPrepSDMenu />
-        <Typography
-          variant="h6"
-          component="h6"
-          sx={{ textAlign: 'center', mt: 2, mb: 2 }}
-        >
-          Paired-Tag Preparation
-        </Typography>
+        <Grid container spacing={2} sx={{alignItems:'center'}}>
+          <Grid item xs={4}>
+          < PtPrepSDMenu />
+          </Grid>
+          <Grid item xs={4}>
+          <Typography
+            variant="h6"
+            component="h6"
+            sx={{ textAlign: 'center', mt: 2, mb: 2 }}
+          >
+            Paired-Tag Preparation
+          </Typography>
+          </Grid>
+        </Grid>
       </Box>
       <DataGrid
         sx={{
         m: 2,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
+        // rowHeight={30}
+        density='compact'
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
 
         checkboxSelection={true}
@@ -166,7 +183,7 @@ export default function PtPreps() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[12, 24, 36]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

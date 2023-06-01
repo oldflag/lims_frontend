@@ -43,7 +43,7 @@ export default function UserTable() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(15);
   const [rowId, setRowId] = useState(null);
 
   useEffect(() => {
@@ -117,15 +117,26 @@ export default function UserTable() {
       </Typography>
 
       <DataGrid
+        sx={{
+        m: 2,
+        boxShadow: 2,
+        borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
+        // rowHeight={30}
+        density='compact'
         columns={columns}
         rows={users}
         getRowId={(row) => row.id}
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         getRowSpacing={(params) => ({
-          top: params.isFirstVisible ? 0 : 5,
-          bottom: params.isLastVisible ? 0 : 5,
+          top: params.isFirstVisible ? 0 : 0,
+          bottom: params.isLastVisible ? 0 : 0,
         })}
         onCellEditCommit={(params) => setRowId(params.id)}
         components={{

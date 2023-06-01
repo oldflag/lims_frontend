@@ -49,7 +49,7 @@ export default function Lysiss() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (lysiss.length === 0) getLysiss(dispatch);
@@ -120,7 +120,7 @@ export default function Lysiss() {
       valueOptions: ['Success','Fail'], 
       editable: true 
     },
-    { field: 'memo', headerName: 'Memo', flex: 1, editable: true },
+    { field: 'memo', headerName: 'Note', flex: 1, editable: true },
     { field: 'operator', headerName: 'Operator', flex: 1 },
     {
       field: 'createdAt',
@@ -164,8 +164,19 @@ export default function Lysiss() {
       <DataGrid
         sx={{
         m: 2,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
+        }}
+        // rowHeight={30}
+        density='compact'
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
 
         checkboxSelection={true}
@@ -173,7 +184,7 @@ export default function Lysiss() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}

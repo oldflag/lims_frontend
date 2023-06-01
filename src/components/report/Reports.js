@@ -52,7 +52,9 @@ export default function Reports() {
         <MenuItem onClick={() => { navigate('/sequencing/seqFile'); 
                                    dispatch({ type: 'OPEN_DIGEST' }); 
                                    handleClose()}}> Digest for Analysis  </MenuItem>
-        <MenuItem onClick={() => {navigate('report/seqrun'); handleClose()}}> Sequencing Run Report  </MenuItem>
+        <MenuItem onClick={() => {navigate('/sequencing/seqRun')
+                                  dispatch({ type: 'OPEN_SEQRUNREPORT' })
+                                  handleClose()}}> Sequencing Run Report  </MenuItem>
         <MenuItem onClick={() => {navigate('report/qcreport'); handleClose()}}> QC Report </MenuItem>
       </Menu>
     </>

@@ -1134,7 +1134,7 @@ const RunReportForm = () => {
   };
 
   return (
-    <Dialog open={openSeqRunReport} onClose={handleClose}>
+    <Dialog open={openSeqRunReport} onClose={handleClose} PaperProps={{ sx: { width: "40%", height: "60%" } }}>
       <DialogTitle sx={{ textAlign: 'center', mt: 2.5, mb: 1 }}>
         Sequencing Run Report
         <IconButton

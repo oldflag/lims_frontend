@@ -2,7 +2,8 @@ import {useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, Typography } from '@mui/material';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { Fab, Typography, IconButton  } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { useValue } from '../../../context/ContextProvider';
 import { register, updateStatus } from '../../../actions/assay';
@@ -12,6 +13,7 @@ import moment from 'moment';
 import {
   DataGrid,
   GridToolbarContainer,
+  GridToolbarExport,
 } from '@mui/x-data-grid';
 
 import { getAssays, registerFromFile } from '../../../actions/assay';
@@ -116,6 +118,22 @@ function EditToolbar(props) {
         <input hidden accept="*" type="file" onChange={handleClickFile}/>
         <UploadFileIcon onClick={handleUploadInfo}/>
       </Fab>
+
+      <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
+        <GridToolbarExport size="small" color="primary" sx={{ml:1}}
+          csvOptions={{
+            fileName: 'Assays',
+          }}
+          startIcon={
+            // <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
+            <IconButton>
+              <FileDownloadIcon sx={{color:"white"}} />  
+            </IconButton>
+            // </Fab>
+            
+          }
+        />
+      </Fab>
     </GridToolbarContainer>
   );
 }
@@ -132,7 +150,7 @@ export default function Assays() {
     dispatch,
   } = useValue();
 
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
     if (assays.length === 0) getAssays(dispatch);
@@ -285,7 +303,7 @@ export default function Assays() {
         mt :1,
         ml: "auto",
         mr: "auto",
-        height: "100vh",
+        height: 700,
         width: '100%',
         // boxShadow: 2,
         // borderRadius: 2,
@@ -307,13 +325,19 @@ export default function Assays() {
       <DataGrid
         sx={{
         m: 1,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
         }}
+        // rowHeight={30}
+        density='compact'
 
         initialState={{
           sorting: {
-            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+            sortModel: [{ field: 'assayDate', sort: 'desc' }],
           },
         }}
 
@@ -322,7 +346,7 @@ export default function Assays() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[12, 20, 24]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         autoHeight={true}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
@@ -331,6 +355,7 @@ export default function Assays() {
         onRowEditStart={handleRowEditStart}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
+        localeText={{toolbarExport:''}}
         components={{
           Toolbar: EditToolbar,
         }}

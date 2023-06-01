@@ -30,7 +30,7 @@ const RnaLibrarySDMenu = () => {
         ariaLabel="RNA Library Processes"
         icon={<NavigateNextTwoToneIcon />}
         direction={"right"}
-        sx={{width:"30%"}}
+        // sx={{width:"30%"}}
         open='true'
     >
       <SpeedDialAction 
