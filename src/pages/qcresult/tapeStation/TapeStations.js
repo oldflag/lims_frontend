@@ -156,16 +156,19 @@ export default function TapeStations() {
         </Grid>
       </Grid>
 
-
-
-      
       <DataGrid
 
         sx={{
         m: 2,
-        // boxShadow: 3,
+        boxShadow: 2,
         borderRadius: 2,
+        borderColor: 'primary.light',
+          '& .MuiDataGrid-cell:hover': {
+            color: 'primary.main',
+          },
         }}
+        // rowHeight={30}
+        density='compact'
 
         initialState={{
           sorting: {
