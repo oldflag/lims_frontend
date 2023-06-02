@@ -154,6 +154,7 @@ export default function Batchs() {
   }, []);
 
   const quoteOptions = quotes.map(({ name, id }) => ({ value:id, label:name }));
+  const quoteNames = quotes.map(a => a.name);
 
   const [rows, setRows] = useState(batchs);
   const [rowModesModel, setRowModesModel] = useState({});
@@ -179,9 +180,11 @@ export default function Batchs() {
     const isNewRecord = newRow.isNew
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-
+  
     let { id, name, type, priority, status, metadata, quoteId, quote_name} = updatedRow;
-    quoteId = quote_name.length > 10 ? quote_name : quoteId
+    //TODO: better solution for the following two lines
+    metadata = metadata != null ? metadata : ""
+    quoteId = quoteNames.includes(quote_name) ? quoteId : quote_name
 
     let result;
 
