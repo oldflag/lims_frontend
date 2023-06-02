@@ -59,10 +59,10 @@ export default function BatchTrendChart() {
       for (let i = 0; i < months; i++) {
         if (moment(tempData[i].date).isSame(batch?.createdAt, 'month'))
         {
-          if (batch?.type.toLowerCase() === 'commercial') {
+          if (batch.type?.toLowerCase() === 'commercial') {
             return tempData[i].commercial++;
           }
-          else if (batch?.type.toLowerCase() === 'grant') {
+          else if (batch.type?.toLowerCase() === 'grant') {
             return tempData[i].grant++;
           } 
           else{
