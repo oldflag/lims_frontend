@@ -560,6 +560,10 @@ const reducer = (state, action) => {
       return { ...state, openSeqRunReport: true };
     case 'CLOSE_SEQRUNREPORT':
       return { ...state, openSeqRunReport: false };
+    case 'OPEN_BATCHREPORT':
+      return { ...state, openBatchReport: true };
+    case 'CLOSE_BATCHREPORT':
+      return { ...state, openBatchReport: false };
 
     case 'UPDATE_QUOTE':
       return { ...state, quotes: [...state.quotes, action.payload] };

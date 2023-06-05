@@ -118,9 +118,11 @@ const Dashboard = ({ setSelectedLink, link }) => {
         </Box>
       </Paper>
       <Paper elevation={3} sx={{ p: 2, gridColumn: '1/3' }}>
+        <Typography variant="h6">Specimens By Species</Typography>
         <SpecimensPieChart />
       </Paper>
        <Paper elevation={3} sx={{ p: 2, gridColumn: '1/3' }}>
+        <Typography variant="h6">Number of Batches By Month</Typography>
         <BatchTrendChart />
       </Paper>
     </Box>

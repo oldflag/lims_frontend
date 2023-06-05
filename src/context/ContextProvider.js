@@ -94,6 +94,7 @@ const initialState = {
   openSampleSheet: false,
   openDigest: false,
   openSeqRunReport: false,
+  openBatchReport: false,
 
   quotes: [],
   openQuote: false,

@@ -21,6 +21,7 @@ import moment from 'moment';
 import importData from '../../../actions/utils/importData';
 import {registerFromFile} from '../../../actions/batch'
 import { getQuotes } from '../../../actions/quote';
+import BatchReportForm from '../../../components/design/batch/BatchReportForm';
 
 function EditToolbar(props) {
 
@@ -247,6 +248,7 @@ export default function Batchs() {
   return (
     <>
     <AddForm />
+    <BatchReportForm />
     <Box
       sx={{
         mt :2,

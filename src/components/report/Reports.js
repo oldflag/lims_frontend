@@ -46,16 +46,19 @@ export default function Reports() {
         }}
       >
         {/* <MenuItem onClick={() => {navigate('report/samplesheet'); handleClose()}}> Sample Sheet  </MenuItem> */}
-         <MenuItem onClick={() => { navigate('/sequencing/seqLibrary');
+        <MenuItem onClick={() => {navigate('/design/batchs')
+                                  dispatch({ type: 'OPEN_BATCHREPORT' })
+                                  handleClose()}}> Batch Report  </MenuItem>
+        <MenuItem onClick={() => { navigate('/sequencing/seqLibrary');
                                     dispatch({ type: 'OPEN_SAMPLESHEET' }); 
                                     handleClose()}}> Sample Sheet  </MenuItem>
         <MenuItem onClick={() => { navigate('/sequencing/seqFile'); 
                                    dispatch({ type: 'OPEN_DIGEST' }); 
-                                   handleClose()}}> Digest for Analysis  </MenuItem>
+                                   handleClose()}}> Input files for Analysis  </MenuItem>
         <MenuItem onClick={() => {navigate('/sequencing/seqRun')
                                   dispatch({ type: 'OPEN_SEQRUNREPORT' })
                                   handleClose()}}> Sequencing Run Report  </MenuItem>
-        <MenuItem onClick={() => {navigate('report/qcreport'); handleClose()}}> QC Report </MenuItem>
+        {/* <MenuItem onClick={() => {navigate('report/qcreport'); handleClose()}}> QC Report </MenuItem> */}
       </Menu>
     </>
   );
