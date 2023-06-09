@@ -159,7 +159,7 @@ const AddForm =  () => {
               margin="normal"
               variant="standard"
               id="metadata"
-              label="Meta Data"
+              label="Note"
               type="text"
               fullWidth
               inputRef={metadataRef}

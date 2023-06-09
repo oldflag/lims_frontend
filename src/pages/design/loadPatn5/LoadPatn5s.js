@@ -166,7 +166,7 @@ export default function LoadPatn5s() {
         component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
-        Load pATn5
+        Loaded pATn5
       </Typography>
       <DataGrid
         sx={{

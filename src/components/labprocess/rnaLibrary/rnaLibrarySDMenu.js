@@ -50,7 +50,7 @@ const RnaLibrarySDMenu = () => {
       <SpeedDialAction 
           key='Adapter' 
           icon={<AddLinkIcon />} 
-          tooltipTitle='Adapter' 
+          tooltipTitle='Tagmentation' 
           // tooltipOpen
           // tooltipPlacement='top'  
           onClick={() => {navigate('/labprocess/rnaLibrary/rnaAdapter')}} />

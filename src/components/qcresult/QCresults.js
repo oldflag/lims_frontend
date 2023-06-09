@@ -40,9 +40,9 @@ export default function QCresults() {
           'aria-labelledby': 'qcresult-button',
         }}
       >
-        <MenuItem onClick={() => {navigate('qcresult/sizeselection'); handleClose()}}> Size Selectoin  </MenuItem>
         <MenuItem onClick={() => {navigate('qcresult/tapeStation'); handleClose()}}> TapeStation </MenuItem>
-        <MenuItem onClick={() => {navigate('qcresult/qpcr');handleClose()}}> qPCR </MenuItem>
+        <MenuItem disabled onClick={() => {navigate('qcresult/sizeselection'); handleClose()}}> Size Selectoin  </MenuItem>
+        <MenuItem disabled onClick={() => {navigate('qcresult/qpcr');handleClose()}}> qPCR </MenuItem>
       </Menu>
     </>
   );

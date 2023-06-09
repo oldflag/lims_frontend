@@ -873,21 +873,21 @@ const BatchReportForm = () => {
     })
 
     const seqLibPage = [
-      // new Paragraph({
-      //   alignment: AlignmentType.CENTER,
-      //   spacing:{
-      //     after: 500,
-      //   },
-      //   children: [
-      //       new TextRun({
-      //         text: "Sequencing File Information" + (seqMachine ? " : "+ seqMachine : ""),
-      //         underline: {},
-      //         break: 2,
-      //         size: 40,
-      //         bold: true,
-      //       }),
-      //   ],
-      // }),
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        spacing:{
+          after: 500,
+        },
+        children: [
+            new TextRun({
+              text: "Sequencing File Information",
+              underline: {},
+              break: 2,
+              size: 40,
+              bold: true,
+            }),
+        ],
+      }),
       new Table({ 
         rows: seqLibTableHeaders.concat(seqLibTableRows) 
       }),

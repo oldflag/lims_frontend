@@ -10,7 +10,7 @@ export const register = async (user, dispatch) => {
     dispatch
   );
   if (result) {
-    // dispatch({ type: 'UPDATE_USER', payload: result });
+    dispatch({ type: 'ADD_USER', payload: result });
     dispatch({ type: 'CLOSE_REGISTER' });
     dispatch({
       type: 'UPDATE_ALERT',

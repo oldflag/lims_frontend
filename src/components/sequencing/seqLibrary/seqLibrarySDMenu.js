@@ -83,7 +83,7 @@ const SeqLibrarySDMenu = () => {
       <SpeedDialAction 
           key='digest' 
           icon={<ListAltIcon />} 
-          tooltipTitle='Digest' 
+          tooltipTitle='Digest Files' 
           // tooltipOpen
           // tooltipPlacement='top'  
           // onClick={() => {navigate('/sequencing/sampleSheet')}} />

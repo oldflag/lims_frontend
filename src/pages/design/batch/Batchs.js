@@ -111,10 +111,10 @@ function EditToolbar(props) {
         <AddIcon />
       </Fab>
 
-      <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
+      {/* <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
         <input hidden accept="*" type="file" onChange={handleClickFile}/>
         <UploadFileIcon onClick={handleUploadInfo}/>
-      </Fab>
+      </Fab> */}
 
       <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
         <GridToolbarExport size="small" color="primary" sx={{ml:1}}

@@ -141,7 +141,7 @@ export default function RnaAdapters() {
             component="h6"
             sx={{ textAlign: 'center', mt: 2, mb: 2 }}
           >
-            RNA Adapter
+            RNA Tagmentation
           </Typography>
           </Grid>
         </Grid>

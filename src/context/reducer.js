@@ -17,10 +17,13 @@ const reducer = (state, action) => {
     case 'UPDATE_ALERT':
       return { ...state, alert: action.payload };
 
+    case 'ADD_USER':
+      return { ...state, users: [...state.users, action.payload] };
+    
     case 'UPDATE_USER':
       localStorage.setItem('currentUser', JSON.stringify(action.payload));
       return { ...state, currentUser: action.payload };
-    
+
     case 'UPDATE_USERS':
       return { ...state, users: action.payload };
 
@@ -43,7 +46,7 @@ const reducer = (state, action) => {
       return { ...state, openCollaborator: false };
 
     case 'UPDATE_DONOR':
-      return { ...state, donors: [...state.donors, action.payload] };
+      return { ...state, donors: [...state.donors, action.payload ] };
     
     case 'UPDATE_DONORS':
       return { ...state, donors: action.payload};

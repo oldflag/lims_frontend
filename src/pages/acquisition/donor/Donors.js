@@ -137,6 +137,12 @@ export default function Donors() {
       editable: true },
     { field: 'ancestry', headerName: 'Ancestry', flex: 1, editable: true },
     { field: 'species', headerName: 'Species', flex: 1, editable: true },
+    {
+      field: 'collaborator_name',
+      headerName: 'Collaborator',
+      flex: 1,
+      editable: false
+    },
     { field: 'status', 
       headerName: 'Status', 
       flex: 1,
@@ -145,12 +151,6 @@ export default function Donors() {
       editable: true 
     },
     { field: 'metadata', headerName: 'Additional Info', flex: 1, editable: true },
-    {
-      field: 'collaborator_name',
-      headerName: 'Collaborator',
-      flex: 1,
-      editable: false
-    },
     {
       field: 'createdAt',
       headerName: 'Created At',
