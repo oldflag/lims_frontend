@@ -75,12 +75,15 @@ const BatchReportForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    let aBatch = batchs.filter((item) => {return item.name === batchValue.label}) 
-    let seqRunList = seqRuns.filter((item) => {return item.batch_name === batchValue.label})
+    let aBatch = batchs.filter((item) => {return item.name?.includes(batchValue.label)}) 
+    let seqRunList = seqRuns.filter((item) => {return item.batch_name?.includes(batchValue.label)})
     let seqLibraryInRunList = seqLibrarys.filter((item) => { return seqRunList.find(s => s.name === item.seqRun_name)})
-    seqLibraryInRunList.sort((a,b) => (a.seqRun_name > b.seqRun_name) ? 1 : ((b.seqRun_name > a.seqRun_name) ? -1: 0))
+    // seqLibraryInRunList.sort((a,b) => (a.seqRun_name > b.seqRun_name) ? 1 : ((b.seqRun_name > a.seqRun_name) ? -1: 0))
+    seqLibraryInRunList.sort((a,b)=>(a.seqRun_name.localeCompare(b.seqRun_name) || a.name.localeCompare(b.name)))
+
     // let seqLibraryInRunList = seqRunList.filter((item) => {return item.name === seqLibrarys.seqRun_name})
     let assaysInBatch = assays.filter((item) => {return item.batchId === batchValue.id})
+    assaysInBatch.sort((a,b) => (a.batchId.localeCompare(b.batchId) || a.tubeNum - b.tubeNum))
     let experimentInBatch = experiments.filter((item)=> {return item.name === assaysInBatch[0].experiment_name})
     let projectInBatch = projects.filter((item)=> {return item.id === experimentInBatch[0].projectId})
     let uniqSamplesInBatch = getUniqueValuesFromObjectArray(assaysInBatch, 'sampleId')
@@ -299,7 +302,7 @@ const BatchReportForm = () => {
               break: 2,
           }),
           new TextRun({
-              text: "\tLibraries",
+              text: "\tSequecing Libraries",
               break: 2,
           }),
           // new TextRun({

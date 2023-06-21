@@ -88,6 +88,7 @@ export default function SeqFiles() {
       ),
     },
     { field: 'seqRun_name', headerName: 'Seq Run', flex: 2},
+    { field: 'batch_name', headerName: 'Batch', flex: 2},
     { field: 'name', headerName: 'Seq Lib', flex: 1},
     { field: 'library_name', headerName:'Lib Name', flex: 1},
     { field: 'lysis_name', headerName:'Lysis Name', flex: 1},

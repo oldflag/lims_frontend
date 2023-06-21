@@ -78,24 +78,29 @@ const RunReportForm = () => {
    
     let aSeqRun = seqRuns.filter((item) => {return item.id === seqRunValue.id})
     let seqLibraryInRun = seqLibrarys.filter((item) => {return item.seqRun_name === seqRunValue.label})
-    let aBatch = batchs.filter((item) => {return item.name === aSeqRun[0].batch_name}) 
-    let assaysInBatch = assays.filter((item) => {return item.batchId === aBatch[0].id})
-    let experimentInBatch = experiments.filter((item)=> {return item.name === assaysInBatch[0].experiment_name})
-    let projectInBatch = projects.filter((item)=> {return item.id === experimentInBatch[0].projectId})
+    seqLibraryInRun.sort((a,b)=>(a.batch_name.localeCompare(b.batch_name) || a.name.localeCompare(b.name)))
+    let batches = batchs.filter((item) => {return aSeqRun[0].batch_name.includes(item.name)}) 
+    let batchIdList = getUniqueValuesFromObjectArray(batches, 'id')
+    let assaysInBatch = assays.filter((item) => {return batchIdList.includes(item.batchId)})
+    assaysInBatch.sort((a,b) => (a.batchId.localeCompare(b.batchId) || a.tubeNum - b.tubeNum))
+    let experimentNames = getUniqueValuesFromObjectArray(assaysInBatch, 'experiment_name')
+    let experimentInBatch = experiments.filter((item)=> {return experimentNames.includes(item.name)})
+    let projectIdList = getUniqueValuesFromObjectArray(experimentInBatch, 'projectId')
+    let projectInBatch = projects.filter((item)=> {return projectIdList.includes(item.id)})
     let uniqSamplesInBatch = getUniqueValuesFromObjectArray(assaysInBatch, 'sampleId')
     let samplesInBatch = samples.filter((item)=>{return uniqSamplesInBatch.includes(item.id)})
     let uniqSpecimensInBatch = getUniqueValuesFromObjectArray(samplesInBatch, 'specimenId')
     let specimensInBatch = specimens.filter((item)=>{return uniqSpecimensInBatch.includes(item.id)})
     
-    let batchName = aBatch[0].name
+    let batchName = getUniqueValuesFromObjectArray(batches, 'name').join(', ')
     // // variables for the first page
     let reportTitle = "Paired-Tag Library Prep & Sequencing Result"
-    let projectName = projectInBatch[0].name
-    let collaboratorName = projectInBatch[0].collaborator_name
-    let quoteNumber = aBatch[0].quote_name
+    let projectName = getUniqueValuesFromObjectArray(projectInBatch, 'name').join(', ')
+    let collaboratorName = getUniqueValuesFromObjectArray(projectInBatch, 'collaborator_name').join(', ')
+    let quoteNumber = getUniqueValuesFromObjectArray(batches, 'quote_name').join(', ')
     let dateStr = new Date().toLocaleDateString('en-US').toString()
     // // variables for the second page
-    let projectDescription = projectInBatch[0].description
+    let projectDescription = getUniqueValuesFromObjectArray(projectInBatch, 'description').join(', ')
     let executiveSummary = " "
     let seqMachine = aSeqRun[0].machine
     
@@ -324,7 +329,7 @@ const RunReportForm = () => {
               break: 2,
           }),
           new TextRun({
-              text: "\tLibrary & Assay & Seq Files",
+              text: "\tBatch & Assay & Library & Sequencing",
               break: 2,
           }),
           new TextRun({
@@ -533,7 +538,14 @@ const RunReportForm = () => {
             },
             children: [new Paragraph("Sample Name")],
           }),
-            new TableCell({
+          new TableCell({
+            width: {
+              size: 5505,
+              type: WidthType.DXA,
+            },
+            children: [new Paragraph("Batch")],
+          }),
+          new TableCell({
             width: {
               size: 5505,
               type: WidthType.DXA,
@@ -609,6 +621,13 @@ const RunReportForm = () => {
               size: 5505,
               type: WidthType.DXA,
             },
+            children: [new Paragraph(item.batch_name || "N/A")],
+          }),
+          new TableCell({
+            width: {
+              size: 5505,
+              type: WidthType.DXA,
+            },
             children: [new Paragraph(item.numOfNuclei || "N/A")],
           }),
           new TableCell({
@@ -651,7 +670,7 @@ const RunReportForm = () => {
               size: 5505,
               type: WidthType.DXA,
             },
-            children: [new Paragraph(moment(item.assayDate || "N/A").format("MM/DD/YYYY"))],
+            children: [new Paragraph(moment(item.assayDate)?.format("MM/DD/YYYY") || "N/A")],
           }),
         ],
       })
@@ -681,13 +700,13 @@ const RunReportForm = () => {
     const libraryTableHeaders = [
       new TableRow({
         children:[
-          // new TableCell({
-          //   width: {
-          //     size: 5505,
-          //     type: WidthType.DXA,
-          //   },
-          //   children: [new Paragraph("Seq Library ID")],
-          // }),
+          new TableCell({
+            width: {
+              size: 5505,
+              type: WidthType.DXA,
+            },
+            children: [new Paragraph("Batch")],
+          }),
           new TableCell({
             width: {
               size: 5505,
@@ -723,13 +742,13 @@ const RunReportForm = () => {
     const libraryTableRows = seqLibraryInRun.map(item => {
       return new TableRow({
         children:[
-          // new TableCell({
-          //   width: {
-          //     size: 5505,
-          //     type: WidthType.DXA,
-          //   },
-          //   children: [new Paragraph(item.name)],
-          // }),
+          new TableCell({
+            width: {
+              size: 5505,
+              type: WidthType.DXA,
+            },
+            children: [new Paragraph(item.batch_name) || "N/A"],
+          }),
           new TableCell({
             width: {
               size: 5505,
@@ -791,6 +810,13 @@ const RunReportForm = () => {
               size: 5505,
               type: WidthType.DXA,
             },
+            children: [new Paragraph("Batch")],
+          }),
+          new TableCell({
+            width: {
+              size: 5505,
+              type: WidthType.DXA,
+            },
             children: [new Paragraph("Seq Library ID")],
           }),
           new TableCell({
@@ -828,6 +854,13 @@ const RunReportForm = () => {
     const seqLibTableRows = seqLibraryInRun.map(item => {
       return new TableRow({
         children:[
+          new TableCell({
+            width: {
+              size: 5505,
+              type: WidthType.DXA,
+            },
+            children: [new Paragraph(item.batch_name) || "N/A"],
+          }),
           new TableCell({
             width: {
               size: 5505,
@@ -891,6 +924,13 @@ const RunReportForm = () => {
     const associateTableHeaders = [
       new TableRow({
         children:[
+           new TableCell({
+            width: {
+              size: 5505,
+              type: WidthType.DXA,
+            },
+            children: [new Paragraph("Batch")],
+          }),
           new TableCell({
             width: {
               size: 5505,
@@ -948,11 +988,18 @@ const RunReportForm = () => {
     
     for (let i in seqLibraryInRun){
       let x = seqLibraryInRun[i];
-      for( let j in assaysInBatch){
+      for( let j in assaysInBatch.filter(ay => ay.batch_id===x.batchId)){
         let y = assaysInBatch[j];
         associateTableRows.push(
           new TableRow({
             children:[
+              new TableCell({
+                width: {
+                  size: 5505,
+                  type: WidthType.DXA,
+                },
+                children: [new Paragraph(x.batch_name)],
+              }),
               new TableCell({
                 width: {
                   size: 5505,
@@ -1016,7 +1063,7 @@ const RunReportForm = () => {
         },
         children: [
             new TextRun({
-              text: "Library & Assay & Seq Files",
+              text: "Batch & Assay & Library & Sequencing",
               underline: {},
               break: 2,
               size: 40,

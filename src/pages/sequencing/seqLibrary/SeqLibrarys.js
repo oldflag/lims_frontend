@@ -89,6 +89,7 @@ export default function SeqLibrarys() {
     },
     { field: 'name', headerName: 'Seq Lib', flex: 1},
     { field: 'seqRun_name', headerName: 'Seq Run', flex: 2},
+    { field: 'batch_name', headerName: 'Batch', flex: 2},
     { field: 'libType', headerName: 'Lib Type', flex: 1},
     {field:'library_name', headerName:'Lib Name', flex: 1},
     {field:'i7Primer_rcSeq', headerName:'I7 Index', flex: 1},
