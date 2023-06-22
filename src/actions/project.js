@@ -70,8 +70,6 @@ export const updateRelatedSpecimen = (specimens, projectId, dispatch) => {
 
 export const updateRelatedExperiment = (experiments, projectId, dispatch) => {
 
-  console.log(projectId)
-  console.log(experiments)
   return fetchData(
     {
       url: `${url}/updateRelatedExperiments/${projectId}`,

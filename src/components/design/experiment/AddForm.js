@@ -31,7 +31,7 @@ const AddForm = () => {
     if (projects.length === 0) getProjects(dispatch);
   },[]);
 
-  const [expDateValue, setExpDateValue] = useState(null);
+  const [expDateValue, setExpDateValue] = useState(new Date());
 
   const projectOptions = projects.map(({ name, id }) => ({ label:name, id:id }));
 
@@ -60,7 +60,8 @@ const AddForm = () => {
 
     await register({"name":name, 
                     "short_description":short_description, 
-                    "long_description":long_description, 
+                    "long_description":long_description,
+                    "exp_date": expDateValue, 
                     "status":status, 
                     "priority":priority,
                     "metadata":metadata,
