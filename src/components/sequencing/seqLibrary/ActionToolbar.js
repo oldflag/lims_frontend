@@ -9,7 +9,7 @@ import { useValue } from '../../../context/ContextProvider';
 import { v4 as uuidv4 } from 'uuid';
 
 import { register as registerSeqLibrary } from '../../../actions/seqLibrary';
-import { register as registerSeqRun } from '../../../actions/seqRun';
+import { register as registerSeqRun, getSeqRuns } from '../../../actions/seqRun';
 import { getSeqLibrarys } from '../../../actions/seqLibrary';
 
 
@@ -63,7 +63,8 @@ export default function ActionToolbar(props) {
 
     await registerSeqRun({"id":seqRunId,
                           "name":runName,
-                          "operator":currentUser.email
+                          "operator":currentUser.email,
+                          "seqDate": new Date(),
     },dispatch)
 
 
@@ -90,7 +91,8 @@ export default function ActionToolbar(props) {
 
     }
 
-    getSeqLibrarys(dispatch) 
+    getSeqLibrarys(dispatch)
+    getSeqRuns(dispatch) 
 
 // dispatch({type: 'END_LOADING'})
     dispatch({ type: 'CLOSE_SEQLIB' })

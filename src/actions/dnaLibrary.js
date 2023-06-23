@@ -4,10 +4,12 @@ const url = process.env.REACT_APP_SERVER_URL + '/dnaLibrary';
 
 export const register = async (dnaLibrary, dispatch) => {
   dispatch({ type: 'START_LOADING' });
+  // console.log(dnaLibrary)
   const result = await fetchData(
     { url: url + '/register', body: dnaLibrary },
     dispatch
   );
+  // console.log(result)
   if (result) {
     dispatch({ type: 'UPDATE_DNALIBRARY', payload: result });
     dispatch({
