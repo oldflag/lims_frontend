@@ -1,9 +1,9 @@
 import EditIcon from '@mui/icons-material/Edit';
-// import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import { useValue } from '../../../context/ContextProvider';
-// import { deleteOne } from '../../../actions/ptPrep';
+import { deleteOne } from '../../../actions/ptPrep';
 
 import {
   GridRowModes,
@@ -24,10 +24,10 @@ const PtPrepsActions = ({ params,  rows, setRows, rowModesModel, setRowModesMode
 
     };
 
-    // const handleDeleteClick = (id) => async() => {
-    //     setRows(rows.filter((row) => row.id !== id));
-    //     await deleteOne(id, dispatch)
-    // };
+    const handleDeleteClick = (id) => async() => {
+        setRows(rows.filter((row) => row.id !== id));
+        await deleteOne(id, dispatch)
+    };
 
     const handleCancelClick = (id) => () => {
         setRowModesModel({
@@ -76,12 +76,12 @@ const PtPrepsActions = ({ params,  rows, setRows, rowModesModel, setRowModesMode
         onClick={handleEditClick(params.id)}
         color="inherit"
         />,
-        // <GridActionsCellItem
-        // icon={<DeleteIcon />}
-        // label="Delete"
-        // onClick={handleDeleteClick(params.id)}
-        // color="inherit"
-        // />,
+        <GridActionsCellItem
+        icon={<DeleteIcon />}
+        label="Delete"
+        onClick={handleDeleteClick(params.id)}
+        color="inherit"
+        />,
     ];
 }
 
