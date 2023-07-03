@@ -7,6 +7,7 @@ import { Cancel } from '@mui/icons-material';
 import { Fab, Typography, Button, Grid } from '@mui/material';
 import { useValue } from '../../../../context/ContextProvider';
 import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
 
 import { register as registerDnaLibrary } from '../../../../actions/dnaLibrary';
 import { register as registerDnaSplitEnzyme } from '../../../../actions/dnaSplitEnzyme';
@@ -22,7 +23,8 @@ import {
   useGridApiRef,
 } from '@mui/x-data-grid';
 
-import { getDoubleSizeSelects } from '../../../../actions/doubleSizeSelect';
+// import { getDoubleSizeSelects } from '../../../../actions/doubleSizeSelect';
+import { getLysiss } from '../../../../actions/lysis';
 import DnaLibrarySDMenu from '../../../../components/labprocess/dnaLibrary/dnaLibrarySDMenu';
 import { getDnaAdapters } from '../../../../actions/dnaAdapter';
 import { getDnaLibMultiplexs } from '../../../../actions/dnaLibMultiplex';
@@ -126,25 +128,25 @@ EditToolbar.propTypes = {
 export default function NewDnaLibrarys() {
 
   const {
-    state: { doubleSizeSelects, openDnaLib, loading},
+    state: { lysiss, openDnaLib, loading},
     dispatch,
   } = useValue();
 
   const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
-    if (doubleSizeSelects.length === 0) getDoubleSizeSelects(dispatch);
+    if (lysiss.length === 0) getLysiss(dispatch);
   }, []);
 
-  const [rows, setRows] = useState(doubleSizeSelects);
+  const [rows, setRows] = useState(lysiss);
   const [rowModesModel, setRowModesModel] = useState({});
   const [selectedRows, setSelectedRows] = useState(null);
 
   useEffect(() => {
 
-    setRows(doubleSizeSelects)
+    setRows(lysiss)
     
-  }, [doubleSizeSelects]);
+  }, [lysiss]);
 
   useEffect(() => {
 
@@ -164,20 +166,27 @@ export default function NewDnaLibrarys() {
 
   const onRowsSelectionHandler = (params, event) => {
     event.defaultMuiPrevented = true;
-    let selected = rows.filter(arow => params.includes(arow.id)).map(arow =>({"lysisId":arow.lysisId, "lysis_name":arow.lysis_name}) )
+    let selected = rows.filter(arow => params.includes(arow.id)).map(arow =>({"lysisId":arow.id, "lysis_name":arow.name}) )
     setSelectedRows(selected)
   }
 
 
   const columns = useMemo(
     () =>  [
-    { field: 'lysis_batch_name', headerName: 'Batch Name', flex: 1}, //headerAlign:'right' },
-    { field: 'lysis_name', headerName: 'Lysis Name', flex: 1 },
-    { field: 'beadsRatio1', headerName: 'beadsRatio1', flex: 1 },
-    { field: 'beadsRatio2', headerName: 'beadsRatio2', flex: 1 },
-    { field: 'qcConcent', headerName: 'QC Concentration', flex: 1 },
+    { field: 'batch_name', headerName: 'Batch Name', flex: 1}, //headerAlign:'right' },
+    { field: 'name', headerName: 'Lysis Name', flex: 1 },
+    { field: 'quantity', headerName: 'Quantity', flex: 1 },
+    { field: 'quantityUnit', headerName: 'Quantity Unit', flex: 1 },
     { field: 'status', headerName: 'Status', flex: 1 },
-    { field: 'memo', headerName: 'Note', flex: 1},  
+    { field: 'memo', headerName: 'Note', flex: 1},
+    { field: 'operator', headerName: 'Operator', flex: 1 },
+    {
+      field: 'createdAt',
+      headerName: 'Created At',
+      flex: 1,
+      type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
+    },  
   ],
   [rows]
   );

@@ -307,7 +307,7 @@ const reducer = (state, action) => {
       return { ...state, openSplitPool: false };
 
     case 'UPDATE_LYSIS':
-      return { ...state, lysiss: [...state.lysiss, action.payload] };    
+      return { ...state, lysiss: [action.payload, ...state.lysiss] };    
     case 'UPDATE_LYSISS':
       return { ...state, lysiss: action.payload};
     case 'DELETE_LYSIS':

@@ -1,4 +1,4 @@
-import { Close, Send } from '@mui/icons-material';
+import { Close, Send, TroubleshootTwoTone } from '@mui/icons-material';
 import { Autocomplete} from '@mui/material';
 
 import {
@@ -54,6 +54,8 @@ const AddForm = () => {
                                       .map(({tubeNum, barcode}) => ({tubeNum, barcode}))
                         )},[typeValue])
   // console.log(tubebarcodeValue)
+  const tubeFromRef = useRef();
+  const tubeToRef = useRef();
   const statusRef = useRef();
   const metadataRef = useRef();
 
@@ -65,10 +67,14 @@ const AddForm = () => {
     e.preventDefault();  
     const status = statusRef.current.value;
     const metadata = metadataRef.current.value;
+    const tubeFrom = tubeFromRef.current.value;
+    const tubeTo = tubeToRef.current.value;
 
     tubebarcodeValue.forEach(element => {
 
-      register({"experimentId":experimentValue.id, 
+      if(+element.tubeNum >= +tubeFrom && +element.tubeNum <= +tubeTo){
+
+        register({"experimentId":experimentValue.id, 
                 "batchId":batchValue.id,
                 "loadPatn5Name":loadPatn5Value,
                 "assayDate":assayDateValue,
@@ -77,6 +83,8 @@ const AddForm = () => {
                 "tubeNum":+element.tubeNum,
                 "barcode":element.barcode,
                 },dispatch)
+
+      }
 
   })};
 
@@ -111,6 +119,28 @@ const AddForm = () => {
                 setTypeValue(newValue)
               }}
               renderInput={(params) => <TextField {...params} label="How many assays?" variant="standard" sx={{width: '100%', mt:2}}/>}
+            />
+
+            <TextField
+              margin="normal"
+              variant="standard"
+              id="tubeFrom"
+              label="Starting Tube #"
+              type="text"
+              fullWidth
+              inputRef={tubeFromRef}
+              defaultValue="1"
+            />
+
+            <TextField
+              margin="normal"
+              variant="standard"
+              id="tubeTo"
+              label="Ending Tube #"
+              type="text"
+              fullWidth
+              inputRef={tubeToRef}
+              defaultValue="12"
             />
 
             <Autocomplete
