@@ -173,7 +173,7 @@ export default function NewDnaLibrarys() {
 
   const columns = useMemo(
     () =>  [
-    { field: 'batch_name', headerName: 'Batch Name', flex: 1}, //headerAlign:'right' },
+    { field: 'batch_name', headerName: 'Batch Name', flex: 2}, //headerAlign:'right' },
     { field: 'name', headerName: 'Lysis Name', flex: 1 },
     { field: 'quantity', headerName: 'Quantity', flex: 1 },
     { field: 'quantityUnit', headerName: 'Quantity Unit', flex: 1 },

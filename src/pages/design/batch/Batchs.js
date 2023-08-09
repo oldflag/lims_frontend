@@ -12,6 +12,7 @@ import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
+  GridToolbarQuickFilter,
 } from '@mui/x-data-grid';
 
 import { getBatchs } from '../../../actions/batch';
@@ -22,6 +23,12 @@ import importData from '../../../actions/utils/importData';
 import {registerFromFile} from '../../../actions/batch'
 import { getQuotes } from '../../../actions/quote';
 import BatchReportForm from '../../../components/design/batch/BatchReportForm';
+
+
+const default_protocol = process.env.REACT_APP_DEFAULT_PROTOCOL
+const batch_protocols = process.env.REACT_APP_BATCH_PROTOCOLS.split(',')
+const batch_types = process.env.REACT_APP_BATCH_TYPES.split(',')
+
 
 function EditToolbar(props) {
 
@@ -107,7 +114,8 @@ function EditToolbar(props) {
 
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
-      <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
+      <GridToolbarQuickFilter />
+      <Fab sx={{ml:1}} size="small" color="primary" aria-label="add" onClick={handleClick}>
         <AddIcon />
       </Fab>
 
@@ -131,6 +139,7 @@ function EditToolbar(props) {
           }
         />
       </Fab>
+     
     </GridToolbarContainer>
   );
 }
@@ -213,13 +222,20 @@ export default function Batchs() {
         <BatchsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
+    
     { field: 'name', headerName: 'Name', flex: 2, editable: true },
+    { field: 'priority', 
+      headerName: 'Protocol', 
+      flex: 1, 
+      type: 'singleSelect',
+      valueOptions:batch_protocols,
+      editable: true },
     // { field: 'type', headerName: 'Type', flex: 1, editable: true },
     { field: 'type', 
       headerName: 'Type', 
       flex: 1,
       type: 'singleSelect',
-      valueOptions: ['N/A','Commercial','Grant','In-house'], 
+      valueOptions: batch_types, 
       editable: true 
     },
     // { field: 'quote_name', headerName: 'Quote #', flex: 1, editable: true },
@@ -230,7 +246,6 @@ export default function Batchs() {
       valueOptions: quoteOptions, 
       editable: true 
     },
-    // { field: 'priority', headerName: 'Priority', flex: 1, editable: true },
     // { field: 'status', headerName: 'Status', flex: 1, editable: true },
     { field: 'metadata', headerName: 'Note', flex: 2, editable: true },
     {
@@ -289,6 +304,12 @@ export default function Batchs() {
           sorting: {
             sortModel: [{ field: 'createdAt', sort: 'desc' }],
           },
+          filter: {
+            filterModel: {
+              items: [],
+              quickFilterValues: [default_protocol],
+            },
+          },
         }}
 
         checkboxSelection={true}
@@ -305,11 +326,23 @@ export default function Batchs() {
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         localeText={{toolbarExport:''}}
+        disableColumnFilter
+        disableColumnSelector
+        disableDensitySelector
+        disable
         components={{
-          Toolbar: EditToolbar,
+          Toolbar: EditToolbar
+          //  Toolbar: GridToolbar
+
         }}
         componentsProps={{
-          toolbar: { setRows, setRowModesModel },
+          toolbar:{ setRows, 
+                    setRowModesModel, 
+                    csvOptions: { disableToolbarButton: true },
+                    printOptions: { disableToolbarButton: true },
+                    showQuickFilter: true,
+                    quickFilterProps: { debounceMs: 500 }, 
+                  },
         }}
         experimentalFeatures={{ newEditingApi: true }}
       />

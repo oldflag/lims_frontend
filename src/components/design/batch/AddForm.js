@@ -63,7 +63,7 @@ const AddForm = () => {
   return (
     <Dialog open={openBatch} onClose={handleClose}>
       <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
-        "Register New Batch"
+        Register New Batch
         <IconButton
           sx={{
             position: 'absolute',
@@ -104,7 +104,22 @@ const AddForm = () => {
               inputRef={typeRef}
             /> */}
 
-            <FormControl required fullWidth>
+            <FormControl required fullWidth margin='normal'>
+              <InputLabel id="priority">Protocol</InputLabel>
+              <Select
+                labelId="priority_"
+                id="priority__"
+                inputRef={priorityRef}
+                label="Protocol"
+                required
+              >
+                <MenuItem value={'Split&Pool'}>Split&Pool</MenuItem>
+                <MenuItem value={'Droplet'}>Droplet</MenuItem>
+                <MenuItem value={'Bulk'}>Bulk</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl required fullWidth margin='normal'>
               <InputLabel id="type">Type</InputLabel>
               <Select
                 labelId="type_"
@@ -119,7 +134,9 @@ const AddForm = () => {
               </Select>
             </FormControl>
 
-             <TextField
+            
+
+             {/* <TextField
               margin="normal"
               variant="standard"
               id="priority"
@@ -127,7 +144,7 @@ const AddForm = () => {
               type="text"
               fullWidth
               inputRef={priorityRef}
-            />
+            /> */}
 
             <TextField
               margin="normal"
