@@ -75,14 +75,14 @@ function EditToolbar(props) {
 
       if (relatedProject.length === 0) {
 
-        // dispatch({
-        //   type: 'UPDATE_ALERT',
-        //   payload: {
-        //     open: true,
-        //     severity: 'error',
-        //     message: 'No project name for the specimen'+aSpecimen.project_name
-        //     },
-        // });
+        dispatch({
+          type: 'UPDATE_ALERT',
+          payload: {
+            open: true,
+            severity: 'error',
+            message: 'No project name for the specimen'+aSpecimen.project_name
+            },
+        });
         
         continue;
 

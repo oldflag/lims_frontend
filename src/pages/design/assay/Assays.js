@@ -14,6 +14,7 @@ import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
+  GridToolbarQuickFilter,
 } from '@mui/x-data-grid';
 
 import { getAssays, registerFromFile } from '../../../actions/assay';
@@ -26,6 +27,8 @@ import AssaysActions from './AssaysActions'
 import AddForm from '../../../components/design/assay/AddForm';
 import importData from '../../../actions/utils/importData';
 
+
+const default_protocol = process.env.REACT_APP_DEFAULT_PROTOCOL
 
 function EditToolbar(props) {
 
@@ -110,6 +113,7 @@ function EditToolbar(props) {
 
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
+      <GridToolbarQuickFilter />
       <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
         <AddIcon />
       </Fab>
@@ -245,8 +249,8 @@ export default function Assays() {
         <AssaysActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'experiment_name', headerName: 'Experiment', width: 200, editable: true },
-    { field: 'batch_name', headerName: 'Batch', width: 200, editable: true },
+    { field: 'experiment_name', headerName: 'Experiment', width: 240 },
+    { field: 'batch_name', headerName: 'Batch', width: 240 },
     { field: 'sample_name', 
       headerName: 'Sample', 
       width: 150, 
@@ -262,11 +266,7 @@ export default function Assays() {
       headerName: 'Antibody',
       type:'singleSelect',
       valueOptions: antibodylist,
-       width: 250, editable: true },
-    { field: 'antibodyConcentration', headerName: 'AB Conc.', width: 100, editable: true },
-    { field: 'antibodyConcUnit', headerName: 'AB Conc. Unit', width: 100, editable: true },
-    { field: 'antibodyVolume', headerName: 'AB Vol.', width: 100, editable: true },
-    { field: 'antibodyVolUnit', headerName: 'AB Vol. Unit', width: 100, editable: true },
+       width: 270, editable: true },
     {
       field: 'assayDate',
       headerName: 'Assay Date',
@@ -274,6 +274,11 @@ export default function Assays() {
       type: 'dateTime',
       valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"),
     },
+    { field: 'antibodyConcentration', headerName: 'AB Conc.', width: 100, editable: true },
+    { field: 'antibodyConcUnit', headerName: 'AB Conc. Unit', width: 100, editable: true },
+    { field: 'antibodyVolume', headerName: 'AB Vol.', width: 100, editable: true },
+    { field: 'antibodyVolUnit', headerName: 'AB Vol. Unit', width: 100, editable: true },
+    
 
     { field: 'status', 
       headerName: 'Status', 
@@ -339,6 +344,12 @@ export default function Assays() {
           sorting: {
             sortModel: [{ field: 'assayDate', sort: 'desc' }],
           },
+          // filter: {
+          //   filterModel: {
+          //     items: [],
+          //     quickFilterValues: [default_protocol],
+          //   },
+          // },
         }}
 
         checkboxSelection={true}
@@ -360,7 +371,10 @@ export default function Assays() {
           Toolbar: EditToolbar,
         }}
         componentsProps={{
-          toolbar: { setRows, setRowModesModel },
+          toolbar: {  setRows, 
+                      setRowModesModel,
+                      showQuickFilter: true,
+                      quickFilterProps: { debounceMs: 500 },  },
         }}
         experimentalFeatures={{ newEditingApi: true }}
       />

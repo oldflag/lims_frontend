@@ -36,17 +36,26 @@ const AddForm = () => {
     if (assayBarcodes.length === 0) getAssayBarcodes(dispatch);
   },[]);
 
-  const uniqueTypeOptions = Array.from(new Set(assayBarcodes.map((item) => item.type)));
+  const batchOptions = batchs.map(({ name, id, priority }) => ({ label:name, id:id, protocol:priority }));
+  const [batchValue, setBatchValue] = useState(batchOptions[0]);
+  const [uniqueTypeOptions, setUniqueTypeOptions] = useState(null);
+  
+  useEffect(() =>{  
+    setUniqueTypeOptions([...new Set(assayBarcodes.filter((item) => {
+                                        return item.protocol === batchValue.protocol})
+                                      .map((item) => item.type)
+  )])},[batchValue])
+
+  // const uniqueTypeOptions = Array.from(new Set(assayBarcodes.map((item) => item.type)));
   const experimentOptions = experiments.map(({ name, id }) => ({ label:name, id:id }));
-  const batchOptions = batchs.map(({ name, id }) => ({ label:name, id:id }));
   const loadPatn5Options = Array.from(new Set(loadPatn5s.map((item)=> item.loadName)));
 
 
   const [experimentValue, setExperimentValue] = useState(experimentOptions[0]);
-  const [batchValue, setBatchValue] = useState(batchOptions[0]);
   const [loadPatn5Value, setLoadPatn5Value] = useState(loadPatn5Options[0]);
   const [assayDateValue, setAssayDateValue] = useState(null);
-  const [typeValue, setTypeValue] = useState(uniqueTypeOptions[0]);
+  const [typeValue, setTypeValue] = useState( null );
+  
   const [tubebarcodeValue, setTubebarcodeValue] = useState(null)
   useEffect(() =>{  
     setTubebarcodeValue(assayBarcodes.filter((item) => {
@@ -91,7 +100,7 @@ const AddForm = () => {
   return (
     <Dialog open={openAssay} onClose={handleClose}>
       <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
-        "Register New Assays"
+        Register New Assays
         <IconButton
           sx={{
             position: 'absolute',
@@ -112,13 +121,24 @@ const AddForm = () => {
 
             <Autocomplete
               disablePortal
+              id="batch_"
+              options={batchOptions}
+              value={batchValue}
+              onChange={(e, newValue) => {
+                setBatchValue(newValue)
+              }}
+              renderInput={(params) => <TextField {...params} label="Batch" variant="standard" sx={{width: '100%', mt:2}}/>}
+            />
+
+            <Autocomplete
+              disablePortal
               id="assayBarcode_"
               options={uniqueTypeOptions}
               value={typeValue}
               onChange={(e, newValue) => {
                 setTypeValue(newValue)
               }}
-              renderInput={(params) => <TextField {...params} label="How many assays?" variant="standard" sx={{width: '100%', mt:2}}/>}
+              renderInput={(params) => <TextField {...params} label="Assay type" variant="standard" sx={{width: '100%', mt:2}}/>}
             />
 
             <TextField
@@ -154,16 +174,7 @@ const AddForm = () => {
               renderInput={(params) => <TextField {...params} label="Experiment" variant="standard" sx={{width: '100%', mt:2}}/>}
             />
 
-            <Autocomplete
-              disablePortal
-              id="batch_"
-              options={batchOptions}
-              value={batchValue}
-              onChange={(e, newValue) => {
-                setBatchValue(newValue)
-              }}
-              renderInput={(params) => <TextField {...params} label="Batch" variant="standard" sx={{width: '100%', mt:2}}/>}
-            />
+            
 
             <Autocomplete
               disablePortal
