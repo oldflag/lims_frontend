@@ -85,6 +85,7 @@ const AddForm = () => {
 
         register({"experimentId":experimentValue.id, 
                 "batchId":batchValue.id,
+                "assayType": typeValue,
                 "loadPatn5Name":loadPatn5Value,
                 "assayDate":assayDateValue,
                 "status":status, 

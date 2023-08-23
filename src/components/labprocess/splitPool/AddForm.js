@@ -55,7 +55,7 @@ const AddForm =  () => {
   return (
     <Dialog open={openSplitPool} onClose={handleClose}>
       <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
-        Add A New SplitPools
+        Add A New Pooling\Channeling
         <IconButton
           sx={{
             position: 'absolute',
@@ -71,7 +71,7 @@ const AddForm =  () => {
       <form onSubmit={handleSubmit}>
         <DialogContent dividers>
           <DialogContentText>
-            Please fill a new splitPool's information in the fields below:
+            Please fill the fields below:
           </DialogContentText>
 
             <Autocomplete
@@ -89,9 +89,9 @@ const AddForm =  () => {
               margin="normal"
               variant="standard"
               id="spLayout_"
-              label="Split&Pool Layout"
+              label="Layout\Channel Information"
               type="text"
-              defaultValue={"4PLx96Well"}
+              defaultValue={"10x Single"}
               fullWidth
               inputRef={spLayoutRef}
             />

@@ -155,7 +155,7 @@ export default function PtPreps() {
             component="h6"
             sx={{ textAlign: 'center', mt: 2, mb: 2 }}
           >
-            Paired-Tag Preparation
+            Assay Processing
           </Typography>
           </Grid>
         </Grid>

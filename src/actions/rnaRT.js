@@ -4,12 +4,12 @@ const url = process.env.REACT_APP_SERVER_URL + '/rnaRT';
 
 export const register = async (rnaRT, dispatch) => {
   dispatch({ type: 'START_LOADING' });
-  console.log(rnaRT)
+  // console.log(rnaRT)
   const result = await fetchData(
     { url: url + '/register', body: rnaRT },
     dispatch
   );
-  console.log(result)
+  // console.log(result)
   if (result) {
     dispatch({ type: 'UPDATE_RNART', payload: result });
     dispatch({

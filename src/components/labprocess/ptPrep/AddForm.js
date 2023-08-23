@@ -39,16 +39,20 @@ const AddForm =  () => {
     if (rnaRTs.length === 0) getRnaRTs(dispatch);
   },[]);
 
-  const batchOptions = batchs.map(({ name, id }) => ({ label:name, id:id }));
+  const batchOptions = batchs.map(({ name, id, priority }) => ({ label:name, id:id, protocol:priority }));
   const [batchValue, setBatchValue] = useState('');
   const [assaysValue, setAssaysValue] = useState(null);
-  const statusRef = useRef();
+  // const statusRef = useRef();
   const metadataRef = useRef();
+
+  const ni_protocols = process.env.REACT_APP_NI_PROTOCOLS.split(',')
+  const wt_protocols = process.env.REACT_APP_WT_PROTOCOLS.split(',')
+  const rt_protocols = process.env.REACT_APP_RT_PROTOCOLS.split(',')
 
   useEffect(() =>{  
     setAssaysValue(assays.filter((item) => {
                                         return item.batchId === batchValue.id})
-                                      .map(({tubeNum, batchId, id}) => ({tubeNum, batchId, id}))
+                                      .map(({tubeNum, batchId, id, assayType}) => ({tubeNum, batchId, id, assayType}))
                         )},[batchValue, assays])
 
   const handleClose = () => {
@@ -57,7 +61,7 @@ const AddForm =  () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();  
-    const status = statusRef.current.value;
+    // const status = statusRef.current.value;
     const metadata = metadataRef.current.value;
 
     if(assaysValue.length === 0) 
@@ -69,7 +73,6 @@ const AddForm =  () => {
           message: 'There is no assay associated with this batch. Please generate assays',
         },
       });
-
     for (let element of assaysValue) {
 
     // assaysValue.forEach(element => {
@@ -82,6 +85,7 @@ const AddForm =  () => {
       await registerNucleiIncubation({"id":nuIncId, 
                 "assayId":element.id,
                 "operator":currentUser.email,
+                "status": ni_protocols.includes(element.assayType) ? 'Y' : 'N/A'
                 // "tubeNum":+element.tubeNum,
                 },dispatch)
 
@@ -89,12 +93,14 @@ const AddForm =  () => {
       await registerWashAndTag({"id":wtId, 
                 "assayId":element.id,
                 "operator":currentUser.email,
+                "status": wt_protocols.includes(element.assayType) ? 'Y' : 'N/A'
                 // "tubeNum":+element.tubeNum,
                 },dispatch)
 
       await registerRnaRT({"id":rtId, 
                 "assayId":element.id,
                 "operator":currentUser.email,
+                "status": rt_protocols.includes(element.assayType) ? 'Y' : 'N/A'
                 // "tubeNum":+element.tubeNum,
                 },dispatch)
 
@@ -104,7 +110,7 @@ const AddForm =  () => {
                       "assayId":element.id,
                       "washAndTagId":wtId,
                       "operator":currentUser.email,
-                      "status":status,
+                      "memo": batchValue.protocol +' : '+element.assayType,
                       "metadata":metadata,
                       // "tubeNum":+element.tubeNum,
                       },dispatch)
@@ -115,7 +121,7 @@ const AddForm =  () => {
   return (
     <Dialog open={openPtPrep} onClose={handleClose}>
       <DialogTitle sx={{ textAlign: 'center', mt: 1, mb: 1 }}>
-        "Register New PtPreps"
+        Register Assay Processes
         <IconButton
           sx={{
             position: 'absolute',
@@ -131,7 +137,7 @@ const AddForm =  () => {
       <form onSubmit={handleSubmit}>
         <DialogContent dividers>
           <DialogContentText>
-            Please fill a new ptPrep's information in the fields below:
+            Please fill information in the fields below:
           </DialogContentText>
 
             <Autocomplete
@@ -145,7 +151,7 @@ const AddForm =  () => {
               renderInput={(params) => <TextField {...params} label="Select a batch" variant="standard" />}
             />
 
-            <TextField
+            {/* <TextField
               margin="normal"
               variant="standard"
               id="status"
@@ -153,7 +159,7 @@ const AddForm =  () => {
               type="text"
               fullWidth
               inputRef={statusRef}
-            />
+            /> */}
 
             <TextField
               margin="normal"

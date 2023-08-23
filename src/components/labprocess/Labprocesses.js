@@ -39,8 +39,8 @@ export default function Labprocesses() {
         onClose={handleClose}
         MenuListProps={{'aria-labelledby': 'labprocess-button'}}
       >
-        <MenuItem onClick={() => {navigate('labprocess/ptPrep'); handleClose()}}> Paired-Tag Preparation  </MenuItem>
-        <MenuItem onClick={() => {navigate('labprocess/splitPool'); handleClose()}}> Split&Pool </MenuItem>
+        <MenuItem onClick={() => {navigate('labprocess/ptPrep'); handleClose()}}> Assay Process  </MenuItem>
+        <MenuItem onClick={() => {navigate('labprocess/splitPool'); handleClose()}}> Assay Pooling\Channeling </MenuItem>
         <MenuItem onClick={() => {navigate('labprocess/lysis');handleClose()}}> Lysis </MenuItem>
         <MenuItem onClick={() => {navigate('labprocess/prelibrary');handleClose()}}> Prelibrary </MenuItem>
         <MenuItem onClick={() => {navigate('labprocess/dnaLibrary/dnaLibrary');handleClose()}}> DNA Library </MenuItem>
