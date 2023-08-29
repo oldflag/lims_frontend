@@ -18,7 +18,7 @@ const reducer = (state, action) => {
       return { ...state, alert: action.payload };
 
     case 'ADD_USER':
-      return { ...state, users: [...state.users, action.payload] };
+      return { ...state, users: [action.payload, ...state.users] };
     
     case 'UPDATE_USER':
       localStorage.setItem('currentUser', JSON.stringify(action.payload));
@@ -28,7 +28,7 @@ const reducer = (state, action) => {
       return { ...state, users: action.payload };
 
     case 'UPDATE_COLLABORATOR':
-      return { ...state, collaborators: [...state.collaborators, action.payload] };
+      return { ...state, collaborators: [action.payload, ...state.collaborators] };
     
     case 'UPDATE_COLLABORATORS':
       return { ...state, collaborators: action.payload};
@@ -46,7 +46,7 @@ const reducer = (state, action) => {
       return { ...state, openCollaborator: false };
 
     case 'UPDATE_DONOR':
-      return { ...state, donors: [...state.donors, action.payload ] };
+      return { ...state, donors: [action.payload, ...state.donors ] };
     
     case 'UPDATE_DONORS':
       return { ...state, donors: action.payload};
@@ -64,7 +64,7 @@ const reducer = (state, action) => {
       return { ...state, openDonor: false };
     
     case 'UPDATE_SPECIMEN':
-      return { ...state, specimens: [...state.specimens, action.payload] };
+      return { ...state, specimens: [action.payload, ...state.specimens] };
     
     case 'UPDATE_SPECIMENS':
       return { ...state, specimens: action.payload};
@@ -83,7 +83,7 @@ const reducer = (state, action) => {
 
     case 'UPDATE_PROJECT':
       console.log(state.projects)
-      return { ...state, projects: [...state.projects, action.payload] };
+      return { ...state, projects: [action.payload, ...state.projects] };
     
     case 'UPDATE_PROJECTS':
       return { ...state, projects: action.payload};
@@ -101,7 +101,7 @@ const reducer = (state, action) => {
       return { ...state, openProject: false };
 
     case 'UPDATE_ANTIBODY':
-      return { ...state, antibodies: [...state.antibodies, action.payload] };
+      return { ...state, antibodies: [action.payload, ...state.antibodies] };
     
     case 'UPDATE_ANTIBODIES':
       return { ...state, antibodies: action.payload};
@@ -119,7 +119,7 @@ const reducer = (state, action) => {
       return { ...state, openAntibody: false };
 
      case 'UPDATE_PATN5':
-      return { ...state, patn5s: [...state.patn5s, action.payload] };
+      return { ...state, patn5s: [action.payload, ...state.patn5s] };
     
     case 'UPDATE_PATN5S':
       return { ...state, patn5s: action.payload};
@@ -136,7 +136,7 @@ const reducer = (state, action) => {
       return { ...state, openPatn5: false };
 
     case 'UPDATE_LOADPATN5':
-      return { ...state, loadPatn5s: [...state.loadPatn5s, action.payload] };
+      return { ...state, loadPatn5s: [action.payload, ...state.loadPatn5s] };
     
     case 'UPDATE_LOADPATN5S':
       return { ...state, loadPatn5s: action.payload};
@@ -153,7 +153,7 @@ const reducer = (state, action) => {
       return { ...state, openLoadPatn5: false };
 
     case 'UPDATE_REAGENT':
-      return { ...state, reagents: [...state.reagents, action.payload] };
+      return { ...state, reagents: [action.payload, ...state.reagents] };
     
     case 'UPDATE_REAGENTS':
       return { ...state, reagents: action.payload};
@@ -171,7 +171,7 @@ const reducer = (state, action) => {
       return { ...state, openReagent: false };
 
     case 'UPDATE_EXPERIMENT':
-      return { ...state, experiments: [...state.experiments, action.payload] };
+      return { ...state, experiments: [action.payload, ...state.experiments] };
     
     case 'UPDATE_EXPERIMENTS':
       return { ...state, experiments: action.payload};
@@ -189,7 +189,7 @@ const reducer = (state, action) => {
       return { ...state, openExperiment: false };
 
     case 'UPDATE_SAMPLE':
-      return { ...state, samples: [...state.samples, action.payload] };
+      return { ...state, samples: [action.payload, ...state.samples] };
     
     case 'UPDATE_SAMPLES':
       return { ...state, samples: action.payload};
@@ -206,7 +206,7 @@ const reducer = (state, action) => {
       return { ...state, openSample: false };
 
     case 'UPDATE_BATCH':
-      return { ...state, batchs: [...state.batchs, action.payload] };    
+      return { ...state, batchs: [action.payload, ...state.batchs] };    
     case 'UPDATE_BATCHS':
       return { ...state, batchs: action.payload};
     case 'DELETE_BATCH':
@@ -220,7 +220,7 @@ const reducer = (state, action) => {
       return { ...state, openBatch: false };
 //assay
     case 'UPDATE_ASSAY':
-      return { ...state, assays: [...state.assays, action.payload] };    
+      return { ...state, assays: [action.payload, ...state.assays] };    
     case 'UPDATE_ASSAYS':
       return { ...state, assays: action.payload};
     case 'DELETE_ASSAY':
@@ -237,7 +237,7 @@ const reducer = (state, action) => {
       return { ...state, assayBarcodes: action.payload};
     
     case 'UPDATE_PTPREP':
-      return { ...state, ptPreps: [...state.ptPreps, action.payload] };    
+      return { ...state, ptPreps: [action.payload, ...state.ptPreps] };    
     case 'UPDATE_PTPREPS':
       return { ...state, ptPreps: action.payload};
     case 'DELETE_PTPREP':
@@ -251,7 +251,7 @@ const reducer = (state, action) => {
       return { ...state, openPtPrep: false };
 
     case 'UPDATE_NUCLEIINCUBATION':
-      return { ...state, nucleiIncubations: [...state.nucleiIncubations, action.payload] };    
+      return { ...state, nucleiIncubations: [action.payload, ...state.nucleiIncubations] };    
     case 'UPDATE_NUCLEIINCUBATIONS':
       return { ...state, nucleiIncubations: action.payload};
     case 'DELETE_NUCLEIINCUBATION':
@@ -265,7 +265,7 @@ const reducer = (state, action) => {
       return { ...state, openNucleiIncubation: false };
 
     case 'UPDATE_WASHANDTAG':
-      return { ...state, washAndTags: [...state.washAndTags, action.payload] };    
+      return { ...state, washAndTags: [action.payload, ...state.washAndTags] };    
     case 'UPDATE_WASHANDTAGS':
       return { ...state, washAndTags: action.payload};
     case 'DELETE_WASHANDTAG':
@@ -279,7 +279,7 @@ const reducer = (state, action) => {
       return { ...state, openWashAndTag: false };
 
     case 'UPDATE_RNART':
-      return { ...state, rnaRTs: [...state.rnaRTs, action.payload] };    
+      return { ...state, rnaRTs: [action.payload, ...state.rnaRTs] };    
     case 'UPDATE_RNARTS':
       return { ...state, rnaRTs: action.payload};
     case 'DELETE_RNART':
@@ -293,7 +293,7 @@ const reducer = (state, action) => {
       return { ...state, openRnaRT: false };
 
     case 'UPDATE_SPLITPOOL':
-      return { ...state, splitPools: [...state.splitPools, action.payload] };    
+      return { ...state, splitPools: [action.payload, ...state.splitPools] };    
     case 'UPDATE_SPLITPOOLS':
       return { ...state, splitPools: action.payload};
     case 'DELETE_SPLITPOOL':
@@ -328,7 +328,7 @@ const reducer = (state, action) => {
       return { ...state, selectedPrelibrarys: action.payload};
 
     case 'UPDATE_TDTTAILING':
-      return { ...state, tdtTailings: [...state.tdtTailings, action.payload] };    
+      return { ...state, tdtTailings: [action.payload, ...state.tdtTailings] };    
     case 'UPDATE_TDTTAILINGS':
       return { ...state, tdtTailings: action.payload};
     case 'DELETE_TDTTAILING':
@@ -342,7 +342,7 @@ const reducer = (state, action) => {
       return { ...state, openTdtTailing: false };
     
     case 'UPDATE_LINEARAMPANCHOR':
-      return { ...state, linearAmpAnchors: [...state.linearAmpAnchors, action.payload] };    
+      return { ...state, linearAmpAnchors: [action.payload, ...state.linearAmpAnchors] };    
     case 'UPDATE_LINEARAMPANCHORS':
       return { ...state, linearAmpAnchors: action.payload};
     case 'DELETE_LINEARAMPANCHOR':
@@ -356,7 +356,7 @@ const reducer = (state, action) => {
       return { ...state, openLinearAmpAnchor: false };
 
     case 'UPDATE_PREAMP':
-      return { ...state, preAmps: [...state.preAmps, action.payload] };    
+      return { ...state, preAmps: [action.payload, ...state.preAmps] };    
     case 'UPDATE_PREAMPS':
       return { ...state, preAmps: action.payload};
     case 'DELETE_PREAMP':
@@ -370,7 +370,7 @@ const reducer = (state, action) => {
       return { ...state, openPreAmp: false };
     
     case 'UPDATE_DOUBLESIZESELECT':
-      return { ...state, doubleSizeSelects: [...state.doubleSizeSelects, action.payload] };    
+      return { ...state, doubleSizeSelects: [action.payload, ...state.doubleSizeSelects] };    
     case 'UPDATE_DOUBLESIZESELECTS':
       return { ...state, doubleSizeSelects: action.payload};
     case 'DELETE_DOUBLESIZESELECT':
@@ -398,7 +398,7 @@ const reducer = (state, action) => {
       return { ...state, selectedDnaLibrarys: action.payload};
 
     case 'UPDATE_RNALIBRARY':
-      return { ...state, rnaLibrarys: [...state.rnaLibrarys, action.payload] };    
+      return { ...state, rnaLibrarys: [action.payload, ...state.rnaLibrarys] };    
     case 'UPDATE_RNALIBRARYS':
       return { ...state, rnaLibrarys: action.payload};
     case 'DELETE_RNALIBRARY':
@@ -412,7 +412,7 @@ const reducer = (state, action) => {
       return { ...state, openRnaLibrary: false };
 
     case 'UPDATE_RNASPLITENZYME':
-      return { ...state, rnaSplitEnzymes: [...state.rnaSplitEnzymes, action.payload] };    
+      return { ...state, rnaSplitEnzymes: [action.payload, ...state.rnaSplitEnzymes] };    
     case 'UPDATE_RNASPLITENZYMES':
       return { ...state, rnaSplitEnzymes: action.payload};
     case 'DELETE_RNASPLITENZYME':
@@ -426,7 +426,7 @@ const reducer = (state, action) => {
       return { ...state, openRnaSplitEnzyme: false };
 
     case 'UPDATE_RNAADAPTER':
-      return { ...state, rnaAdapters: [...state.rnaAdapters, action.payload] };    
+      return { ...state, rnaAdapters: [action.payload, ...state.rnaAdapters] };    
     case 'UPDATE_RNAADAPTERS':
       return { ...state, rnaAdapters: action.payload};
     case 'DELETE_RNAADAPTER':
@@ -440,7 +440,7 @@ const reducer = (state, action) => {
       return { ...state, openRnaAdapter: false };
 
     case 'UPDATE_RNALIBMULTIPLEX':
-      return { ...state, rnaLibMultiplexs: [...state.rnaLibMultiplexs, action.payload] };    
+      return { ...state, rnaLibMultiplexs: [action.payload, ...state.rnaLibMultiplexs] };    
     case 'UPDATE_RNALIBMULTIPLEXS':
       return { ...state, rnaLibMultiplexs: action.payload};
     case 'DELETE_RNALIBMULTIPLEX':
@@ -454,7 +454,7 @@ const reducer = (state, action) => {
       return { ...state, openRnaLibMultiplex: false };
 
     case 'UPDATE_DNALIBRARY':
-      return { ...state, dnaLibrarys: [...state.dnaLibrarys, action.payload] };    
+      return { ...state, dnaLibrarys: [action.payload, ...state.dnaLibrarys] };    
     case 'UPDATE_DNALIBRARYS':
       return { ...state, dnaLibrarys: action.payload};
     case 'DELETE_DNALIBRARY':
@@ -468,7 +468,7 @@ const reducer = (state, action) => {
       return { ...state, openDnaLibrary: false };
 
     case 'UPDATE_DNASPLITENZYME':
-      return { ...state, dnaSplitEnzymes: [...state.dnaSplitEnzymes, action.payload] };    
+      return { ...state, dnaSplitEnzymes: [action.payload, ...state.dnaSplitEnzymes] };    
     case 'UPDATE_DNASPLITENZYMES':
       return { ...state, dnaSplitEnzymes: action.payload};
     case 'DELETE_DNASPLITENZYME':
@@ -482,7 +482,7 @@ const reducer = (state, action) => {
       return { ...state, openDnaSplitEnzyme: false };
 
     case 'UPDATE_DNAADAPTER':
-      return { ...state, dnaAdapters: [...state.dnaAdapters, action.payload] };    
+      return { ...state, dnaAdapters: [action.payload, ...state.dnaAdapters] };    
     case 'UPDATE_DNAADAPTERS':
       return { ...state, dnaAdapters: action.payload};
     case 'DELETE_DNAADAPTER':
@@ -496,7 +496,7 @@ const reducer = (state, action) => {
       return { ...state, openDnaAdapter: false };
 
     case 'UPDATE_DNALIBMULTIPLEX':
-      return { ...state, dnaLibMultiplexs: [...state.dnaLibMultiplexs, action.payload] };    
+      return { ...state, dnaLibMultiplexs: [action.payload, ...state.dnaLibMultiplexs] };    
     case 'UPDATE_DNALIBMULTIPLEXS':
       return { ...state, dnaLibMultiplexs: action.payload};
     case 'DELETE_DNALIBMULTIPLEX':
@@ -510,7 +510,7 @@ const reducer = (state, action) => {
       return { ...state, openDnaLibMultiplex: false };
 
     case 'UPDATE_SEQLIBRARY':
-      return { ...state, seqLibrarys: [...state.seqLibrarys, action.payload] };    
+      return { ...state, seqLibrarys: [action.payload, ...state.seqLibrarys] };    
     case 'UPDATE_SEQLIBRARYS':
       return { ...state, seqLibrarys: action.payload};
     case 'DELETE_SEQLIBRARY':
@@ -524,7 +524,7 @@ const reducer = (state, action) => {
       return { ...state, openSeqLibrary: false };
     
     case 'UPDATE_SEQRUN':
-      return { ...state, seqRuns: [...state.seqRuns, action.payload] };    
+      return { ...state, seqRuns: [action.payload, ...state.seqRuns] };    
     case 'UPDATE_SEQRUNS':
       return { ...state, seqRuns: action.payload};
     case 'DELETE_SEQRUN':
@@ -569,7 +569,7 @@ const reducer = (state, action) => {
       return { ...state, openBatchReport: false };
 
     case 'UPDATE_QUOTE':
-      return { ...state, quotes: [...state.quotes, action.payload] };
+      return { ...state, quotes: [action.payload, ...state.quotes] };
     
     case 'UPDATE_QUOTES':
       return { ...state, quotes: action.payload};
@@ -588,7 +588,7 @@ const reducer = (state, action) => {
 
     
     case 'UPDATE_TAPESTATION':
-      return { ...state, tapeStations: [...state.tapeStations, action.payload] };
+      return { ...state, tapeStations: [action.payload, ...state.tapeStations] };
     
     case 'UPDATE_TAPESTATIONS':
       return { ...state, tapeStations: action.payload};
