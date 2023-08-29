@@ -20,6 +20,7 @@ import {
   GridToolbarContainer,
   useGridApiContext,
   useGridApiRef,
+  GridToolbarQuickFilter
 } from '@mui/x-data-grid';
 
 import { getLysiss } from '../../../actions/lysis';
@@ -101,6 +102,7 @@ function EditToolbar(props) {
 
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
+      <GridToolbarQuickFilter />
       { !submitStatus && <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
         <AddIcon />
       </Fab> }

@@ -13,6 +13,7 @@ import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
+  GridToolbarQuickFilter,
 } from '@mui/x-data-grid';
 
 import { getCollaborators, registerMany } from '../../../actions/collaborator';
@@ -97,6 +98,7 @@ function EditToolbar(props) {
       >
         Collaborators
       </Typography> */}
+      <GridToolbarQuickFilter />
 
       <Fab size="small" color="primary" aria-label="add" onClick={handleClick} sx={{ml:1}} >
         <AddIcon />

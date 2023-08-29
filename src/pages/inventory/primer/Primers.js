@@ -14,7 +14,7 @@ import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
-
+  GridToolbarQuickFilter
 } from '@mui/x-data-grid';
 
 import { getPrimers } from '../../../actions/primer';
@@ -124,6 +124,7 @@ function EditToolbar(props) {
 
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
+      <GridToolbarQuickFilter />
       <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
         <AddIcon />
       </Fab>

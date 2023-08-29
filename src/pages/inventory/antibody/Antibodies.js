@@ -10,6 +10,7 @@ import moment from 'moment';
 import {
   DataGrid,
   GridToolbarContainer,
+  GridToolbarQuickFilter
 } from '@mui/x-data-grid';
 
 import { getAntibodies } from '../../../actions/antibody';
@@ -29,6 +30,7 @@ function EditToolbar(props) {
 
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
+      <GridToolbarQuickFilter />
       <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
         <AddIcon />
       </Fab>
