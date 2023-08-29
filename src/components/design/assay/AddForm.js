@@ -36,32 +36,26 @@ const AddForm = () => {
     if (assayBarcodes.length === 0) getAssayBarcodes(dispatch);
   },[]);
 
-  const batchOptions = batchs.map(({ name, id, priority }) => ({ label:name, id:id, protocol:priority }));
+  const batchOptions = batchs.map(({ name, id, priority, subProtocol }) => ({ label:name, id:id, protocol:priority, subprotocol:subProtocol }));
   const [batchValue, setBatchValue] = useState(batchOptions[0]);
-  const [uniqueTypeOptions, setUniqueTypeOptions] = useState(null);
-  
-  useEffect(() =>{  
-    setUniqueTypeOptions([...new Set(assayBarcodes.filter((item) => {
-                                        return item.protocol === batchValue.protocol})
-                                      .map((item) => item.type)
-  )])},[batchValue])
+  // const [typeValue, setTypeValue] = useState( null );
+  // useEffect(() =>{  
+  //   setTypeValue(batchValue.subprotocol)},[batchValue])
 
   // const uniqueTypeOptions = Array.from(new Set(assayBarcodes.map((item) => item.type)));
   const experimentOptions = experiments.map(({ name, id }) => ({ label:name, id:id }));
   const loadPatn5Options = Array.from(new Set(loadPatn5s.map((item)=> item.loadName)));
-
-
   const [experimentValue, setExperimentValue] = useState(experimentOptions[0]);
   const [loadPatn5Value, setLoadPatn5Value] = useState(loadPatn5Options[0]);
   const [assayDateValue, setAssayDateValue] = useState(null);
-  const [typeValue, setTypeValue] = useState( null );
+  
   
   const [tubebarcodeValue, setTubebarcodeValue] = useState(null)
   useEffect(() =>{  
     setTubebarcodeValue(assayBarcodes.filter((item) => {
-                                        return item.type === typeValue})
+                                        return item.type === batchValue.subprotocol})
                                       .map(({tubeNum, barcode}) => ({tubeNum, barcode}))
-                        )},[typeValue])
+                        )},[batchValue])
   // console.log(tubebarcodeValue)
   const tubeFromRef = useRef();
   const tubeToRef = useRef();
@@ -85,7 +79,7 @@ const AddForm = () => {
 
         register({"experimentId":experimentValue.id, 
                 "batchId":batchValue.id,
-                "assayType": typeValue,
+                "assayType": batchValue.subprotocol,
                 "loadPatn5Name":loadPatn5Value,
                 "assayDate":assayDateValue,
                 "status":status, 
@@ -131,7 +125,7 @@ const AddForm = () => {
               renderInput={(params) => <TextField {...params} label="Batch" variant="standard" sx={{width: '100%', mt:2}}/>}
             />
 
-            <Autocomplete
+            {/* <Autocomplete
               disablePortal
               id="assayBarcode_"
               options={uniqueTypeOptions}
@@ -140,7 +134,7 @@ const AddForm = () => {
                 setTypeValue(newValue)
               }}
               renderInput={(params) => <TextField {...params} label="Assay type" variant="standard" sx={{width: '100%', mt:2}}/>}
-            />
+            /> */}
 
             <TextField
               margin="normal"

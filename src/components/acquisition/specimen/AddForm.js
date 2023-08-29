@@ -189,6 +189,18 @@ const AddForm = () => {
               fullWidth
               inputRef={tissue_amount_unitRef}
             />
+            
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Receipt Date*"
+                value={receiptDateValue}
+                onChange={(newValue) => {
+                  setReceiptDateValue(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} sx={{width: '100%', mt:2}}/>}
+                required
+              />
+            </LocalizationProvider>
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
@@ -201,17 +213,7 @@ const AddForm = () => {
               />
             </LocalizationProvider>
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="Receipt Date"
-                value={receiptDateValue}
-                onChange={(newValue) => {
-                  setReceiptDateValue(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} sx={{width: '100%', mt:2}}/>}
-                required
-              />
-            </LocalizationProvider>
+            
             <TextField
               margin="normal"
               variant="standard"

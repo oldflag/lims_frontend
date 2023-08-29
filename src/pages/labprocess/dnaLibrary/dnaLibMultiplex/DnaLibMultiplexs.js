@@ -39,8 +39,8 @@ export default function DnaLibMultiplexs() {
   const [rows, setRows] = useState(dnaLibMultiplexs);
   const [rowModesModel, setRowModesModel] = useState({});
 
-  const i7Ids = i7Primers.map(({ id }) => id)
-  const i5Ids = i5Primers.map(({ id }) => id)
+  // const i7Ids = i7Primers.map(({ id }) => id)
+  // const i5Ids = i5Primers.map(({ id }) => id)
 
   useEffect(() => {
 
@@ -101,13 +101,23 @@ export default function DnaLibMultiplexs() {
       headerName: 'i7 Primer', 
       flex: 1, 
       type: 'singleSelect',
-      valueOptions: i7Ids,
+      valueOptions: ({row}) => { const options = []; 
+                                  i7Primers.map(item => { if((row.dnaLibrary_lysis_batch_subProtocol === item.subProtocol) && (['any', 'dna'].includes(item.libtype))) {
+                                                            options.push(item.id)
+                                                          }
+                                                        }); 
+                                  return options},
       editable:true},
     { field: 'i5PrimerId', 
       headerName: 'i5 Primer', 
       flex: 1,
       type: 'singleSelect',
-      valueOptions: i5Ids, 
+      valueOptions: ({row}) => { const options = []; 
+                                  i5Primers.map(item => { if(row.dnaLibrary_lysis_batch_subProtocol === item.subProtocol && (['any', 'dna'].includes(item.libtype))) {
+                                                            options.push(item.id)
+                                                          }
+                                                        }); 
+                                  return options},
       editable:true},
     { field: 'beadRatio', headerName: 'Bead Ratio', flex: 1, editable: true },
     { field: 'status', 

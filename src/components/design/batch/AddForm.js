@@ -15,25 +15,38 @@ import {
 import { useRef, useEffect, useState } from 'react';
 import { register } from '../../../actions/batch';
 import { useValue } from '../../../context/ContextProvider';
+import { getAssayBarcodes } from '../../../actions/assayBarcode';
 import { getQuotes } from '../../../actions/quote';
 
 const AddForm = () => {
   const {
-    state: { openBatch, quotes },
+    state: { openBatch, quotes, assayBarcodes },
     dispatch,
   } = useValue();
 
   useEffect(() => {
     if (quotes.length === 0) getQuotes(dispatch);
+    if (assayBarcodes.length === 0) getAssayBarcodes(dispatch);
   },[]);
 
-  const quoteOptions = quotes.map(({ name, id }) => ({ label:name, id:id }));
+  const protocolOptions = [...new Set(assayBarcodes.map((item) => item.protocol))];
+  const [protocolValue, setProtocolValue] = useState(protocolOptions[0]);
 
+  const [subProtocolOptions, setSubProtocolOptions] = useState(null);
+  
+  useEffect(() =>{  
+    setSubProtocolOptions([...new Set(assayBarcodes.filter((item) => {
+                                        return item.protocol === protocolValue})
+                                      .map((item) => item.type)
+  )])},[protocolValue])
+
+  const [subProtocolValue, setSubProtocoValue] = useState( null );
+
+  const quoteOptions = quotes.map(({ name, id }) => ({ label:name, id:id }));
   const [quoteValue, setQuoteValue] = useState(quoteOptions[0]);
 
   const nameRef = useRef();
   const typeRef = useRef();
-  const priorityRef = useRef();
   const statusRef = useRef();
   const metadataRef = useRef();
 
@@ -45,13 +58,15 @@ const AddForm = () => {
     e.preventDefault();
     const name = nameRef.current.value;
     const type = typeRef.current.value;
-    const priority = priorityRef.current.value;
+    // const priority = priorityRef.current.value;
+    // const subProtocol = subProtocolRef.current.value;
     const status = statusRef.current.value;
     const metadata = metadataRef.current.value;
 
     await register({"name":name, 
                     "type":type, 
-                    "priority":priority, 
+                    "priority":protocolValue, 
+                    "subProtocol":subProtocolValue,
                     "status":status, 
                     "metadata":metadata,
                     "quoteId":quoteValue ? quoteValue.id : quoteValue 
@@ -86,7 +101,7 @@ const AddForm = () => {
               margin="normal"
               variant="standard"
               id="name"
-              label="Name"
+              label="New Batch Name"
               type="text"
               fullWidth
               inputRef={nameRef}
@@ -104,7 +119,7 @@ const AddForm = () => {
               inputRef={typeRef}
             /> */}
 
-            <FormControl required fullWidth margin='normal'>
+            {/* <FormControl required fullWidth margin='normal'>
               <InputLabel id="priority">Protocol</InputLabel>
               <Select
                 labelId="priority_"
@@ -117,15 +132,39 @@ const AddForm = () => {
                 <MenuItem value={'Droplet'}>Droplet</MenuItem>
                 <MenuItem value={'Bulk'}>Bulk</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
+
+            <Autocomplete
+              required
+              disablePortal
+              id="priority_"
+              options={protocolOptions}
+              value={protocolValue}
+              onChange={(e, newValue) => {
+                setProtocolValue(newValue)
+              }}
+              renderInput={(params) => <TextField {...params} label="Select a protocol *" variant="standard" />}
+            />
+            
+            <Autocomplete
+              required
+              disablePortal
+              id="subProtocol_"
+              options={subProtocolOptions}
+              value={subProtocolValue}
+              onChange={(e, newValue) => {
+                setSubProtocoValue(newValue)
+              }}
+              renderInput={(params) => <TextField {...params} label="Select a subprotocol *" variant="standard" />}
+            />
 
             <FormControl required fullWidth margin='normal'>
-              <InputLabel id="type">Type</InputLabel>
+              <InputLabel id="type">Select a category</InputLabel>
               <Select
                 labelId="type_"
                 id="type__"
                 inputRef={typeRef}
-                label="Type"
+                label="Category"
                 required
               >
                 <MenuItem value={'Commercial'}>Commercial</MenuItem>

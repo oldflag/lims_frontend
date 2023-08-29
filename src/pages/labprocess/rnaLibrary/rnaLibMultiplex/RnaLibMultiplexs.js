@@ -40,8 +40,8 @@ export default function RnaLibMultiplexs() {
   const [rows, setRows] = useState(rnaLibMultiplexs);
   const [rowModesModel, setRowModesModel] = useState({});
 
-  const i7Ids = i7Primers.map(({ id }) => id)
-  const i5Ids = i5Primers.map(({ id }) => id)
+  // const i7Ids = i7Primers.map(({ id }) => id)
+  // const i5Ids = i5Primers.map(({ id }) => id)
 
   useEffect(() => {
 
@@ -102,13 +102,23 @@ export default function RnaLibMultiplexs() {
       headerName: 'i7 Primer', 
       flex: 1, 
       type: 'singleSelect',
-      valueOptions: i7Ids,
+      valueOptions: ({row}) => { const options = []; 
+                                  i7Primers.map(item => { if((row.rnaLibrary_lysis_batch_subProtocol === item.subProtocol) && (['any', 'rna'].includes(item.libtype))) {
+                                                            options.push(item.id)
+                                                          }
+                                                        }); 
+                                  return options},
       editable:true},
     { field: 'i5PrimerId', 
       headerName: 'i5 Primer', 
       flex: 1,
       type: 'singleSelect',
-      valueOptions: i5Ids, 
+      valueOptions: ({row}) => { const options = []; 
+                                  i7Primers.map(item => { if((row.rnaLibrary_lysis_batch_subProtocol === item.subProtocol) && (['any', 'rna'].includes(item.libtype))) {
+                                                            options.push(item.id)
+                                                          }
+                                                        }); 
+                                  return options}, 
       editable:true},
     { field: 'status', 
       headerName: 'Status', 

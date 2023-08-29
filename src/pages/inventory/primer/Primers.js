@@ -1,50 +1,45 @@
 import {useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
+import Box from '@mui/material/Box';
 import AddIcon from '@mui/icons-material/Add';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { Fab, Typography, IconButton  } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { Fab, Typography, Box, IconButton } from '@mui/material';
 import { useValue } from '../../../context/ContextProvider';
-import { register, updateStatus } from '../../../actions/batch';
+import { register, updateStatus } from '../../../actions/primer';
+import moment from 'moment';
 
 
 import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
-  GridToolbarQuickFilter,
+
 } from '@mui/x-data-grid';
 
-import { getBatchs } from '../../../actions/batch';
-import BatchsActions from './BatchsActions'
-import AddForm from '../../../components/design/batch/AddForm';
-import moment from 'moment';
+import { getPrimers } from '../../../actions/primer';
+import PrimersActions from './PrimersActions'
+import AddForm from '../../../components/inventory/primer/AddForm';
 import importData from '../../../actions/utils/importData';
-import {registerFromFile} from '../../../actions/batch'
-import { getQuotes } from '../../../actions/quote';
-import BatchReportForm from '../../../components/design/batch/BatchReportForm';
-import { getAssayBarcodes } from '../../../actions/assayBarcode';
-
-
-const default_protocol = process.env.REACT_APP_DEFAULT_PROTOCOL
-const batch_protocols = process.env.REACT_APP_BATCH_PROTOCOLS.split(',')
-const batch_types = process.env.REACT_APP_BATCH_TYPES.split(',')
-
+import {getProjects, updateRelatedPrimer} from '../../../actions/project'
 
 function EditToolbar(props) {
 
   const {
-    dispatch,
+    state: { projects,},
+    dispatch, 
   } = useValue();
+
+  useEffect(() => {
+    if (projects.length === 0) getProjects(dispatch);
+  }, []);
 
   const handleClick = () => {
     
-    dispatch({ type: 'OPEN_BATCH' })
+    dispatch({ type: 'OPEN_SPECIMEN' })
   };
 
   const cbFileData = async(data) => {
-
-    console.log(data)
 
     if(data?.length ===0 ){
 
@@ -67,7 +62,7 @@ function EditToolbar(props) {
       payload: {
         open: true,
         severity: 'error',
-        message: 'Please check header names: name(required), createdAt'
+        message: 'Please check header names: id(required), primerType(required), seq1(required), seq2, seq3, seq4, subtype(required), type(required), protocol(required)'
         },
       });
       return
@@ -75,19 +70,33 @@ function EditToolbar(props) {
 
     for( let aIndex in data){
 
-      let aBatch = data[aIndex]
+      let aPrimer = data[aIndex]
+      let relatedProject = projects.filter((item) => {return item.name === aPrimer.project_name}) 
 
-      if (!aBatch.name) {
+      if (relatedProject.length === 0) {
+
+        dispatch({
+          type: 'UPDATE_ALERT',
+          payload: {
+            open: true,
+            severity: 'error',
+            message: 'No project name for the primer'+aPrimer.project_name
+            },
+        });
         
         continue;
 
       }
+      delete aPrimer.project_name
 
-      await registerFromFile(aBatch, dispatch)
+      await updateRelatedPrimer(aPrimer, relatedProject[0].id, dispatch)
 
     }
 
-    // getExperiments(dispatch);
+    getPrimers(dispatch);
+
+
+
       
     
   }
@@ -95,7 +104,7 @@ function EditToolbar(props) {
   const handleClickFile = (e) => {
 
    
-    importData(e.target.files[0], 1, cbFileData, 'Batch')
+    importData(e.target.files[0], 1, cbFileData, 'Primer')
     
   };
 
@@ -106,7 +115,7 @@ function EditToolbar(props) {
       payload: {
         open: true,
         severity: 'info',
-        message: 'Tab name: Batch, header(1st row): name(required), createdAt'
+        message: 'header(1st row): id(required), primerType(required), seq1(required), seq2, seq3, seq4, subtype(required), type(required), protocol(required)'
       },
     });
     
@@ -115,20 +124,19 @@ function EditToolbar(props) {
 
   return (
     <GridToolbarContainer sx={{mt:1, mr:5, display:"flex", justifyContent:"flex-end", alignItems:"flex-end"}}>
-      <GridToolbarQuickFilter />
-      <Fab sx={{ml:1}} size="small" color="primary" aria-label="add" onClick={handleClick}>
+      <Fab size="small" color="primary" aria-label="add" onClick={handleClick}>
         <AddIcon />
       </Fab>
 
-      {/* <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
+      <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
         <input hidden accept="*" type="file" onChange={handleClickFile}/>
         <UploadFileIcon onClick={handleUploadInfo}/>
-      </Fab> */}
+      </Fab>
 
       <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
         <GridToolbarExport size="small" color="primary" sx={{ml:1}}
           csvOptions={{
-            fileName: 'Batches',
+            fileName: 'Primers',
           }}
           startIcon={
             // <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
@@ -140,7 +148,7 @@ function EditToolbar(props) {
           }
         />
       </Fab>
-     
+
     </GridToolbarContainer>
   );
 }
@@ -150,34 +158,27 @@ EditToolbar.propTypes = {
   setRows: PropTypes.func.isRequired,
 };
 
-export default function Batchs() {
+export default function Primers() {
 
   const {
-    state: { batchs, quotes, assayBarcodes },
+    state: { primers },
     dispatch,
   } = useValue();
 
   const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
-    if (batchs.length === 0) getBatchs(dispatch);
-    if (quotes.length === 0) getQuotes(dispatch);
-    if (assayBarcodes.length === 0) getAssayBarcodes(dispatch);
+    if (primers.length === 0) getPrimers(dispatch);
   }, []);
 
-  const protocolOptions = [...new Set(assayBarcodes.map((item) => item.protocol))];
-  const subProtocolOptions = [...new Set(assayBarcodes.map((item) => item.type))];
-  const quoteOptions = quotes.map(({ name, id }) => ({ value:id, label:name }));
-  const quoteNames = quotes.map(a => a.name);
-
-  const [rows, setRows] = useState(batchs);
+  const [rows, setRows] = useState(primers);
   const [rowModesModel, setRowModesModel] = useState({});
 
   useEffect(() => {
 
-    setRows(batchs)
+    setRows(primers)
     
-  }, [batchs]);
+  }, [primers]);
 
 
   const handleRowEditStart = (params, event) => {
@@ -192,22 +193,40 @@ export default function Batchs() {
   const processRowUpdate = async (newRow) => {
     
     const isNewRecord = newRow.isNew
+
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-  
-    let { id, name, type, priority, subProtocol, status, metadata, quoteId, quote_name} = updatedRow;
-    //TODO: better solution for the following two lines
-    metadata = metadata != null ? metadata : ""
-    quoteId = quoteNames.includes(quote_name) ? quoteId : quote_name
+
+    const { id, 
+            primerType, 
+            seq1, 
+            seq2, 
+            seq3,
+            seq4,
+            subtype,
+            type,
+            protocol,
+            status,
+            createdAt } = updatedRow;
 
     let result;
 
     if (isNewRecord){
       result = await register(updatedRow, dispatch)
     } else{
-      result = await updateStatus({ name, type, priority, subProtocol, status, metadata, quoteId}, id, dispatch);
+      result = await updateStatus({ 
+                                    primerType, 
+                                    seq1, 
+                                    seq2, 
+                                    seq3,
+                                    seq4,
+                                    subtype,
+                                    type,
+                                    protocol,
+                                    status,
+                                    createdAt }, id, dispatch);
       if(result) {
-        getBatchs(dispatch)
+        getPrimers(dispatch)
       }
     }
 
@@ -220,53 +239,23 @@ export default function Batchs() {
       field: 'actions',
       type: 'actions',
       headerName: 'Actions',
-      flex: 1,
+      width: 150,
       cellClassName: 'actions',
       renderCell: (params) => (
-        <BatchsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+        <PrimersActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    
-    { field: 'name', headerName: 'Name', flex: 2, editable: true },
-    { field: 'priority', 
-      headerName: 'Protocol', 
-      flex: 1, 
-      type: 'singleSelect',
-      valueOptions:protocolOptions,
-      editable: true },
-
-    { field: 'subProtocol', 
-      headerName: 'Subprotocol', 
-      flex: 1, 
-      type: 'singleSelect',
-      valueOptions:subProtocolOptions,
-      editable: true },
-    // { field: 'type', headerName: 'Type', flex: 1, editable: true },
-    { field: 'type', 
-      headerName: 'Category', 
-      flex: 1,
-      type: 'singleSelect',
-      valueOptions: batch_types, 
-      editable: true 
-    },
-    // { field: 'quote_name', headerName: 'Quote #', flex: 1, editable: true },
-    { field: 'quote_name', 
-      headerName: 'Quote #', 
-      flex: 1,
-      type: 'singleSelect',
-      valueOptions: quoteOptions, 
-      editable: true 
-    },
-    // { field: 'status', headerName: 'Status', flex: 1, editable: true },
-    { field: 'metadata', headerName: 'Note', flex: 2, editable: true },
-    {
-      field: 'createdAt',
-      headerName: 'Created At',
-      flex: 1,
-      type: 'dateTime',
-      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
-    },
-    
+    { field: 'id', headerName: 'Id', width: 300 },
+    { field: 'primerType', headerName: 'Primer Type', width: 150, editable: true},
+    { field: 'seq1', headerName: 'Seq1', width: 150, editable: true},
+    { field: 'seq2', headerName: 'seq2', width: 150, editable: true },
+    { field: 'seq3', headerName: 'seq3', width: 150, editable: true },
+    { field: 'seq4', headerName: 'seq4', width: 150, editable: true },
+    { field: 'subtype', headerName: 'Subtype', width: 150, editable: true },
+    { field: 'type', headerName: 'Type', width: 150, editable: true },
+    { field: 'protocol', headerName: 'Protocol', width: 150, editable: true },
+    { field: 'status', headerName: 'Status', width: 150, editable: true },
+    { field: 'createdAt', headerName: 'CreatedAt', type:'date', width: 150, editable: true, valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"), },
   ],
   [rows, rowModesModel]
   );
@@ -274,7 +263,6 @@ export default function Batchs() {
   return (
     <>
     <AddForm />
-    <BatchReportForm />
     <Box
       sx={{
         mt :2,
@@ -297,7 +285,7 @@ export default function Batchs() {
         component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
-        Batches
+        Primers
       </Typography>
       <DataGrid
         sx={{
@@ -313,13 +301,7 @@ export default function Batchs() {
         density='compact'
         initialState={{
           sorting: {
-            sortModel: [{ field: 'createdAt', sort: 'desc' }],
-          },
-          filter: {
-            filterModel: {
-              items: [],
-              quickFilterValues: [default_protocol],
-            },
+            sortModel: [{ field: 'protocol', sort: 'desc' }],
           },
         }}
 
@@ -328,7 +310,7 @@ export default function Batchs() {
         columns={columns}
         getRowId={(row) => row.id}
         editMode="row"
-        rowsPerPageOptions={[20, 25, 100]}
+        rowsPerPageOptions={[15, 30, 45]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowModesModel={rowModesModel}
@@ -337,23 +319,12 @@ export default function Batchs() {
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         localeText={{toolbarExport:''}}
-        disableColumnFilter
-        disableColumnSelector
-        disableDensitySelector
-        disable
-        components={{
-          Toolbar: EditToolbar
-          //  Toolbar: GridToolbar
 
+        components={{
+          Toolbar: EditToolbar,
         }}
         componentsProps={{
-          toolbar:{ setRows, 
-                    setRowModesModel, 
-                    csvOptions: { disableToolbarButton: true },
-                    printOptions: { disableToolbarButton: true },
-                    showQuickFilter: true,
-                    quickFilterProps: { debounceMs: 500 }, 
-                  },
+          toolbar: { setRows, setRowModesModel },
         }}
         experimentalFeatures={{ newEditingApi: true }}
       />
