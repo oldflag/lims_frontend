@@ -62,7 +62,7 @@ const DigestInputForm = () => {
 
       for (let i in aRunLibrarys){
         let x = aRunLibrarys[i];
-        text = text + x.name + ',' + x.lysis_name + ',' +x.libType +','+x.file1+','+x.file2+'\n' 
+        text = text + x.name + ',' + x.lysis_name + ',' +x.libType.toLowerCase() +','+x.file1+','+x.file2+'\n' 
       }
       const blob = new Blob([text], { type: "text/plain" });
       const url = URL.createObjectURL(blob);
