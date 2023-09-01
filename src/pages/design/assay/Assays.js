@@ -164,6 +164,8 @@ export default function Assays() {
 
   const samplelist = samples.map((item) => item.name)
   const antibodylist = antibodies.map((item) => item.name)
+  antibodylist.push("None")
+  
 
   const [rows, setRows] = useState(assays);
   const [rowModesModel, setRowModesModel] = useState({});
@@ -208,7 +210,7 @@ export default function Assays() {
             metadata, id } = updatedRow;
 
     const sampleId = samples.filter((item) => {return item.name===sample_name})[0].id
-    const antibodyId = antibodies.filter((item) => {return item.name===antibody_name})[0].id
+    const antibodyId = antibody_name === "None" ? null : antibodies.filter((item) => {return item.name===antibody_name})[0].id
     let result;
 
     if (isNewRecord){
@@ -273,6 +275,7 @@ export default function Assays() {
       width: 150,
       type: 'dateTime',
       valueFormatter: params => moment(params?.value).format("MM/DD/YYYY"),
+      editable: true
     },
     { field: 'experiment_name', headerName: 'Experiment', width: 240 },
     { field: 'antibodyConcentration', headerName: 'AB Conc.', width: 100, editable: true },
@@ -343,7 +346,7 @@ export default function Assays() {
 
         initialState={{
           sorting: {
-            sortModel: [{ field: 'assayDate', sort: 'desc' }],
+            sortModel: [{ field: 'assayDate', sort: 'desc' }, { field: 'tubeNum', sort: 'asc' } ],
           },
           // filter: {
           //   filterModel: {

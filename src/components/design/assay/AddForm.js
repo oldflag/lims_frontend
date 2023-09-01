@@ -184,12 +184,13 @@ const AddForm = () => {
  
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                label="Assay Date"
+                label="Assay Date *"
                 value={assayDateValue}
                 onChange={(newValue) => {
                   setAssayDateValue(newValue);
                 }}
                 renderInput={(params) => <TextField {...params} sx={{width: '100%', mt:2}}/>}
+                
               />
             </LocalizationProvider>
 
