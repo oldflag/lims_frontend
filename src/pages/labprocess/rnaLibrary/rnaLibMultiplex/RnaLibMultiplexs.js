@@ -103,7 +103,7 @@ export default function RnaLibMultiplexs() {
       flex: 1, 
       type: 'singleSelect',
       valueOptions: ({row}) => { const options = []; 
-                                  i7Primers.map(item => { if((row.rnaLibrary_lysis_batch_subProtocol === item.subProtocol) && (['any', 'rna'].includes(item.libtype))) {
+                                  i7Primers.map(item => { if(((item.subProtocol === '10x' ? row.rnaLibrary_lysis_batch_subProtocol.split(' ')[0] : row.rnaLibrary_lysis_batch_subProtocol) === item.subProtocol) && (['any', 'rna'].includes(item.libtype))) {
                                                             options.push(item.id)
                                                           }
                                                         }); 
@@ -114,7 +114,7 @@ export default function RnaLibMultiplexs() {
       flex: 1,
       type: 'singleSelect',
       valueOptions: ({row}) => { const options = []; 
-                                  i7Primers.map(item => { if((row.rnaLibrary_lysis_batch_subProtocol === item.subProtocol) && (['any', 'rna'].includes(item.libtype))) {
+                                  i5Primers.map(item => { if(((item.subProtocol === '10x' ? row.rnaLibrary_lysis_batch_subProtocol.split(' ')[0] : row.rnaLibrary_lysis_batch_subProtocol) === item.subProtocol) && (['any', 'rna'].includes(item.libtype))) {
                                                             options.push(item.id)
                                                           }
                                                         }); 

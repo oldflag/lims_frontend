@@ -102,7 +102,7 @@ export default function DnaLibMultiplexs() {
       flex: 1, 
       type: 'singleSelect',
       valueOptions: ({row}) => { const options = []; 
-                                  i7Primers.map(item => { if((row.dnaLibrary_lysis_batch_subProtocol === item.subProtocol) && (['any', 'dna'].includes(item.libtype))) {
+                                  i7Primers.map(item => { if(((item.subProtocol === '10x'? row.dnaLibrary_lysis_batch_subProtocol.split(' ')[0] : row.dnaLibrary_lysis_batch_subProtocol)  === item.subProtocol) && (['any', 'dna'].includes(item.libtype))) {  //TODO: find a better way
                                                             options.push(item.id)
                                                           }
                                                         }); 
@@ -113,7 +113,7 @@ export default function DnaLibMultiplexs() {
       flex: 1,
       type: 'singleSelect',
       valueOptions: ({row}) => { const options = []; 
-                                  i5Primers.map(item => { if(row.dnaLibrary_lysis_batch_subProtocol === item.subProtocol && (['any', 'dna'].includes(item.libtype))) {
+                                  i5Primers.map(item => { if((item.subProtocol === '10x'? row.dnaLibrary_lysis_batch_subProtocol.split(' ')[0] : row.dnaLibrary_lysis_batch_subProtocol) === item.subProtocol && (['any', 'dna'].includes(item.libtype))) {
                                                             options.push(item.id)
                                                           }
                                                         }); 
