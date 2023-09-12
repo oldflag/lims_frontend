@@ -1,7 +1,7 @@
 // import fs from "fs";
 import { Document, Packer, Paragraph, TextRun, 
          Header, Footer, ImageRun, AlignmentType, 
-         Table, TableCell, TableRow, WidthType } from "docx";
+         Table, TableCell, TableRow, WidthType , ExternalHyperlink} from "docx";
 
 import { Close, Send } from '@mui/icons-material';
 import { Autocomplete} from '@mui/material';
@@ -32,6 +32,7 @@ import { getExperiments } from '../../../actions/experiment'
 import { getProjects } from '../../../actions/project'
 import { getSamples } from '../../../actions/sample'
 import { getSpecimens } from '../../../actions/specimen'
+import { getTapeStations } from '../../../actions/tapeStation'
 
 // import report_header1 from "../../../images/Report_header1.png";
 
@@ -40,7 +41,7 @@ const report_header2 = "R0lGODdh9ASUAPcAAAAAAAsLCxQUFOYWJPgWKPUbLhwcHNwcIfIdI+wf
 const report_footer1 = "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"
 const RunReportForm = () => {
   const {
-    state: { seqRuns, seqLibrarys, openSeqRunReport, assays, batchs, experiments, projects, samples, specimens },
+    state: { seqRuns, seqLibrarys, openSeqRunReport, assays, batchs, experiments, projects, samples, specimens, tapeStations },
     dispatch,
   } = useValue();
 
@@ -53,6 +54,7 @@ const RunReportForm = () => {
     if (projects.length === 0) getProjects(dispatch);
     if (samples.length === 0) getSamples(dispatch);
     if (specimens.length === 0) getSpecimens(dispatch);
+    if (tapeStations.length === 0) getTapeStations(dispatch);
   },[]);
 
   const seqRunsOptions = seqRuns.map(({ name, id }) => ({ label:name, id:id }));
@@ -81,6 +83,7 @@ const RunReportForm = () => {
     seqLibraryInRun.sort((a,b)=>(a.batch_name.localeCompare(b.batch_name) || a.name.localeCompare(b.name)))
     let batches = batchs.filter((item) => {return aSeqRun[0].batch_name.includes(item.name)}) 
     let batchIdList = getUniqueValuesFromObjectArray(batches, 'id')
+    let batchNameList = getUniqueValuesFromObjectArray(batches, 'name')
     let assaysInBatch = assays.filter((item) => {return batchIdList.includes(item.batchId)})
     assaysInBatch.sort((a,b) => (a.batchId.localeCompare(b.batchId) || a.tubeNum - b.tubeNum))
     let experimentNames = getUniqueValuesFromObjectArray(assaysInBatch, 'experiment_name')
@@ -91,8 +94,9 @@ const RunReportForm = () => {
     let samplesInBatch = samples.filter((item)=>{return uniqSamplesInBatch.includes(item.id)})
     let uniqSpecimensInBatch = getUniqueValuesFromObjectArray(samplesInBatch, 'specimenId')
     let specimensInBatch = specimens.filter((item)=>{return uniqSpecimensInBatch.includes(item.id)})
-    
-    let batchName = getUniqueValuesFromObjectArray(batches, 'name').join(', ')
+    let tapeStationsInBatch = tapeStations.filter((item)=>{return batchNameList.includes(item.batch_name)})
+    let uniqtapeStationsResults = [...new Map(tapeStationsInBatch.map((item) => [item["resultFile"], item])).values() ];
+    let batchName = batchNameList.join(', ')
     // // variables for the first page
     let reportTitle = "Paired-Tag Library Prep & Sequencing Result"
     let projectName = getUniqueValuesFromObjectArray(projectInBatch, 'name').join(', ')
@@ -921,10 +925,165 @@ const RunReportForm = () => {
       }),
     ]
 
-    const associateTableHeaders = [
+    // const associateTableHeaders = [
+    //   new TableRow({
+    //     children:[
+    //        new TableCell({
+    //         width: {
+    //           size: 5505,
+    //           type: WidthType.DXA,
+    //         },
+    //         children: [new Paragraph("Batch")],
+    //       }),
+    //       new TableCell({
+    //         width: {
+    //           size: 5505,
+    //           type: WidthType.DXA,
+    //         },
+    //         children: [new Paragraph("Seq Library ID")],
+    //       }),
+    //       new TableCell({
+    //         width: {
+    //           size: 5505,
+    //           type: WidthType.DXA,
+    //         },
+    //         children: [new Paragraph("Library Name")],
+    //       }),
+    //       new TableCell({
+    //         width: {
+    //           size: 5505,
+    //           type: WidthType.DXA,
+    //         },
+    //         children: [new Paragraph("Library Type")],
+    //       }),
+    //       new TableCell({
+    //         width: {
+    //           size: 5505,
+    //           type: WidthType.DXA,
+    //         },
+    //         children: [new Paragraph("Assay #")],
+    //       }),
+    //       new TableCell({
+    //         width: {
+    //           size: 5505,
+    //           type: WidthType.DXA,
+    //         },
+    //         children: [new Paragraph("Assay Barcode")],
+    //       }),
+    //       new TableCell({
+    //         width: {
+    //           size: 5505,
+    //           type: WidthType.DXA,
+    //         },
+    //         children: [new Paragraph("Fastq1")],
+    //       }),
+    //       new TableCell({
+    //         width: {
+    //           size: 5505,
+    //           type: WidthType.DXA,
+    //         },
+    //         children: [new Paragraph("Fastq2")],
+    //       }),
+    //     ],
+    //   })
+    // ]
+
+    // const associateTableRows = []
+    
+    // for (let i in seqLibraryInRun){
+    //   let x = seqLibraryInRun[i];
+    //   for( let j in assaysInBatch.filter(ay => ay.batch_id===x.batchId)){
+    //     let y = assaysInBatch[j];
+    //     associateTableRows.push(
+    //       new TableRow({
+    //         children:[
+    //           new TableCell({
+    //             width: {
+    //               size: 5505,
+    //               type: WidthType.DXA,
+    //             },
+    //             children: [new Paragraph(x.batch_name)],
+    //           }),
+    //           new TableCell({
+    //             width: {
+    //               size: 5505,
+    //               type: WidthType.DXA,
+    //             },
+    //             children: [new Paragraph(x.name)],
+    //           }),
+    //           new TableCell({
+    //             width: {
+    //               size: 5505,
+    //               type: WidthType.DXA,
+    //             },
+    //             children: [new Paragraph(x.library_name || "N/A")],
+    //           }),
+    //           new TableCell({
+    //             width: {
+    //               size: 5505,
+    //               type: WidthType.DXA,
+    //             },
+    //             children: [new Paragraph(x.libType || "N/A")],
+    //           }),
+    //           new TableCell({
+    //             width: {
+    //               size: 5505,
+    //               type: WidthType.DXA,
+    //             },
+    //             children: [new Paragraph(y.tubeNum.toString()  || "N/A")],
+    //           }),
+    //           new TableCell({
+    //             width: {
+    //               size: 5505,
+    //               type: WidthType.DXA,
+    //             },
+    //             children: [new Paragraph(y.barcode || "N/A")],
+    //           }),
+    //           new TableCell({
+    //             width: {
+    //               size: 5505,
+    //               type: WidthType.DXA,
+    //             },
+    //             children: [new Paragraph(x.file1?.split("/").pop() || "N/A")],
+    //           }),
+    //           new TableCell({
+    //             width: {
+    //               size: 5505,
+    //               type: WidthType.DXA,
+    //             },
+    //             children: [new Paragraph(x.file2?.split("/").pop() || "N/A")],
+    //           }),
+    //         ],
+    //       })
+    //     )
+    //   }
+    // }
+
+    //  const associatePage = [
+    //   new Paragraph({
+    //     alignment: AlignmentType.CENTER,
+    //     spacing:{
+    //       after: 500,
+    //     },
+    //     children: [
+    //         new TextRun({
+    //           text: "Batch & Assay & Library & Sequencing",
+    //           underline: {},
+    //           break: 2,
+    //           size: 40,
+    //           bold: true,
+    //         }),
+    //     ],
+    //   }),
+    //   new Table({ 
+    //     rows: associateTableHeaders.concat(associateTableRows) 
+    //   }),
+    // ]
+
+    const qcTableHeaders = [
       new TableRow({
         children:[
-           new TableCell({
+          new TableCell({
             width: {
               size: 5505,
               type: WidthType.DXA,
@@ -936,126 +1095,49 @@ const RunReportForm = () => {
               size: 5505,
               type: WidthType.DXA,
             },
-            children: [new Paragraph("Seq Library ID")],
-          }),
-          new TableCell({
-            width: {
-              size: 5505,
-              type: WidthType.DXA,
-            },
-            children: [new Paragraph("Library Name")],
-          }),
-          new TableCell({
-            width: {
-              size: 5505,
-              type: WidthType.DXA,
-            },
-            children: [new Paragraph("Library Type")],
-          }),
-          new TableCell({
-            width: {
-              size: 5505,
-              type: WidthType.DXA,
-            },
-            children: [new Paragraph("Assay #")],
-          }),
-          new TableCell({
-            width: {
-              size: 5505,
-              type: WidthType.DXA,
-            },
-            children: [new Paragraph("Assay Barcode")],
-          }),
-          new TableCell({
-            width: {
-              size: 5505,
-              type: WidthType.DXA,
-            },
-            children: [new Paragraph("Fastq1")],
-          }),
-          new TableCell({
-            width: {
-              size: 5505,
-              type: WidthType.DXA,
-            },
-            children: [new Paragraph("Fastq2")],
+            children: [new Paragraph("TapeStation Result")],
           }),
         ],
       })
     ]
 
-    const associateTableRows = []
-    
-    for (let i in seqLibraryInRun){
-      let x = seqLibraryInRun[i];
-      for( let j in assaysInBatch.filter(ay => ay.batch_id===x.batchId)){
-        let y = assaysInBatch[j];
-        associateTableRows.push(
-          new TableRow({
-            children:[
-              new TableCell({
-                width: {
-                  size: 5505,
-                  type: WidthType.DXA,
-                },
-                children: [new Paragraph(x.batch_name)],
-              }),
-              new TableCell({
-                width: {
-                  size: 5505,
-                  type: WidthType.DXA,
-                },
-                children: [new Paragraph(x.name)],
-              }),
-              new TableCell({
-                width: {
-                  size: 5505,
-                  type: WidthType.DXA,
-                },
-                children: [new Paragraph(x.library_name || "N/A")],
-              }),
-              new TableCell({
-                width: {
-                  size: 5505,
-                  type: WidthType.DXA,
-                },
-                children: [new Paragraph(x.libType || "N/A")],
-              }),
-              new TableCell({
-                width: {
-                  size: 5505,
-                  type: WidthType.DXA,
-                },
-                children: [new Paragraph(y.tubeNum.toString()  || "N/A")],
-              }),
-              new TableCell({
-                width: {
-                  size: 5505,
-                  type: WidthType.DXA,
-                },
-                children: [new Paragraph(y.barcode || "N/A")],
-              }),
-              new TableCell({
-                width: {
-                  size: 5505,
-                  type: WidthType.DXA,
-                },
-                children: [new Paragraph(x.file1?.split("/").pop() || "N/A")],
-              }),
-              new TableCell({
-                width: {
-                  size: 5505,
-                  type: WidthType.DXA,
-                },
-                children: [new Paragraph(x.file2?.split("/").pop() || "N/A")],
-              }),
+    const qcTableRows = uniqtapeStationsResults.map(item => {
+      return new TableRow({
+        children:[
+          new TableCell({
+            width: {
+              size: 5505,
+              type: WidthType.DXA,
+            },
+            children: [new Paragraph(item.batch_name) || "N/A"],
+          }),
+          new TableCell({
+            width: {
+              size: 5505,
+              type: WidthType.DXA,
+            },
+            // children: [new Paragraph(item.resultFileUrl || "N/A")],
+            children: [
+              new Paragraph({
+              children: [
+                new ExternalHyperlink({
+                  children: [
+                      new TextRun({
+                          text: "TapeStation PDF file",
+                          style: "Hyperlink",
+                      }),
+                  ],
+                    link: item.resultFileUrl,
+                }),
+              ],
+             }),
             ],
-          })
-        )
-      }
-    }
+          }),
+        ],
+      })
+    })
 
-     const associatePage = [
+    const qcPage = [
       new Paragraph({
         alignment: AlignmentType.CENTER,
         spacing:{
@@ -1063,7 +1145,7 @@ const RunReportForm = () => {
         },
         children: [
             new TextRun({
-              text: "Batch & Assay & Library & Sequencing",
+              text: "QC: TapeStation",
               underline: {},
               break: 2,
               size: 40,
@@ -1072,7 +1154,7 @@ const RunReportForm = () => {
         ],
       }),
       new Table({ 
-        rows: associateTableHeaders.concat(associateTableRows) 
+        rows: qcTableHeaders.concat(qcTableRows) 
       }),
     ]
       
@@ -1145,6 +1227,15 @@ const RunReportForm = () => {
               },
               children: seqLibPage,
             },
+            // {
+            //   headers: {
+            //     default: pageHeader,
+            //   },
+            //   footers: {
+            //     default: pageFooter,
+            //   },
+            //   children: associatePage,
+            // },
             {
               headers: {
                 default: pageHeader,
@@ -1152,7 +1243,7 @@ const RunReportForm = () => {
               footers: {
                 default: pageFooter,
               },
-              children: associatePage,
+              children: qcPage,
             },
         ],
     });
