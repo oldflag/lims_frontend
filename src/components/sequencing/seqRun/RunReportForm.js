@@ -1123,7 +1123,7 @@ const RunReportForm = () => {
                 new ExternalHyperlink({
                   children: [
                       new TextRun({
-                          text: "TapeStation PDF file",
+                          text: item.name,
                           style: "Hyperlink",
                       }),
                   ],
