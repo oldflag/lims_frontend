@@ -22,6 +22,7 @@ import { getAntibodies } from '../../../actions/antibody';
 import { getSamples } from '../../../actions/sample';
 import { getExperiments } from '../../../actions/experiment';
 import { getBatchs } from '../../../actions/batch';
+import { getAssayBarcodes } from '../../../actions/assayBarcode';
 
 import AssaysActions from './AssaysActions'
 import AddForm from '../../../components/design/assay/AddForm';
@@ -150,7 +151,7 @@ EditToolbar.propTypes = {
 export default function Assays() {
 
   const {
-    state: { assays, antibodies, samples },
+    state: { assays, antibodies, samples, assayBarcodes },
     dispatch,
   } = useValue();
 
@@ -160,6 +161,7 @@ export default function Assays() {
     if (assays.length === 0) getAssays(dispatch);
     if (antibodies.length === 0) getAntibodies(dispatch);
     if (samples.length === 0) getSamples(dispatch);
+    if (assayBarcodes.length === 0) getAssayBarcodes(dispatch);
   }, []);
 
   const samplelist = samples.map((item) => item.name)
@@ -254,7 +256,17 @@ export default function Assays() {
     { field: 'batch_name', headerName: 'Batch', width: 240 },
     { field: 'assayType', headerName: 'Type', width: 100},
     { field: 'tubeNum', headerName: 'Tube#', width: 100 },
-    { field: 'barcode', headerName: 'Barcode', width: 100 },
+    { field: 'barcode', 
+      headerName: 'Barcode', 
+      width: 100,
+      type:'singleSelect',
+      valueOptions:({row}) => { const options = []; 
+                                  assayBarcodes.map(item => { if(item.barcode && item.type === row.assayType) {  //TODO: find a better way
+                                                            options.push(item.barcode)
+                                                          }
+                                                        }); 
+                                  return options}, 
+      editable: true },
   
     { field: 'sample_name', 
       headerName: 'Sample', 
@@ -346,7 +358,7 @@ export default function Assays() {
 
         initialState={{
           sorting: {
-            sortModel: [{ field: 'assayDate', sort: 'desc' }, { field: 'tubeNum', sort: 'asc' } ],
+            sortModel: [{ field: 'createdAt', sort: 'desc' }, { field: 'tubeNum', sort: 'asc' } ],
           },
           // filter: {
           //   filterModel: {

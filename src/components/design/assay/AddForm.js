@@ -36,6 +36,8 @@ const AddForm = () => {
     if (assayBarcodes.length === 0) getAssayBarcodes(dispatch);
   },[]);
 
+  const dupBarcode_protocols = process.env.REACT_APP_DUPCODE_PROTOCOLS.split(',') // multiple tubes can share the same sample barcode 
+
   const batchOptions = batchs.map(({ name, id, priority, subProtocol }) => ({ label:name, id:id, protocol:priority, subprotocol:subProtocol }));
   const [batchValue, setBatchValue] = useState(batchOptions[0]);
   // const [typeValue, setTypeValue] = useState( null );
@@ -48,14 +50,19 @@ const AddForm = () => {
   const [experimentValue, setExperimentValue] = useState(experimentOptions[0]);
   const [loadPatn5Value, setLoadPatn5Value] = useState(loadPatn5Options[0]);
   const [assayDateValue, setAssayDateValue] = useState(null);
-  
-  
-  const [tubebarcodeValue, setTubebarcodeValue] = useState(null)
+           
+  const [tubebarcodeValue, setTubebarcodeValue] = useState([])
   useEffect(() =>{  
     setTubebarcodeValue(assayBarcodes.filter((item) => {
                                         return item.type === batchValue.subprotocol})
                                       .map(({tubeNum, barcode}) => ({tubeNum, barcode}))
                         )},[batchValue])
+
+  const [subProtocolValue, setSubProtocolValue] = useState([]);
+  useEffect(() =>{  
+    setSubProtocolValue(batchValue.subProtocol)
+  },[batchValue])
+  
   // console.log(tubebarcodeValue)
   const tubeFromRef = useRef();
   const tubeToRef = useRef();
@@ -73,24 +80,48 @@ const AddForm = () => {
     const tubeFrom = tubeFromRef.current.value;
     const tubeTo = tubeToRef.current.value;
 
-    tubebarcodeValue.forEach(element => {
+      // tubebarcodeValue.forEach(element => {
 
-      if(+element.tubeNum >= +tubeFrom && +element.tubeNum <= +tubeTo){
+      //   if(+element.tubeNum >= +tubeFrom && +element.tubeNum <= +tubeTo){
+      //     console.log(typeof(tubebarcodeValue))
+      //     console.log(tubebarcodeValue[element.tubeNum])
+      //     console.log(batchValue.subprotocol)
+      //     register({"experimentId":experimentValue.id, 
+      //             "batchId":batchValue.id,
+      //             "assayType": batchValue.subprotocol,
+      //             "loadPatn5Name":loadPatn5Value,
+      //             "assayDate":assayDateValue,
+      //             "status":status, 
+      //             "metadata":metadata,
+      //             "tubeNum":+element.tubeNum,
+      //             "barcode":element.barcode,
+      //             },dispatch)
 
-        register({"experimentId":experimentValue.id, 
-                "batchId":batchValue.id,
-                "assayType": batchValue.subprotocol,
-                "loadPatn5Name":loadPatn5Value,
-                "assayDate":assayDateValue,
-                "status":status, 
-                "metadata":metadata,
-                "tubeNum":+element.tubeNum,
-                "barcode":element.barcode,
-                },dispatch)
+      //     }
+
+      //   }
+      // )
+
+      tubebarcodeValue.forEach(element => { console.log(element.tubeNum) })
+
+      for(let i=+tubeTo; i>= +tubeFrom; i--){
+
+         register({"experimentId":experimentValue.id, 
+                  "batchId":batchValue.id,
+                  "assayType": batchValue.subprotocol,
+                  "loadPatn5Name":loadPatn5Value,
+                  "assayDate":assayDateValue,
+                  "status":status, 
+                  "metadata":metadata,
+                  "tubeNum":i,
+                  "barcode": tubebarcodeValue.length >= +tubeTo ? tubebarcodeValue[i].barcode : ''  
+                  },dispatch)
 
       }
 
-  })};
+
+   
+  };
 
   return (
     <Dialog open={openAssay} onClose={handleClose}>
