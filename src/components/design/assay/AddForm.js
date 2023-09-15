@@ -102,9 +102,15 @@ const AddForm = () => {
       //   }
       // )
 
-      tubebarcodeValue.forEach(element => { console.log(element.tubeNum) })
+      let tubeDictionary = {}
+      tubebarcodeValue.forEach(element => { console.log(element.tubeNum + " : " + element.barcode) })
+      tubebarcodeValue.forEach(element => { tubeDictionary[+element.tubeNum] = element.barcode })
+
+      console.log(tubeDictionary)
 
       for(let i=+tubeTo; i>= +tubeFrom; i--){
+
+          console.log(tubebarcodeValue.find(item => item.tubeNum === i))
 
          register({"experimentId":experimentValue.id, 
                   "batchId":batchValue.id,
@@ -114,7 +120,8 @@ const AddForm = () => {
                   "status":status, 
                   "metadata":metadata,
                   "tubeNum":i,
-                  "barcode": tubebarcodeValue.length >= +tubeTo ? tubebarcodeValue[i].barcode : ''  
+                  // "barcode": tubebarcodeValue.length >= +tubeTo ? tubebarcodeValue.find(item => item.tubeNum === i).barcode : ''
+                  "barcode": tubebarcodeValue.length >= +tubeTo ? tubeDictionary[i] : ''  
                   },dispatch)
 
       }
